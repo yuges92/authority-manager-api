@@ -45,4 +45,6 @@
 
     </div>
 
+    Some Changes
+
   @endsection
