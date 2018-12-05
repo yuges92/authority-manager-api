@@ -1,0 +1,23 @@
+.custom-card{
+  .card{
+    max-width: 30rem;
+  }
+
+  .card:hover{
+  }
+}
+a.custom-card {
+  width: 18rem !important;
+  &:hover {
+
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer !important;
+  background: #e8e8e8;
+  
+  img{
+    cursor: pointer !important;
+
+  }
+}
+}
