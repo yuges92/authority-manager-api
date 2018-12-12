@@ -15,6 +15,13 @@ class AuthTest extends TestCase
      */
     public function testExample()
     {
-        $this->assertTrue(true);
+        $this->assertTrue(false);
+    }
+
+
+    public function test()
+    {
+      $this->assertTrue('false');
+
     }
 }
