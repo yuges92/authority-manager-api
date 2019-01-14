@@ -20,6 +20,8 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
+        "datatables.net": "^1.10.19",
+        "datatables.net-dt": "^1.10.19",
         "jquery.steps": "^1.0.1"
     }
 }

@@ -1,23 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+  <div class="d-flex justify-content-start row mx-auto">
+    <a href="/admin/users" class="custom-icon-card mx-auto">
+      <div class="card-body mx-auto text-center">
+        <i class="fas fa-users custom-icon"></i>
+        <h5 class="card-title">Create API</h5>
+      </div>
+    </a>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <a href="/" class="custom-icon-card mx-auto">
+      <div class="card-body mx-auto text-center">
+        <i class="fas fa-exclamation custom-icon"></i>
+        <h5 class="card-title">Notifications</h5>
+      </div>
+    </a>
+
+
+  </div>
 @endsection

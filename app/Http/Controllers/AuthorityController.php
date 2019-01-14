@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use App\Authority;
 
 class AuthorityController extends Controller
 {
   public function index()
   {
-
-
+    $authorities =Authority::all();
     $title='Authorities';
-    return view('authority.authorities', compact('title'));
+    return view('authority.index', compact('title', 'authorities'));
 
   }
 
@@ -20,14 +20,14 @@ class AuthorityController extends Controller
   {
     $title='New Authority';
 
-    return view('authority.createAuthority', compact('title'));
+    return view('authority.create', compact('title'));
   }
 
-  public function show($authority)
+  public function show(Authority $authority)
   {
 
-    $title='New Authority';
+    $title=$authority->full_name;
 
-    return view('authority.showAuthority', compact('title'));
+    return view('authority.show', compact('title', 'authority'));
   }
 }

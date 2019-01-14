@@ -17,3 +17,40 @@ a.custom-card:hover img {
   cursor: pointer !important;
 }
 
+.el-card-avatar:hover {
+  cursor: pointer !important;
+}
+
+.img-icon {
+  font-size: 5rem;
+}
+
+.img-icon:hover {
+  cursor: pointer;
+}
+
+table.dataTable thead .sorting_asc:after {
+  content: "\F0DE";
+  margin-left: 10px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  cursor: pointer;
+}
+
+table.dataTable thead .sorting_desc:after {
+  content: "\F0DD";
+  margin-left: 10px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  cursor: pointer;
+}
+
+table.dataTable thead .sorting:after {
+  content: "\F0DC";
+  margin-left: 10px;
+  font-family: "Font Awesome 5 Free" !important;
+  font-weight: 900;
+  cursor: pointer;
+  color: rgba(50, 50, 50, 0.5);
+}
+

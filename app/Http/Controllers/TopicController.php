@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Package;
+use App\Topic;
 use Illuminate\Http\Request;
 
-class PackageController extends Controller
+class TopicController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,7 @@ class PackageController extends Controller
      */
     public function index()
     {
-      $title='Packages';
-      $packages=Package::all();
-
-        return view('sara-packages.index', compact('title', 'packages'));
+        return view('Topics.index');
     }
 
     /**
@@ -27,9 +24,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-      $title='New Package';
-
-        return view('sara-packages.createPackage', compact('title'));
+        return view('Topics.create');
     }
 
     /**
@@ -40,49 +35,39 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, [
-        'name' => 'required|unique:AS_packages,name',
-        'type' => 'required',
-      ]);
-
-      $package = new Package();
-      $package->name=$request->input('name');
-      $package->type=$request->input('type');
-      $package->save();
-      return redirect()->route('packages.index')->with('success', 'new package Created');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Package  $package
+     * @param  \App\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function show(Package $package)
+    public function show(Topic $topic)
     {
-        return view('sara-packages.show', compact('package'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Package  $package
+     * @param  \App\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function edit(Package $package)
+    public function edit(Topic $topic)
     {
-      return view('sara-packages.edit', compact('package'));
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Package  $package
+     * @param  \App\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Package $package)
+    public function update(Request $request, Topic $topic)
     {
         //
     }
@@ -90,10 +75,10 @@ class PackageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Package  $package
+     * @param  \App\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Package $package)
+    public function destroy(Topic $topic)
     {
         //
     }

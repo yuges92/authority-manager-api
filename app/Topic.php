@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Package extends Model
+class Topic extends Model
 {
-  protected $table = 'AS_packages';
-
+    //
 }

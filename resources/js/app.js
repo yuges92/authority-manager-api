@@ -20,18 +20,15 @@ require('./template/js/sticky-kit.min');
 require('./template/js/jquery.sparkline.min');
 require('jquery.steps');
 require('./template/js/custom.min');
+require('./custom');
 
-
-$('#demo1').steps({
-  onFinish: function () {
-    alert('Wizard Completed');
-  }
-});
-
+// var $  = require( 'jquery' );
+var dt = require( 'datatables.net' )();
 
 // require('./template/js/steps');
 // require('./template/js/jQuery.style.switcher');
 
+// require('./template/js/steps');
 
 
 // window.Vue = require('vue');

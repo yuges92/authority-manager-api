@@ -27,7 +27,7 @@
   @stack('css')
 </head>
 <body class="fix-header fix-sidebar card-no-border">
-
+  
   <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
       <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
@@ -47,78 +47,87 @@
           </a>
         </div>
 
-        <div class="navbar-collapse">
-          <ul class="navbar-nav mr-auto mt-md-0">
-            <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-            <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
-          </ul>
-          <ul class="navbar-nav my-lg-0">
+        @if (Auth::user())
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg" alt="user" class="profile-pic">
-              </a>
-              <div class="dropdown-menu dropdown-menu-right scale-up">
-                <ul class="dropdown-user">
-                  <li>
-                    <div class="dw-user-box">
-                      <div class="u-img"><img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg" alt="user"></div>
-                      <div class="u-text">
-                        <h4>User Fullname</h4>
-                        <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
-                      </div>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
-                  </ul>
-                </div>
-              </li>
-
+          <div class="navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-md-0">
+              <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+              <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
             </ul>
-          </div>
+            <ul class="navbar-nav my-lg-0">
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg" alt="user" class="profile-pic">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right scale-up">
+                  <ul class="dropdown-user">
+                    <li>
+                      <div class="dw-user-box">
+                        <div class="u-img"><img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg" alt="user"></div>
+                        <div class="u-text">
+                          <h4>User Fullname</h4>
+                          <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                        </div>
+                      </li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+
+                    </ul>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          @endif
+
         </nav>
       </header>
 
 
 
-    @include('includes.sideNavBar')
+      @include('includes.sideNavBar')
 
-        <div class="page-wrapper" style="min-height: 905px;">
+      <div class="page-wrapper" style="min-height: 905px;">
 
-          <div class="container-fluid">
+        <div class="container-fluid">
 
-            <div class="row page-titles">
-              <div class="col-md-5 col-8 align-self-center">
-                <h1 class="text-themecolor m-b-0 m-t-0">{{((isset($title)) ? $title:'')}}</h1>
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                  <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-              </div>
-
-            </div>
-
-            <div class="row">
-              <div class="col-12">
-                @yield('content')
-              </div>
+          <div class="row page-titles">
+            <div class="col-md-5 col-8 align-self-center">
+              <h1 class="text-themecolor m-b-0 m-t-0">{{((isset($title)) ? $title:'')}}</h1>
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+              </ol>
             </div>
 
           </div>
 
-          <footer class="footer">
-            © 2018 Disabled Living Foundation
-          </footer>
+          <div class="row">
+            <div class="col-12">
+              @include('includes.messages')
+              @yield('content')
+            </div>
+          </div>
 
         </div>
 
+        <footer class="footer">
+          © 2018 Disabled Living Foundation
+        </footer>
+
       </div>
 
+    </div>
 
 
-      <script src="{{ asset('js/app.js') }}" defer></script>
-      @stack('js')
-    </body>
-    </html>
+
+    <script src="{{ asset('js/app.js') }}" ></script>
+    <script type="text/javascript">
+
+    </script>
+    @stack('js')
+  </body>
+  </html>

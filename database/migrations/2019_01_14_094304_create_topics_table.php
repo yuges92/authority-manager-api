@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePackagesTable extends Migration
+class CreateTopicsTable extends Migration
 {
   /**
   * Run the migrations.
@@ -13,10 +13,14 @@ class CreatePackagesTable extends Migration
   */
   public function up()
   {
-    Schema::create('AS_packages', function (Blueprint $table) {
+    Schema::create('AS_topics', function (Blueprint $table) {
       $table->increments('id');
-      $table->enum('type',['standard', 'custom']);
       $table->string('name');
+      $table->string('description');
+      $table->string('filename');
+      $table->string('order');
+      $table->string('used');
+      $table->string('video_url');
       $table->timestamps();
     });
   }
@@ -28,6 +32,6 @@ class CreatePackagesTable extends Migration
   */
   public function down()
   {
-    Schema::dropIfExists('AS_packages');
+    Schema::dropIfExists('AS_topics');
   }
 }

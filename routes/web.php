@@ -11,14 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 
 Route::resource('/authorities','AuthorityController');
 Route::resource('/packages','PackageController');
+Route::resource('/topics','TopicController');
+Route::resource('/users','UserController');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// Route::group([]
+//
+//
+// );
