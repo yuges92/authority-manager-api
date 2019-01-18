@@ -22,7 +22,7 @@
         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-cubes"></i><span class="hide-menu">Main Topics</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="/topics"><i class="fas fa-cubes"></i> View All</a></li>
-            <li><a href="/topics/create"><i class="fas fa-plus"></i> New Level 1 Topic</a></li>
+            <li><a href="/topics/create"><i class="fas fa-plus"></i> New Main Topic</a></li>
           </ul>
         </li>
 

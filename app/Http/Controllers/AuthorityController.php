@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Authority;
+use App\Package;
 
 class AuthorityController extends Controller
 {
@@ -19,8 +20,8 @@ class AuthorityController extends Controller
   public function create()
   {
     $title='New Authority';
-
-    return view('authority.create', compact('title'));
+    $packages=Package::all();
+    return view('authority.create', compact('title', 'packages'));
   }
 
   public function show(Authority $authority)

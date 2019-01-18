@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-  <div class="col-12 mb-3 row mx-auto">
-    <div class="col-md-6">
+  {{-- <div class="col-12 mb-3 row mx-auto"> --}}
+    {{-- <div class="col-md-6">
       <a class="btn btn-info btn-rounded" href="{{route('authorities.create')}}">Add New Authority</a>
-    </div>
+    </div> --}}
   {{-- <div class="col-md-6 ml-auto">
     <div class="input-group">
       <input type="text" class="form-control" placeholder="Search">
@@ -14,7 +14,7 @@
     </div>
   </div> --}}
 
-  </div>
+  {{-- </div> --}}
   {{-- <div class="row el-element-overlay ">
     <div class="col-md-12">
       <div class="row">
