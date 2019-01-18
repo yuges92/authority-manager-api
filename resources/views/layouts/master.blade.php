@@ -27,7 +27,7 @@
   @stack('css')
 </head>
 <body class="fix-header fix-sidebar card-no-border">
-  
+
   <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
       <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
@@ -66,12 +66,10 @@
                       <div class="dw-user-box">
                         <div class="u-img"><img src="https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg" alt="user"></div>
                         <div class="u-text">
-                          <h4>User Fullname</h4>
-                          <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                          <h4>{{Auth::user()->firstName}}</h4>
+                          <p class="text-muted">{{Auth::user()->email}}</p><a href="/profile" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
                         </div>
                       </li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                       <li role="separator" class="divider"></li>
                       <li><a href="/logout"><i class="fa fa-power-off"></i> Logout</a></li>
 
@@ -125,6 +123,7 @@
 
 
     <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="{{ asset('js/custom.js') }}" ></script>
     <script type="text/javascript">
 
     </script>

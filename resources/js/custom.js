@@ -8,6 +8,7 @@ $(document).ready(function(){
     $(this).addClass('active');
   openSubtopicTab();
   });
+  // $('.example').wizard();
 
   // $('.select-all-checkbox').click(function() {
   // var checked= $(this).prop('checked');

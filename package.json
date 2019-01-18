@@ -22,6 +22,7 @@
     "dependencies": {
         "datatables.net": "^1.10.19",
         "datatables.net-dt": "^1.10.19",
+        "jquery-wizard": "^0.4.4",
         "jquery.steps": "^1.0.1"
     }
 }

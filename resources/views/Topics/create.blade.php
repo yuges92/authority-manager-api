@@ -7,44 +7,51 @@
       <div class="card">
         <div class="card-body wizard-content">
           <h4 class="card-title">Topics Manager</h4>
-          <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-form">
+          <form action="{{route('topics.store')}}" class=" clearfix" method="post">
+            {{ csrf_field() }}
             <div class="content clearfix">
               <!-- Step 1 -->
               <section class="body">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="firstName1">Topic name :</label>
-                    <input type="text" class="form-control" id="firstName1"> </div>
+                    <label for="name">Topic name :</label>
+                    <input type="text" class="form-control" id="name" name="name">
+                  </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label for="firstName1">Topic description :</label>
-                      <input type="text" class="form-control" id="firstName1"> </div>
+                      <label for="description">Topic description :</label>
+                      <input type="text" class="form-control" id="description" name="description">
+                    </div>
                     </div>
 
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="firstName1">Topic filename :</label>
-                        <input type="text" class="form-control" id="firstName1"> </div>
+                        <label for="filename">Topic filename :</label>
+                        <input type="text" class="form-control" id="filename" name="filename">
+                       </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="firstName1">Topic order :</label>
-                          <input type="text" class="form-control" id="firstName1"> </div>
+                          <label for="order">Topic order :</label>
+                          <input type="text" class="form-control" id="order" name="order">
+                         </div>
                         </div>
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="firstName1">Topic used :</label>
-                            <input type="text" class="form-control" id="firstName1"> </div>
+                            <label for="used">Topic used :</label>
+                            <input type="text" class="form-control" id="used" name="used">
+                          </div>
                           </div>
 
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label for="firstName1">Topic video url :</label>
-                              <input type="text" class="form-control" id="firstName1"> </div>
+                              <label for="video_url">Topic video url :</label>
+                              <input type="text" class="form-control" id="video_url" name="video_url">
+                            </div>
                             </div>
 
                             <div class="ml-2">

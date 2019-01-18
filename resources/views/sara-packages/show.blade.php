@@ -38,7 +38,7 @@
             <a class=" custom-card card text-center" href="{{route('packages.edit', $package->id)}}">
               <div class="el-card-item">
                 <div class="el-card-avatar el-overlay-1">
-                  <i class="fas fa-edit img-icon"></i>
+                  <i class="fas fa-users img-icon"></i>
                 </div>
                 <div class="el-card-content">
                   <h3 class="box-title">Authorities</h3>

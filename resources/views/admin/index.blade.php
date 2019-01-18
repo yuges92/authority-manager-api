@@ -7,7 +7,8 @@
 
   </div>
   @if (count($users)>0)
-  <table class="table table-hover table-responsive-sm">
+    <table class=" display nowrap table table-hover table-striped table-bordered dataTable"  id="table_id">
+
     <thead>
       <tr>
         <th scope="col">#</th>

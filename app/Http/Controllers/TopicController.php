@@ -14,7 +14,8 @@ class TopicController extends Controller
      */
     public function index()
     {
-        return view('Topics.index');
+      $mainTopics=Topic::all();
+        return view('Topics.index', compact('mainTopics'));
     }
 
     /**
@@ -35,7 +36,25 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+        'name' => 'required',
+        'description' => 'required',
+        'filename' => 'required',
+        'order' => 'required',
+        'used' => 'required',
+      ]);
+      $topic = Topic::create([
+        'name'=>$request->input('name'),
+        'slug'=>str_slug($request->input('name'), '-'),
+        'description'=>$request->input('description'),
+        'filename'=>$request->input('filename'),
+        'order'=>$request->input('order'),
+        'used'=>$request->input('used')
+      ]);
+
+      return redirect()->route('topics.index')->with('success', 'new main topic created');
+
+
     }
 
     /**

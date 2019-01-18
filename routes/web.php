@@ -18,6 +18,8 @@ Route::resource('/authorities','AuthorityController');
 Route::resource('/packages','PackageController');
 Route::resource('/topics','TopicController');
 Route::resource('/users','UserController');
+Route::put('/profile/updatePassword','ProfileController@updatePassword')->name('updatePassword');
+Route::resource('/profile','ProfileController');
 
 Auth::routes();
 

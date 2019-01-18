@@ -1,21 +1,21 @@
 @extends('layouts.master')
 
 @section('content')
-  {{-- <div class="col-12 mb-3 row mx-auto">
+  <div class="col-12 mb-3 row mx-auto">
     <div class="col-md-6">
       <a class="btn btn-info btn-rounded" href="{{route('authorities.create')}}">Add New Authority</a>
     </div>
-  <div class="col-md-6 ml-auto">
+  {{-- <div class="col-md-6 ml-auto">
     <div class="input-group">
       <input type="text" class="form-control" placeholder="Search">
       <div class="input-group-append">
         <button class="btn btn-info" type="button">Go!</button>
       </div>
     </div>
-  </div>
+  </div> --}}
 
   </div>
-  <div class="row el-element-overlay ">
+  {{-- <div class="row el-element-overlay ">
     <div class="col-md-12">
       <div class="row">
           @foreach ($authorities as $authority)
@@ -49,6 +49,7 @@
               <th>ID</th>
               <th>Name</th>
               <th>Short name</th>
+              <th>active</th>
               <th>Type</th>
               <th>Supplier ID</th>
               <th></th>
@@ -61,6 +62,7 @@
               <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->authority_id}}</a></td>
               <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->full_name}}</a></td>
               <td>{{$authority->short_name}}</td>
+              <td>{{$authority->active}}</td>
               <td>{{$authority->authority_type}}</td>
               <td>{{$authority->supplier_id}} </td>
               <td><a href="{{route('authorities.show', $authority->authority_id)}}" class="btn btn-info">View</a></td>

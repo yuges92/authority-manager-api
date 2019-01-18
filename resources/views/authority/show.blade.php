@@ -33,7 +33,7 @@
         <div class="tab-content">
           <div class="tab-pane active show" id="home" role="tabpanel">
             <div class="card-body">
-              <form class="" action="{{route('authorities.update')}}" method="post">
+              <form class="" action="{{route('authorities.update', $authority->authority_id)}}" method="post">
                 {{ csrf_field() }}
                 @method('PUT')
 
