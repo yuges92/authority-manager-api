@@ -47,13 +47,13 @@
           <tbody>
             @foreach ($mainTopics as $mainTopic)
               <tr>
-                <td><a href="{{route('authorities.show', $mainTopic->id)}}">{{$mainTopic->id}}</a></td>
-                <td><a href="{{route('authorities.show', $mainTopic->id)}}">{{$mainTopic->name}}</a></td>
+                <td><a href="{{route('topics.show', $mainTopic->id)}}">{{$mainTopic->id}}</a></td>
+                <td><a href="{{route('topics.show', $mainTopic->id)}}">{{$mainTopic->name}}</a></td>
                 <td>{{$mainTopic->short_name}}</td>
                 <td>{{$mainTopic->active}}</td>
                 <td>{{$mainTopic->authority_type}}</td>
                 <td>{{$mainTopic->supplier_id}} </td>
-                <td><a href="{{route('authorities.show', $mainTopic->id)}}" class="btn btn-info">View</a></td>
+                <td><a href="{{route('topics.show', $mainTopic->id)}}" class="btn btn-info">View</a></td>
               </tr>
             @endforeach
           </tbody>

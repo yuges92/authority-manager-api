@@ -47,7 +47,9 @@ class PackageController extends Controller
 
       $package = new Package();
       $package->name=$request->input('name');
+      $package->description=$request->input('description');
       $package->type=$request->input('type');
+      $package->isActive=1;
       $package->save();
       return redirect()->route('packages.index')->with('success', 'new package Created');
     }

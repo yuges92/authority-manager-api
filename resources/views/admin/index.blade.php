@@ -40,8 +40,7 @@
     </table>
   @else
     <div class="text-center">
-
-      <span class="text-danger">No courses found!</span>
+      <span class="text-danger">No Users found!</span>
     </div>
   @endif
 

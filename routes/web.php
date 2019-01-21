@@ -14,6 +14,7 @@
 
 
 
+Route::post('/authorities/api/', 'AuthorityApiController@store')->name('authorityAPI.store');
 Route::resource('/authorities','AuthorityController');
 Route::resource('/packages','PackageController');
 Route::resource('/topics','TopicController');

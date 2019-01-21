@@ -12,6 +12,7 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name', 'Sara Api Manager') }}</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/template.css') }}" rel="stylesheet">
@@ -47,13 +48,13 @@
           </a>
         </div>
 
-        @if (Auth::user())
 
           <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto mt-md-0">
               <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
               <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
             </ul>
+            @if (Auth::user())
             <ul class="navbar-nav my-lg-0">
 
               <li class="nav-item dropdown">
@@ -78,8 +79,9 @@
                 </li>
 
               </ul>
+            @endif
+
             </div>
-          @endif
 
         </nav>
       </header>
@@ -123,6 +125,9 @@
 
 
     <script src="{{ asset('js/app.js') }}" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+
     <script src="{{ asset('js/custom.js') }}" ></script>
     <script type="text/javascript">
 

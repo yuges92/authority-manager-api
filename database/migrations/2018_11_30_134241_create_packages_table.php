@@ -15,8 +15,12 @@ class CreatePackagesTable extends Migration
   {
     Schema::create('AS_packages', function (Blueprint $table) {
       $table->increments('id');
+      $table->string('name')->unique();
+      $table->string('description');
       $table->enum('type',['standard', 'custom']);
-      $table->string('name');
+      $table->boolean('isActive');
+      $table->integer('createdBy')->nullable();
+      $table->integer('updatedBY')->nullable();
       $table->timestamps();
     });
   }

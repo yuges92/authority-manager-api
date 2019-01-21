@@ -6,8 +6,9 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body wizard-content">
-          <form action="#" class="tab-wizard wizard-circle wizard clearfix" role="application" id="steps-form">
-            <div class="steps clearfix">
+          <form action="{{route('authorityAPI.store')}}" method="post">
+            {{ csrf_field() }}
+            {{-- <div class="steps clearfix">
               <ul role="tablist">
                 <li role="tab" class="first current" aria-disabled="false" aria-selected="true">
                   <a id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0">
@@ -27,121 +28,121 @@
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> --}}
             <div class="content clearfix">
-              <!-- Step 1 -->
-              <section id=""  class="body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="firstName1">First Name :</label>
-                      <input type="text" class="form-control" id="firstName1"> </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="lastName1">Last Name :</label>
-                        <input type="text" class="form-control" id="lastName1"> </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="emailAddress1">Email Address :</label>
-                          <input type="email" class="form-control" id="emailAddress1"> </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="phoneNumber1">Phone Number :</label>
-                            <input type="tel" class="form-control" id="phoneNumber1"> </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="location1">Select City :</label>
-                              <select class="custom-select form-control" id="location1" name="location">
-                                <option value="">Select City</option>
-                                <option value="Amsterdam">India</option>
-                                <option value="Berlin">USA</option>
-                                <option value="Frankfurt">Dubai</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="date1">Date of Birth :</label>
-                              <input type="date" class="form-control" id="date1"> </div>
-                            </div>
-                          </div>
-                        </section>
-                        <!-- Step 2 -->
-                        <section id="" class="body " hidden >
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <div class="form-group form-material">
-                                <label class="sr-only">Search</label>
-                                <input type="text" class="form-control form-control-line" value="" placeholder="Search packages">
-                              </div>
-                            </div>
-                          </div>
+              <!-- Step 1 Authority Info-->
+              <section id=""  class="card-body">
 
-
-                          <div class="form-group">
-                            <div class="col-md-6">
-                              <div class="list-group">
-                                @foreach ($packages as $package)
-                                  <div class="form-group">
-                                    <div class="checkbox checkbox-success">
-                                      <input id="checkbox{{$package->id}}" type="checkbox">
-                                      <label for="checkbox{{$package->id}}"> {{$package->name}} </label>
-                                    </div>
-                                  </div>
-                                @endforeach
-                                <div class="form-group">
-                                  <div class="checkbox checkbox-success">
-                                    <input id="checkbox{{$package->id}}" type="checkbox">
-                                    <label for="checkbox{{$package->id}}"> {{$package->name}} </label>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="checkbox checkbox-success">
-                                    <input id="checkbox{{$package->id}}" type="checkbox">
-                                    <label for="checkbox{{$package->id}}"> {{$package->name}} </label>
-                                  </div>
-                                </div>
-                                <div class="form-group">
-                                  <div class="checkbox checkbox-success">
-                                    <input id="checkbox{{$package->id}}" type="checkbox">
-                                    <label for="checkbox{{$package->id}}"> {{$package->name}} </label>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </section>
-
-
-                      </div>
-                      <div class="actions clearfix">
-                        <ul role="menu" aria-label="Pagination">
-                          <li class="disabled" aria-disabled="true">
-                            <a href="#previous" role="menuitem">Previous</a>
-                          </li>
-                          <li aria-hidden="false" aria-disabled="false">
-                            <a href="#next" role="menuitem">Next</a>
-                          </li>
-                          <li aria-hidden="true" style="display: none;">
-                            <a href="#finish" role="menuitem">Submit</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </form>
+                <div class="col-md-12">
+                  <div class="form-group ">
+                    <label for="authority_id">Choose Authority :</label>
+                    <select class="js-example-basic-single form-control col-12" name="authority_id" data-placeholder="Select a state" required id="authority_id" >
+                      <option value="">Choose an Authority</option>
+                      @foreach ($authorities as $authority)
+                        <option value="{{$authority->authority_id}}" {{(old('authority_id')==$authority->authority_id) ? 'selected':''}}>{{'('.$authority->authority_id.') '.$authority->full_name}}</option>
+                      @endforeach
+                    </select>
                   </div>
                 </div>
-              </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="username">API Username :</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="password">API Password :</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="date-range">Start/End Date :</label>
+                    <div class="input-daterange input-group" id="date-range">
+                      <input type="text" class="form-control" name="start_date">
+                      <div class="input-group-append">
+                        <span class="input-group-text bg-info b-0 text-white">TO</span>
+                      </div>
+                      <input type="text" class="form-control" name="end_date">
+                    </div>
+                  </div>
+                </div>
+
+              </section>
+
+
+
+              <!-- Step 2 Sara Packages-->
+              <section id="" class="body"  >
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <div class="form-group form-material">
+                      <label class="sr-only">Search</label>
+                      <input type="text" class="form-control form-control-line" value="" placeholder="Search packages">
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <div class="col-md-6">
+                    <div class="list-group">
+                      @foreach ($packages as $package)
+                        <div class="form-group">
+                          <div class="checkbox checkbox-success">
+                            <input id="checkbox{{$package->id}}" type="checkbox" name="packages[]" value="{{$package->id}}">
+                            <label for="checkbox{{$package->id}}"> {{$package->name.' ('.$package->id.')'}} </label>
+                          </div>
+                        </div>
+                      @endforeach
+
+                    </div>
+                  </div>
+                </div>
+              </section>
+
             </div>
+            {{-- <div class="actions clearfix">
+              <ul role="menu" aria-label="Pagination">
+                <li class="disabled" aria-disabled="true">
+                  <a href="#previous" role="menuitem">Previous</a>
+                </li>
+                <li aria-hidden="false" aria-disabled="false">
+                  <a href="#next" role="menuitem">Next</a>
+                </li>
+                <li aria-hidden="true" style="display: none;">
+                  <a href="#finish" role="menuitem">Submit</a>
+                </li>
+              </ul>
+            </div> --}}
+
+            <div class="form-group col-12">
+              <input class="btn btn-rounded btn-success px-5 waves-dark float-right" type="submit" value="Save">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
 
-          @endsection
+@endsection
+
+
+@push('js')
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+
+    $('#date-range').datepicker({
+      format: "dd/mm/yyyy"
+    });
+  });
+  </script>
+@endpush

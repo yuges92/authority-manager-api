@@ -105,6 +105,7 @@ $(document).ready(function () {
     $('#' + targetGroup).find('input:checkbox').prop('checked', this.checked);
   });
   $('#table_id').DataTable();
+  $('.data-table').DataTable();
 });
 
 function openSubtopicTab() {

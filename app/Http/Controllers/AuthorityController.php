@@ -21,14 +21,17 @@ class AuthorityController extends Controller
   {
     $title='New Authority';
     $packages=Package::all();
-    return view('authority.create', compact('title', 'packages'));
+    $authorities =Authority::all();
+
+    return view('authority.create', compact('title', 'packages', 'authorities'));
   }
 
   public function show(Authority $authority)
   {
 
     $title=$authority->full_name;
+    $packages=Package::all();
 
-    return view('authority.show', compact('title', 'authority'));
+    return view('authority.show', compact('title', 'authority', 'packages'));
   }
 }

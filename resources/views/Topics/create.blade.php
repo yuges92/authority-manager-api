@@ -42,8 +42,8 @@
 
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="used">Topic used :</label>
-                            <input type="text" class="form-control" id="used" name="used">
+                            <label for="is_used">Topic used :</label>
+                            <input type="text" class="form-control" id="is_used" name="is_used">
                           </div>
                           </div>
 

@@ -6,27 +6,27 @@
       <ul id="sidebarnav" class="in">
         <li class=""><a href="/" aria-expanded="false"><i class="fas fa-tachometer-alt"></i><span class="hide-menu"> Dashboard</span></a></li>
         <li>
-          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu">Authorities </span></a>
+          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu"> Authorities </span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="/authorities"><i class="fas fa-user"></i> View All</a></li>
-            <li><a href="/authorities/create"><i class="fas fa-plus"></i> New Authority</a></li>
+            <li><a href="/authorities/create"><i class="fas fa-plus"></i> New API Account</a></li>
           </ul>
         </li>
-        <li > <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-cubes"></i><span class="hide-menu">Sara packages</span></a>
+        <li > <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-cubes"></i><span class="hide-menu"> Sara packages</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="/packages"><i class="fas fa-cubes"></i> View All</a></li>
             <li><a href="/packages/create"><i class="fas fa-plus"></i> New Package</a></li>
           </ul>
         </li>
 
-        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-cubes"></i><span class="hide-menu">Main Topics</span></a>
+        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-cubes"></i><span class="hide-menu"> Main Topics</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="/topics"><i class="fas fa-cubes"></i> View All</a></li>
             <li><a href="/topics/create"><i class="fas fa-plus"></i> New Main Topic</a></li>
           </ul>
         </li>
 
-        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-user"></i><span class="hide-menu">User Accounts</span></a>
+        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-user"></i><span class="hide-menu"> User Accounts</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="/users"><i class="fas fa-users"></i> View All</a></li>
             <li><a href="/users/create"><i class="fas fa-plus"></i> New Account</a></li>

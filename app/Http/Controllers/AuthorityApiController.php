@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Topic;
+use App\AuthorityApi;
 use Illuminate\Http\Request;
 
-class TopicController extends Controller
+class AuthorityApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-      $mainTopics=Topic::all();
-        return view('Topics.index', compact('mainTopics'));
+        //
     }
 
     /**
@@ -25,7 +24,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        return view('Topics.create');
+        //
     }
 
     /**
@@ -36,45 +35,35 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
+
+      // dd($request);
       $this->validate($request, [
-        'name' => 'required',
-        'description' => 'required',
-        'filename' => 'required',
-        'order' => 'required',
-        'is_used' => 'required',
+        'authority_id' => 'required|unique:AS_api_authorities,authority_id',
+        'username' => 'required|unique:AS_api_authorities,username',
+        'password' => 'required',
+        'start_date' => 'required',
+        'end_date' => 'required',
       ]);
-      $topic = Topic::create([
-        'name'=>$request->input('name'),
-        'slug'=>str_slug($request->input('name'), '-'),
-        'description'=>$request->input('description'),
-        'filename'=>$request->input('filename'),
-        'order'=>$request->input('order'),
-        'is_used'=>$request->input('is_used')
-      ]);
-
-      return redirect()->route('topics.index')->with('success', 'new main topic created');
-
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Topic  $topic
+     * @param  \App\AuthorityApi  $authorityApi
      * @return \Illuminate\Http\Response
      */
-    public function show(Topic $topic)
+    public function show(AuthorityApi $authorityApi)
     {
-        return view('topics.show', compact('topic'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Topic  $topic
+     * @param  \App\AuthorityApi  $authorityApi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Topic $topic)
+    public function edit(AuthorityApi $authorityApi)
     {
         //
     }
@@ -83,10 +72,10 @@ class TopicController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Topic  $topic
+     * @param  \App\AuthorityApi  $authorityApi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Topic $topic)
+    public function update(Request $request, AuthorityApi $authorityApi)
     {
         //
     }
@@ -94,10 +83,10 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Topic  $topic
+     * @param  \App\AuthorityApi  $authorityApi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Topic $topic)
+    public function destroy(AuthorityApi $authorityApi)
     {
         //
     }

@@ -22,6 +22,8 @@ class CreateTopicsTable extends Migration
       $table->smallInteger('order');
       $table->boolean('is_used');
       $table->string('video_url')->nullable();
+      $table->integer('createdBy')->nullable();
+      $table->integer('updatedBY')->nullable();
       $table->timestamps();
     });
   }
