@@ -5,8 +5,8 @@ $(document).ready(function(){
 
   console.log('Hello World!');
   $('.topic-btn').click(function(event) {
-    $(this).addClass('active');
-  openSubtopicTab();
+    var table=$(this).addClass('active');
+  openSubtopicTab(table);
   });
   // $('.example').wizard();
 
@@ -31,9 +31,20 @@ $(document).ready(function(){
 
 
   $('#table_id').DataTable();
-  $('.data-table').DataTable();
+  var table=  $('.data-table').DataTable();
+  var table1=  $('#table_id1').DataTable();
+var table2=  $('#table_id2').DataTable();
 
+// addToSubtopicList(table);
 
+$('.js-example-basic-multiple').select2();
+
+$('.data-table tbody').on( 'click', '.btn-add-subTopic', function () {
+    table
+        .row( $(this).parents('tr') )
+        .remove()
+        .draw();
+} );
 });
 
 function openSubtopicTab() {
@@ -41,6 +52,19 @@ function openSubtopicTab() {
 }
 
 
-function functionName() {
+function addToSubtopicList(table) {
+  $('.btn-add-subTopic').on('click', function(event) {
+    console.log('clicked');
+    /* Act on the event */
+// var subTopicID= $(this).attr('data-row');
+// $('#'+subTopicID).remove();
+
+var row = $(this).closest('tr');
+
+
+console.log(row);
+console.log(table);
+table.row(row).remove().draw();
+  });
 
 }

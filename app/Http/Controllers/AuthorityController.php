@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Authority;
+use App\AuthorityApi;
 use App\Package;
 
 class AuthorityController extends Controller
@@ -12,6 +13,8 @@ class AuthorityController extends Controller
   public function index()
   {
     $authorities =Authority::all();
+    // $authorities =AuthorityApi::all();
+
     $title='Authorities';
     return view('authority.index', compact('title', 'authorities'));
 

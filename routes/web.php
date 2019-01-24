@@ -17,7 +17,7 @@
 Route::post('/authorities/api/', 'AuthorityApiController@store')->name('authorityAPI.store');
 Route::resource('/authorities','AuthorityController');
 Route::resource('/packages','PackageController');
-Route::resource('/topics','TopicController');
+Route::resource('/mainTopics','MainTopicController');
 Route::resource('/users','UserController');
 Route::put('/profile/updatePassword','ProfileController@updatePassword')->name('updatePassword');
 Route::resource('/profile','ProfileController');

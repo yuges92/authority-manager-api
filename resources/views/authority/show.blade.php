@@ -138,7 +138,7 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label" for="date-range">Start/End Date :</label>
                       <div class="input-daterange input-group col" id="date-range">
-                        <input type="text" class="form-control" name="start_date">
+                        <input type="text" class="form-control" name="start_date" value="1-01-2010">
                         <div class="input-group-append">
                           <span class="input-group-text bg-info b-0 text-white">TO</span>
                         </div>
@@ -267,7 +267,7 @@
     </div>
 
 
-    
+
 
   @endsection
 

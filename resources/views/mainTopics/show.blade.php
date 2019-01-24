@@ -22,10 +22,10 @@
                   <div class="form-group row">
                     <label for="firstName" class="col-sm-4 col-form-label">Topic ID:</label>
                     <div class="col">
-                      <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $topic->id }}" placeholder="Topic ID" readonly>
-                    </div>
+                      <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $mainTopic->id }}" placeholder="Topic ID" readonly>
                     </div>
                   </div>
+                </div>
 
 
                 <div class="col-md-12">
@@ -33,55 +33,55 @@
                     <label for="firstName" class="col-sm-4 col-form-label">Is Used:</label>
                     <div class="switch col">
                       <label>No
-                        <input type="checkbox" {{$topic->is_used ?'checked' : ''}} name="is_used" value="1"><span class="lever"></span>Yes</label>
+                        <input type="checkbox" {{$mainTopic->is_used ?'checked' : ''}} name="is_used" value="1"><span class="lever"></span>Yes</label>
                       </div>
                     </div>
                   </div>
 
 
-                <div class="col-md-12">
-                  <div class="form-group row">
-                    <label for="firstName" class="col-sm-4 col-form-label">Name:</label>
-                    <div class="col">
-                      <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $topic->name }}" placeholder="First name">
+                  <div class="col-md-12">
+                    <div class="form-group row">
+                      <label for="firstName" class="col-sm-4 col-form-label">Name:</label>
+                      <div class="col">
+                        <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $mainTopic->name }}" placeholder="First name">
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="col-md-12">
-                  <div class="form-group row">
-                    <label for="firstName" class="col-sm-4 col-form-label">Description:</label>
-                    <div class="col">
-                      <textarea class="form-control" name="description" rows="8" cols="80">{{$topic->description}}</textarea>
+                  <div class="col-md-12">
+                    <div class="form-group row">
+                      <label for="firstName" class="col-sm-4 col-form-label">Description:</label>
+                      <div class="col">
+                        <textarea class="form-control" name="description" rows="8" cols="80">{{$mainTopic->description}}</textarea>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="col-md-12">
-                  <div class="form-group row">
-                    <label for="firstName" class="col-sm-4 col-form-label">File Name:</label>
-                    <div class="col">
-                      <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $topic->filename }}" placeholder="First name">
+                  <div class="col-md-12">
+                    <div class="form-group row">
+                      <label for="firstName" class="col-sm-4 col-form-label">File Name:</label>
+                      <div class="col">
+                        <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $mainTopic->filename }}" placeholder="First name">
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="col-md-12">
-                  <div class="form-group row">
-                    <label for="firstName" class="col-sm-4 col-form-label">Topic Order:</label>
-                    <div class="col">
-                      <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $topic->order }}" placeholder="First name">
+                  <div class="col-md-12">
+                    <div class="form-group row">
+                      <label for="firstName" class="col-sm-4 col-form-label">Topic Order:</label>
+                      <div class="col">
+                        <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $mainTopic->order }}" placeholder="First name">
+                      </div>
                     </div>
                   </div>
-                </div>
 
                   <div class="col-md-12">
                     <div class="form-group row">
                       <label for="firstName" class="col-sm-4 col-form-label">Type:</label>
                       <div class="col">
                         <select class="custom-select form-control" id="type" name="type">
-                          <option value="standard" {{$topic->type=='standard'?'checked':''}}>Standard</option>
-                          <option value="custom" {{$topic->type=='custom'?'checked':''}}>Custom</option>
+                          <option value="standard" {{$mainTopic->type=='standard'?'checked':''}}>Standard</option>
+                          <option value="custom" {{$mainTopic->type=='custom'?'checked':''}}>Custom</option>
                         </select>
                       </div>
                     </div>
@@ -91,7 +91,7 @@
                     <div class="form-group row">
                       <label for="firstName" class="col-sm-4 col-form-label">Video URL:</label>
                       <div class="col">
-                        <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $topic->video_url }}" placeholder="Video URL">
+                        <input name="firstName" type="text" class="form-control" id="firstName" value="{{ $mainTopic->video_url }}" placeholder="Video URL">
                       </div>
                     </div>
                   </div>
@@ -113,23 +113,24 @@
                       <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Description</th>
+                        {{-- <th>Description</th> --}}
                         <th class="text-right"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      @for ($i=1; $i <=5; $i++)
+                      @foreach ($mainTopic->subTopics as $subTopic)
 
                         <tr>
-                          <td><a href="{{route('authorities.show', $i)}}">{{$i}}</a></td>
-                          <td><a href="{{route('authorities.show', $i)}}">Topic Name</a></td>
-                          <td>package Description </td>
-                          <td class="text-right">
-                            <a href="{{route('packages.show', $i)}}" class="btn btn-primary">View Topic</a>
-                            <a href="{{route('authorities.show', $i)}}" class="btn btn-danger">Remove</a>
+                          <td><a href="{{route('authorities.show', $subTopic->sectionid)}}">{{$subTopic->sectionid}}</a></td>
+                          <td><a href="{{route('authorities.show', $subTopic->sectionid)}}">{{$subTopic->name}}</a></td>
+                          {{-- <td >{{$subTopic->description}} </td> --}}
+                          <td >
+                            <a href="{{route('packages.show', $subTopic->sectionid)}}" class="btn btn-primary">View</a>
+                            <a href="{{route('authorities.show', $subTopic->sectionid)}}" class="btn btn-danger">Remove</a>
                           </td>
                         </tr>
-                      @endfor
+                      @endforeach
+
                     </tbody>
                   </table>
                 </div>
@@ -171,11 +172,11 @@
               </div>
             </div>
 
+          </div>
+        </div>
+      </div>
+      <!-- Column -->
     </div>
-  </div>
-</div>
-<!-- Column -->
-</div>
 
 
-@endsection
+  @endsection

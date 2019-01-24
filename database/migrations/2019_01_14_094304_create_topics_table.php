@@ -13,7 +13,7 @@ class CreateTopicsTable extends Migration
   */
   public function up()
   {
-    Schema::create('AS_topics', function (Blueprint $table) {
+    Schema::create('AS_MainTopics', function (Blueprint $table) {
       $table->increments('id');
       $table->string('name');
       $table->string('slug')->unique();
@@ -35,6 +35,6 @@ class CreateTopicsTable extends Migration
   */
   public function down()
   {
-    Schema::dropIfExists('AS_topics');
+    Schema::dropIfExists('AS_MainTopics');
   }
 }

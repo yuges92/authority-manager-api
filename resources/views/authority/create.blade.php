@@ -87,6 +87,17 @@
                   </div>
                 </div>
 
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="subTopics">Subtopics :</label>
+                    <select class="js-example-basic-multiple js-states form-control" id="subTopics" multiple="multiple" name="subTopics[]">
+                      @foreach ($packages as $package)
+                        <option value="{{$package->id}}" @if(is_array(old('subTopics')) && in_array($package->id, old('subTopics'))) selected @endif >{{'('.$package->id.') '.$package->name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+
 
                 <div class="form-group">
                   <div class="col-md-6">

@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="my-2">
-    <a class="btn btn-info btn-rounded" href="{{route('topics.create')}}">Add new main Topic</a>
+    <a class="btn btn-info btn-rounded" href="{{route('mainTopics.create')}}">Add new main Topic</a>
   </div>
   {{-- <div class="row el-element-overlay ">
     <div class="col-md-12">
@@ -28,7 +28,6 @@
       </div>
     </div>
   </div> --}}
-
   <div class="card">
     <div class="card-body">
       <div class="table-responsive">
@@ -47,13 +46,13 @@
           <tbody>
             @foreach ($mainTopics as $mainTopic)
               <tr>
-                <td><a href="{{route('topics.show', $mainTopic->id)}}">{{$mainTopic->id}}</a></td>
-                <td><a href="{{route('topics.show', $mainTopic->id)}}">{{$mainTopic->name}}</a></td>
+                <td><a href="{{route('mainTopics.show', $mainTopic->id)}}">{{$mainTopic->id}}</a></td>
+                <td><a href="{{route('mainTopics.show', $mainTopic->id)}}">{{$mainTopic->name}}</a></td>
                 <td>{{$mainTopic->short_name}}</td>
                 <td>{{$mainTopic->active}}</td>
                 <td>{{$mainTopic->authority_type}}</td>
                 <td>{{$mainTopic->supplier_id}} </td>
-                <td><a href="{{route('topics.show', $mainTopic->id)}}" class="btn btn-info">View</a></td>
+                <td><a href="{{route('mainTopics.show', $mainTopic->id)}}" class="btn btn-info">View</a></td>
               </tr>
             @endforeach
           </tbody>
