@@ -58,7 +58,7 @@ class MainTopicController extends Controller
       'is_used'=>$request->input('is_used')
     ]);
     // dd($request->input('subTopics'));
-$mainTopic->subTopics()->attach($request->input('subTopics'));
+    $mainTopic->subTopics()->attach($request->input('subTopics'));
     return redirect()->route('mainTopics.index')->with('success', 'new main topic created');
 
 
@@ -72,8 +72,8 @@ $mainTopic->subTopics()->attach($request->input('subTopics'));
   */
   public function show(MainTopic $mainTopic)
   {
-
-    return view('mainTopics.show', compact('mainTopic'));
+    $subTopics=SubTopic::all();
+    return view('mainTopics.show', compact('mainTopic', 'subTopics'));
   }
 
   /**
@@ -96,7 +96,23 @@ $mainTopic->subTopics()->attach($request->input('subTopics'));
   */
   public function update(Request $request, MainTopic $mainTopic)
   {
-    //
+
+    $this->validate($request, [
+      'name' => 'required',
+      // 'slug' => 'required|unique:AS_mainTopics,slug',
+      'description' => 'required',
+      'filename' => 'required',
+      'order' => 'required',
+    ]);
+    $mainTopic->name =$request->input('name');
+    $mainTopic->slug =$request->input('slug');
+    $mainTopic->description =$request->input('description');
+    $mainTopic->filename =$request->input('filename');
+    $mainTopic->order =$request->input('order');
+    $mainTopic->is_used =$request->input('is_used') ? 1 : 0;
+    $mainTopic->update();
+    return redirect()->back()->with('success', 'Main Topic Updated');
+
   }
 
   /**
@@ -108,5 +124,26 @@ $mainTopic->subTopics()->attach($request->input('subTopics'));
   public function destroy(MainTopic $mainTopic)
   {
     //
+  }
+
+  public function removeSubtopic(Request $request, MainTopic $mainTopic)
+  {
+    $mainTopic->subTopics()->detach($request->input('subtopic_id'));
+    return redirect()->back()->with('success', 'SubTopic removed from the list');
+
+  }
+
+  public function addSubtopic(Request $request, MainTopic $mainTopic)
+  {
+
+
+    // 
+    // $this->validate($request, [
+    //   'subTopics' => 'required|unique:AS_main_subtopics,subtopic_id,NULL,id,mainTopic_id,'.$mainTopic->id
+    // ]);
+
+    $mainTopic->subTopics()->syncWithoutDetaching($request->input('subTopics'));
+    return redirect()->back()->with('success', 'SubTopic added to main topic');
+
   }
 }

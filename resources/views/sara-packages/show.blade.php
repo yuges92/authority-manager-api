@@ -105,6 +105,22 @@
             <div class="tab-pane" id="authorities" role="tabpanel">
               <div class="card-body">
                 <button type="button" name="button" data-toggle="modal" data-target="#verticalcenter" class="btn btn-info">Add an Authority</button>
+
+                <div class="btn-group" data-toggle="buttons">
+                  <span class="btn btn-info active">
+                    <input type="checkbox" id="md_checkbox_21" class="filled-in chk-col-light-blue" checked="">
+                    <label class="" for="md_checkbox_21">Checkbox</label>
+                  </span>
+                  <label class="btn btn-info active">
+                    <input type="checkbox" id="md_checkbox_22" class="filled-in chk-col-light-blue">
+                    <label class="" for="md_checkbox_22">Checkbox</label>
+                  </label>
+
+                </div>
+                <label class="btn btn-info my-auto">
+                  <input type="checkbox" id="md_checkbox_23" class="filled-in chk-col-light-blue">
+                  <label class="my-auto" for="md_checkbox_23">Checkbox</label>
+                </label>
                 <div class="table-responsive">
                   <table class=" display nowrap table table-hover table-striped table-bordered dataTable data-table">
                     <thead>
@@ -133,11 +149,11 @@
               </div>
             </div>
 
+          </div>
+        </div>
+      </div>
+      <!-- Column -->
     </div>
-  </div>
-</div>
-<!-- Column -->
-</div>
 
 
-@endsection
+  @endsection

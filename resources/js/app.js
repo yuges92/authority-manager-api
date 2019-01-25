@@ -23,12 +23,15 @@ require('./template/js/jquery.sparkline.min');
 
 require('./template/js/custom.min');
 require('./template/plugins/formValidation.min');
+require('./template/plugins/jquery.toast');
 // require('./template/plugins/jquery-wizard.min');
 // require('./template/js/steps');
 require('./template/js/jquery.validate.min');
+// require('./template/js/toastr');
 // require('./custom');
 
-import dt from 'datatables.net'
+import dt from 'datatables.net';
+require('sweetalert');
 
 // require('./template/js/steps');
 // require('./template/js/jQuery.style.switcher');

@@ -12,8 +12,8 @@ class AuthorityController extends Controller
 {
   public function index()
   {
-    $authorities =Authority::all();
-    // $authorities =AuthorityApi::all();
+    // $authorities =Authority::all();
+    $authorities =AuthorityApi::all();
 
     $title='Authorities';
     return view('authority.index', compact('title', 'authorities'));

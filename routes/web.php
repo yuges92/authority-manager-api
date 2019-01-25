@@ -18,6 +18,8 @@ Route::post('/authorities/api/', 'AuthorityApiController@store')->name('authorit
 Route::resource('/authorities','AuthorityController');
 Route::resource('/packages','PackageController');
 Route::resource('/mainTopics','MainTopicController');
+Route::post('/mainTopics/{mainTopic}/subTopic/','MainTopicController@addSubtopic')->name('mainTopics.addSubtopics');
+Route::delete('/mainTopics/{mainTopic}/subTopic/','MainTopicController@removeSubtopic')->name('mainTopics.removeSubtopic');
 Route::resource('/users','UserController');
 Route::put('/profile/updatePassword','ProfileController@updatePassword')->name('updatePassword');
 Route::resource('/profile','ProfileController');

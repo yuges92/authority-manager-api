@@ -1,11 +1,26 @@
 @extends('layouts.master')
 
 @section('content')
-
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Simple Toastr Alerts</h4>
+          <h6 class="card-subtitle">You can use four different alert <code>info, warning, success, and error</code> message.</h6>
+          <div class="button-box">
+            <button class="tst1 btn btn-info">Info Message</button>
+            <button class="tst2 btn btn-warning">Warning Message</button>
+            <button class="tst3 btn btn-success">Success Message</button>
+            <button class="tst4 btn btn-danger">Danger Message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12">
 
-
+      
       <div class="card">
         <div class="card-body wizard-content">
           <h4 class="card-title">Package Manager</h4>
@@ -40,49 +55,36 @@
 
                 <div class="ml-2">
                   <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                       <div class="form-group ">
                         <h4>Choose Main Topics</h4>
 
                         <div class="card">
                           <div class="card-body">
-                            <h4 class="card-title">Vertical Tab</h4>
-                            <h6 class="card-subtitle">Use default tab with class <code>vtabs &amp; tabs-vertical</code></h6>
                             <!-- Nav tabs -->
-                            <div class="vtabs customvtab">
-                              <ul class="nav nav-tabs tabs-vertical maintopic-tab" role="tablist">
-                                @for ($i=1; $i <= 10; $i++)
-                                  <li class="nav-item row my-auto pl-2">
-                                    <input type="checkbox" id="md_checkbox_24{{$i}}" class="filled-in chk-col-deep-purple" >
-                                    <label class="my-3" for="md_checkbox_24{{$i}}"></label>
-                                    <a class="nav-link show my-auto" data-toggle="tab" href="#mainTopicTab{{$i}}" role="tab" aria-selected="true"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Main Topic {{$i}}</span> </a>
-                                  </li>
-                                @endfor
+                            @foreach ($mainTopics as $mainTopic)
 
-                              </ul>
-                              <!-- Tab panes -->
-                              <div class="tab-content">
-                                @for ($i=1; $i <= 10; $i++)
-                                  <div class="tab-pane show" id="mainTopicTab{{$i}}" role="tabpanel">
-                                    <h3>List of Sub topics for Level 1 </h3>
-                                    <div class="p-20">
-                                      <input id="level2{{$i}}" type="checkbox" class="select-all-checkbox" data-target="topics{{$i}}">
-                                      <label  for="level2{{$i}}" >Select All Topics </label>
+                              <div class="tab-pane show" id="mainTopicTab{{$mainTopic->id}}" role="tabpanel">
+                                <div class="nav-item row my-auto pl-2">
+                                  <input type="checkbox" id="md_checkbox_24{{$mainTopic->id}}" class="filled-in chk-col-deep-purple" name="maintopic_id[]" value="{{$mainTopic->id}}">
+                                  <label class="my-3 fs-2" for="md_checkbox_24{{$mainTopic->id}}">{{$mainTopic->name}}</label>
+                                </div>
+
+                                <div class="px-3">
+                                  <input id="level2{{$mainTopic->id}}" type="checkbox" class="select-all-checkbox" data-target="topics{{$mainTopic->id}}" checked name="maintopic_id[{{$mainTopic->id}}][selectAll]">
+                                  <label class="text-success" for="level2{{$mainTopic->id}}" >Select All Topics </label>
+                                </div>
+                                <div class="row mx-auto" id="topics{{$mainTopic->id}}">
+                                  @foreach ($mainTopic->subtopics as $subtopic)
+
+                                    <div class="col-md-6" >
+                                      <input id="level2{{$subtopic->sectionid}}" type="checkbox" checked class="subtopic-checkbox" data-parent="level2{{$subtopic->sectionid}}" name=""value="{{$subtopic->sectionid}}">
+                                      <label for="level2{{$subtopic->sectionid}}">{{$subtopic->name.' ('.$subtopic->sectionid}})  </label>
                                     </div>
-                                    <div class="" id="topics{{$i}}">
-
-                                      @for ($j=1; $j <= 5; $j++)
-                                        <div class="p-20" >
-                                          <input id="level2{{$i.$j}}" type="checkbox">
-                                          <label for="level2{{$i.$j}}">Topic {{$i.$j}}  </label>
-                                        </div>
-                                      @endfor
-                                    </div>
-                                  </div>
-                                @endfor
-
+                                  @endforeach
+                                </div>
                               </div>
-                            </div>
+                            @endforeach
                           </div>
                         </div>
                       </div>

@@ -3,6 +3,7 @@ $(document).ready(function(){
   //   $("p").slideToggle();
   // });
 
+
   console.log('Hello World!');
   $('.topic-btn').click(function(event) {
     var table=$(this).addClass('active');
@@ -45,6 +46,24 @@ $('.data-table tbody').on( 'click', '.btn-add-subTopic', function () {
         .remove()
         .draw();
 } );
+
+
+$(".tst1").click(function(){
+     $.toast({
+      heading: 'New Package Saved',
+      text: 'A new package has been added, please choosed the main topics for the package.',
+      position: 'bottom-right',
+      loaderBg:'#ff4949',
+      icon: 'success',
+      hideAfter: 5000,
+      stack: 6
+    });
+
+});
+
+
+
+deleteForm();
 });
 
 function openSubtopicTab() {
@@ -66,5 +85,36 @@ console.log(row);
 console.log(table);
 table.row(row).remove().draw();
   });
+
+}
+
+
+function deleteForm() {
+  $('form.deleteForm').submit(function(event) {
+    event.preventDefault();
+
+    swal({
+            title: "Are you sure?",
+            text: '',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            $(this).unbind('submit').submit()
+
+            // swal("Poof! Your imaginary file has been deleted!", {
+            //   icon: "success",
+            // });
+          }
+        });
+
+    // }
+  });
+}
+
+
+function sweetAlertConfirm() {
 
 }

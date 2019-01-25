@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .custom-card .card {
   max-width: 30rem;
 }
@@ -56,5 +58,13 @@ table.dataTable thead .sorting:after {
 
 .maintopic-tab {
   width: 15rem !important;
+}
+
+.fs-2 {
+  font-size: 1.25rem !important;
+}
+
+.select2-container {
+  width: 100% !important;
 }
 
