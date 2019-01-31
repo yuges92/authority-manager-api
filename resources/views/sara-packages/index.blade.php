@@ -39,6 +39,7 @@
               <th>Name</th>
               <th>is Active</th>
               <th>Type</th>
+              <td></td>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +49,14 @@
                 <td><a href="{{route('packages.show', $package->id)}}">{{$package->name}}</a></td>
                 <td>{{$package->isActive}}</td>
                 <td>{{$package->type}}</td>
+                <td><form class="deleteForm" action="{{route('packages.destroy', [$package->id])}}" method="post">
+                  @method('delete')
+                  {{ csrf_field() }}
+                  {{-- <input type="hidden" name="subtopic_id" value="{{$subTopic->sectionid}}"> --}}
+                  <div class="">
+                    <button class="btn btn-danger" type="submit" name="button">Remove</button>
+                  </div>
+                </form></td>
               </tr>
             @endforeach
           </tbody>

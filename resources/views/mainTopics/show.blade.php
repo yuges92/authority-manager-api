@@ -135,8 +135,8 @@
                     @foreach ($mainTopic->subTopics as $subTopic)
 
                       <tr>
-                        <td><a href="{{route('authorities.show', $subTopic->sectionid)}}">{{$subTopic->sectionid}}</a></td>
-                        <td><a href="{{route('authorities.show', $subTopic->sectionid)}}">{{$subTopic->name}}</a></td>
+                        <td>{{$subTopic->sectionid}}</td>
+                        <td>{{$subTopic->name}}</td>
                         {{-- <td >{{$subTopic->description}} </td> --}}
                         <td >
                           <form class="deleteForm" action="{{route('mainTopics.removeSubtopic', [$mainTopic->id])}}" method="post">

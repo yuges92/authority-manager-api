@@ -32,6 +32,7 @@ class CreatePackagesTable extends Migration
   */
   public function down()
   {
+    Schema::dropIfExists('AS_package_maintopics');
     Schema::dropIfExists('AS_packages');
   }
 }

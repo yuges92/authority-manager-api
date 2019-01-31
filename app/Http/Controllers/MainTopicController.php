@@ -55,7 +55,7 @@ class MainTopicController extends Controller
       'description'=>$request->input('description'),
       'filename'=>$request->input('filename'),
       'order'=>$request->input('order'),
-      'is_used'=>$request->input('is_used')
+      'is_used'=>1
     ]);
     // dd($request->input('subTopics'));
     $mainTopic->subTopics()->attach($request->input('subTopics'));
@@ -123,7 +123,10 @@ class MainTopicController extends Controller
   */
   public function destroy(MainTopic $mainTopic)
   {
-    //
+    $mainTopic->delete();
+
+    return redirect()->back()->with('success', 'Main Topic Deleted');
+
   }
 
   public function removeSubtopic(Request $request, MainTopic $mainTopic)
@@ -137,7 +140,7 @@ class MainTopicController extends Controller
   {
 
 
-    // 
+    //
     // $this->validate($request, [
     //   'subTopics' => 'required|unique:AS_main_subtopics,subtopic_id,NULL,id,mainTopic_id,'.$mainTopic->id
     // ]);

@@ -17,8 +17,8 @@ class MainSubtopics extends Migration
       $table->increments('id');
       $table->integer('mainTopic_id')->unsigned();;
       $table->integer('subtopic_id')->unsigned();;
-      // $table->foreign('mainTopic_id')->references('id')->on('users')->onDelete('cascade');
-      // $table->foreign('subtopic_id')->references('id')->on('roles')->onDelete('cascade');
+      $table->foreign('mainTopic_id')->references('id')->on('AS_MainTopics')->onDelete('cascade');
+      $table->foreign('subtopic_id')->references('sectionid')->on('AS_section')->onDelete('cascade');
       $table->integer('createdBy')->nullable();
       $table->integer('updatedBY')->nullable();
       $table->unique(['subtopic_id','mainTopic_id']);

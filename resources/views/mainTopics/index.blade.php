@@ -46,7 +46,8 @@
               <td><a href="{{route('mainTopics.show', $mainTopic->id)}}">{{$mainTopic->id}}</a></td>
               <td><a href="{{route('mainTopics.show', $mainTopic->id)}}">{{$mainTopic->name}}</a></td>
               <td>{{$mainTopic->is_used}}</td>
-              <td>
+              <td class="row mx-auto">
+
                 <form class="deleteForm" action="{{route('mainTopics.destroy', [$mainTopic->id])}}" method="post">
                   @method('delete')
                   {{ csrf_field() }}
@@ -55,7 +56,7 @@
                     <button class="btn btn-danger" type="submit" name="button">Remove</button>
                   </div>
                 </form>
-                {{-- <a href="{{route('mainTopics.show', $mainTopic->id)}}" class="btn btn-info">View</a> --}}
+                <a href="{{route('mainTopics.show', $mainTopic->id)}}" class="btn btn-info mx-2">View</a>
               </td>
             </tr>
           @endforeach

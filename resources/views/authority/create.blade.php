@@ -67,7 +67,7 @@
                       <div class="input-group-append">
                         <span class="input-group-text bg-info b-0 text-white">TO</span>
                       </div>
-                      <input type="text" class="form-control" name="end_date">
+                      <input type="text" class="form-control" name="expiry_date">
                     </div>
                   </div>
                 </div>

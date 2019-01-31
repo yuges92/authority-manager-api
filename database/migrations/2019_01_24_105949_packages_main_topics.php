@@ -15,10 +15,10 @@ class PackagesMainTopics extends Migration
     {
       Schema::create('AS_package_maintopics', function (Blueprint $table) {
         $table->increments('id');
-        $table->integer('mainTopic_id')->unsigned();;
-        $table->integer('package_id')->unsigned();;
-        // $table->foreign('mainTopic_id')->references('id')->on('users')->onDelete('cascade');
-        // $table->foreign('subtopic_id')->references('id')->on('roles')->onDelete('cascade');
+        $table->integer('mainTopic_id')->unsigned();
+        $table->integer('package_id')->unsigned();
+        $table->foreign('mainTopic_id')->references('id')->on('AS_MainTopics')->onDelete('cascade');
+        $table->foreign('package_id')->references('id')->on('AS_packages')->onDelete('cascade');
         $table->integer('createdBy')->nullable();
         $table->integer('updatedBY')->nullable();
         $table->unique(['mainTopic_id','package_id']);
@@ -33,6 +33,9 @@ class PackagesMainTopics extends Migration
      */
     public function down()
     {
+      // Schema::dropIfExists('AS_MainTopics');
+      // Schema::dropIfExists('AS_packages');
+
       Schema::dropIfExists('AS_package_maintopics');
 
     }

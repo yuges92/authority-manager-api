@@ -49,9 +49,6 @@
               <th>ID</th>
               <th>Name</th>
               <th>Short name</th>
-              <th>active</th>
-              <th>Type</th>
-              <th>Supplier ID</th>
               <th></th>
           </tr>
       </thead>
@@ -60,11 +57,8 @@
 
           <tr>
               <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->authority_id}}</a></td>
-              <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->full_name}}</a></td>
-              <td>{{$authority->short_name}}</td>
-              <td>{{$authority->active}}</td>
-              <td>{{$authority->authority_type}}</td>
-              <td>{{$authority->supplier_id}} </td>
+              <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->authority->full_name}}</a></td>
+              <td>{{$authority->authority->short_name}}</td>
               <td><a href="{{route('authorities.show', $authority->authority_id)}}" class="btn btn-info">View</a></td>
           </tr>
         @endforeach

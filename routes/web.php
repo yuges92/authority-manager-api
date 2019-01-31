@@ -13,9 +13,13 @@
 
 
 
+Route::get('/packages/{package}/MainTopics/{mainTopic}/customSubTopics', 'PackageController@getCustomSubTopics')->name('getCustomSubTopics');
+Route::post('/packages/{package}/MainTopics/{mainTopic}/customSubTopics', 'PackageController@updateCustomSubTopics')->name('updateCustomSubTopics');
 
 Route::post('/authorities/api/', 'AuthorityApiController@store')->name('authorityAPI.store');
 Route::resource('/authorities','AuthorityController');
+Route::post('/packages/{package}/mainTopic/','PackageController@addMainTopic')->name('packages.addMainTopic');
+Route::delete('/packages/{package}/mainTopic','PackageController@removeMainTopic')->name('packages.removeMainTopic');
 Route::resource('/packages','PackageController');
 Route::resource('/mainTopics','MainTopicController');
 Route::post('/mainTopics/{mainTopic}/subTopic/','MainTopicController@addSubtopic')->name('mainTopics.addSubtopics');

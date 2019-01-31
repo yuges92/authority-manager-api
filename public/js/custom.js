@@ -93,6 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+// require('./sara/saraPackage');
 $(document).ready(function () {
   // $("button").click(function(){
   //   $("p").slideToggle();
@@ -101,25 +102,35 @@ $(document).ready(function () {
   $('.topic-btn').click(function (event) {
     var table = $(this).addClass('active');
     openSubtopicTab(table);
-  }); // $('.example').wizard();
-  // $('.select-all-checkbox').click(function() {
-  // var checked= $(this).prop('checked');
-  // var targetGroup= $(this).prop('data-target');
-  // console.log(checked);
-  // $('#'+targetGroup).find('input:checkbox').prop('checked', checked);
-  // });
-
-  $('.select-all-checkbox').on('click', function () {
-    // $('#'+targetGroup).find('input:checkbox').not(this).prop('checked', this.checked);
-    $(this).next('label').text('Select All Topics');
+  });
+  $('.select-all-checkbox').on('change', function (e) {
+    // $(this).next('label').text('Select All Topics')
     var targetGroup = $(this).attr('data-target');
-    console.log(targetGroup);
+    var $inputs = $('#' + targetGroup).find('input:checkbox'); // var parentCheckbox=$(this).attr('data-parent');
 
-    if (this.checked) {
-      $(this).next('label').text('Unselect All Topics');
+    if (e.originalEvent === undefined) {
+      var allChecked = true;
+      $inputs.each(function () {
+        allChecked = allChecked && this.checked;
+      });
+      this.checked = allChecked;
+    } else {
+      // $(this).next('label').text('Unselect All Topics')
+      $inputs.prop('checked', this.checked);
     }
+  });
+  $('.subtopic-checkbox').on('change', function () {
+    $('.select-all-checkbox').trigger('change');
+  });
+  $('.main-topic-checkbox').on('change', function () {
+    // console.log('main changed');
+    var checkbox = $(this).attr('data-checkbox'); // $(checkbox).prop('checked', this.checked);
+    // $(checkbox).trigger('change');
 
-    $('#' + targetGroup).find('input:checkbox').prop('checked', this.checked);
+    if (!this.checked) {
+      // console.log(checkbox);
+      $(this).parent().siblings().find('input:checkbox').prop('checked', false);
+    }
   });
   $('#table_id').DataTable();
   var table = $('.data-table').DataTable();
@@ -163,25 +174,49 @@ function addToSubtopicList(table) {
 }
 
 function deleteForm() {
-  $('form.deleteForm').submit(function (event) {
-    var _this = this;
+  $('.dataTable').on('click', 'form.deleteForm', function () {
+    $(this).submit(function (event) {
+      var _this = this;
 
-    event.preventDefault();
-    swal({
-      title: "Are you sure?",
-      text: '',
-      icon: "warning",
-      buttons: true,
-      dangerMode: true
-    }).then(function (willDelete) {
-      if (willDelete) {
-        $(_this).unbind('submit').submit(); // swal("Poof! Your imaginary file has been deleted!", {
-        //   icon: "success",
-        // });
-      }
+      event.preventDefault();
+      swal({
+        title: "Are you sure?",
+        text: '',
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+      }).then(function (willDelete) {
+        if (willDelete) {
+          $(_this).unbind('submit').submit(); // swal("Poof! Your imaginary file has been deleted!", {
+          //   icon: "success",
+          // });
+        }
+      });
     }); // }
   });
-}
+} // function deleteFormHandler() {
+//   $(this).submit(function(event) {
+//     event.preventDefault();
+//     swal({
+//       title: "Are you sure?",
+//       text: '',
+//       icon: "warning",
+//       buttons: true,
+//       dangerMode: true,
+//     })
+//     .then((willDelete) => {
+//       if (willDelete) {
+//         $(this).unbind('submit').submit()
+//
+//         // swal("Poof! Your imaginary file has been deleted!", {
+//         //   icon: "success",
+//         // });
+//       }
+//     });
+//
+//   });
+// }
+
 
 function sweetAlertConfirm() {}
 

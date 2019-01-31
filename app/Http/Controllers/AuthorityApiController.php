@@ -7,87 +7,98 @@ use Illuminate\Http\Request;
 
 class AuthorityApiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+  /**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function index()
+  {
+    //
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+  /**
+  * Show the form for creating a new resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+  public function create()
+  {
+    //
+  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+  /**
+  * Store a newly created resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+  public function store(Request $request)
+  {
 
-      // dd($request);
-      $this->validate($request, [
-        'authority_id' => 'required|unique:AS_api_authorities,authority_id',
-        'username' => 'required|unique:AS_api_authorities,username',
-        'password' => 'required',
-        'start_date' => 'required',
-        'end_date' => 'required',
-      ]);
-    }
+    // dd($request);
+    $this->validate($request, [
+      'authority_id' => 'required|unique:AS_api_authorities,authority_id',
+      'username' => 'required|unique:AS_api_authorities,username',
+      'password' => 'required',
+      'start_date' => 'required',
+      'expiry_date' => 'required',
+    ]);
+    $authorityApi= new AuthorityApi();
+    $authorityApi->authority_id =$request->input('authority_id') ;
+    $authorityApi->username = $request->input('username');
+    $authorityApi->password = $request->input('password');
+    $authorityApi->start_date = $request->input('start_date');
+    $authorityApi->expiry_date = $request->input('expiry_date');
+    $authorityApi->isActive =1 ;
+    $authorityApi->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\AuthorityApi  $authorityApi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(AuthorityApi $authorityApi)
-    {
-        //
-    }
+    return redirect()->back()->with('success', 'Api Account Created');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\AuthorityApi  $authorityApi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(AuthorityApi $authorityApi)
-    {
-        //
-    }
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AuthorityApi  $authorityApi
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, AuthorityApi $authorityApi)
-    {
-        //
-    }
+  /**
+  * Display the specified resource.
+  *
+  * @param  \App\AuthorityApi  $authorityApi
+  * @return \Illuminate\Http\Response
+  */
+  public function show(AuthorityApi $authorityApi)
+  {
+    //
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\AuthorityApi  $authorityApi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(AuthorityApi $authorityApi)
-    {
-        //
-    }
+  /**
+  * Show the form for editing the specified resource.
+  *
+  * @param  \App\AuthorityApi  $authorityApi
+  * @return \Illuminate\Http\Response
+  */
+  public function edit(AuthorityApi $authorityApi)
+  {
+    //
+  }
+
+  /**
+  * Update the specified resource in storage.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @param  \App\AuthorityApi  $authorityApi
+  * @return \Illuminate\Http\Response
+  */
+  public function update(Request $request, AuthorityApi $authorityApi)
+  {
+    //
+  }
+
+  /**
+  * Remove the specified resource from storage.
+  *
+  * @param  \App\AuthorityApi  $authorityApi
+  * @return \Illuminate\Http\Response
+  */
+  public function destroy(AuthorityApi $authorityApi)
+  {
+    //
+  }
 }

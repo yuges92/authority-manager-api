@@ -1,3 +1,6 @@
+// require('./sara/saraPackage');
+
+
 $(document).ready(function(){
   // $("button").click(function(){
   //   $("p").slideToggle();
@@ -7,49 +10,66 @@ $(document).ready(function(){
   console.log('Hello World!');
   $('.topic-btn').click(function(event) {
     var table=$(this).addClass('active');
-  openSubtopicTab(table);
+    openSubtopicTab(table);
   });
-  // $('.example').wizard();
 
-  // $('.select-all-checkbox').click(function() {
-  // var checked= $(this).prop('checked');
-  // var targetGroup= $(this).prop('data-target');
-  // console.log(checked);
-  // $('#'+targetGroup).find('input:checkbox').prop('checked', checked);
-  // });
-
-  $('.select-all-checkbox').on('click', function() {
-    // $('#'+targetGroup).find('input:checkbox').not(this).prop('checked', this.checked);
-    $(this).next('label').text('Select All Topics')
-
+  $('.select-all-checkbox').on('change', function(e) {
+    // $(this).next('label').text('Select All Topics')
     var targetGroup= $(this).attr('data-target');
-    console.log(targetGroup);
-    if (this.checked) {
-      $(this).next('label').text('Unselect All Topics')
+    var $inputs= $('#'+targetGroup).find('input:checkbox');
+    // var parentCheckbox=$(this).attr('data-parent');
+
+    if(e.originalEvent === undefined) {
+      var allChecked = true;
+
+      $inputs.each(function(){
+        allChecked = allChecked && this.checked;
+      });
+      this.checked = allChecked;
+
+    } else {
+      // $(this).next('label').text('Unselect All Topics')
+      $inputs.prop('checked', this.checked);
     }
-    $('#'+targetGroup).find('input:checkbox').prop('checked', this.checked);
   });
 
+
+  $('.subtopic-checkbox').on('change', function(){
+    $('.select-all-checkbox').trigger('change');
+  });
+
+  $('.main-topic-checkbox').on('change', function(){
+    // console.log('main changed');
+    var checkbox=$(this).attr('data-checkbox');
+    // $(checkbox).prop('checked', this.checked);
+    // $(checkbox).trigger('change');
+    if (!this.checked) {
+      // console.log(checkbox);
+      $(this).parent().siblings().find('input:checkbox').prop('checked', false);
+
+    }
+
+  });
 
   $('#table_id').DataTable();
   var table=  $('.data-table').DataTable();
   var table1=  $('#table_id1').DataTable();
-var table2=  $('#table_id2').DataTable();
+  var table2=  $('#table_id2').DataTable();
 
-// addToSubtopicList(table);
+  // addToSubtopicList(table);
 
-$('.js-example-basic-multiple').select2();
+  $('.js-example-basic-multiple').select2();
 
-$('.data-table tbody').on( 'click', '.btn-add-subTopic', function () {
+  $('.data-table tbody').on( 'click', '.btn-add-subTopic', function () {
     table
-        .row( $(this).parents('tr') )
-        .remove()
-        .draw();
-} );
+    .row( $(this).parents('tr') )
+    .remove()
+    .draw();
+  } );
 
 
-$(".tst1").click(function(){
-     $.toast({
+  $(".tst1").click(function(){
+    $.toast({
       heading: 'New Package Saved',
       text: 'A new package has been added, please choosed the main topics for the package.',
       position: 'bottom-right',
@@ -59,11 +79,11 @@ $(".tst1").click(function(){
       stack: 6
     });
 
-});
+  });
 
 
 
-deleteForm();
+  deleteForm();
 });
 
 function openSubtopicTab() {
@@ -75,44 +95,72 @@ function addToSubtopicList(table) {
   $('.btn-add-subTopic').on('click', function(event) {
     console.log('clicked');
     /* Act on the event */
-// var subTopicID= $(this).attr('data-row');
-// $('#'+subTopicID).remove();
+    // var subTopicID= $(this).attr('data-row');
+    // $('#'+subTopicID).remove();
 
-var row = $(this).closest('tr');
+    var row = $(this).closest('tr');
 
 
-console.log(row);
-console.log(table);
-table.row(row).remove().draw();
+    console.log(row);
+    console.log(table);
+    table.row(row).remove().draw();
   });
 
 }
 
 
 function deleteForm() {
-  $('form.deleteForm').submit(function(event) {
-    event.preventDefault();
+  $('.dataTable').on('click', 'form.deleteForm', function() {
+    $(this).submit(function(event) {
 
-    swal({
-            title: "Are you sure?",
-            text: '',
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-          if (willDelete) {
-            $(this).unbind('submit').submit()
+      event.preventDefault();
+      swal({
+        title: "Are you sure?",
+        text: '',
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          $(this).unbind('submit').submit()
 
-            // swal("Poof! Your imaginary file has been deleted!", {
-            //   icon: "success",
-            // });
-          }
-        });
+          // swal("Poof! Your imaginary file has been deleted!", {
+          //   icon: "success",
+          // });
+        }
+      });
+    });
 
     // }
   });
 }
+
+
+
+
+// function deleteFormHandler() {
+//   $(this).submit(function(event) {
+//     event.preventDefault();
+//     swal({
+//       title: "Are you sure?",
+//       text: '',
+//       icon: "warning",
+//       buttons: true,
+//       dangerMode: true,
+//     })
+//     .then((willDelete) => {
+//       if (willDelete) {
+//         $(this).unbind('submit').submit()
+//
+//         // swal("Poof! Your imaginary file has been deleted!", {
+//         //   icon: "success",
+//         // });
+//       }
+//     });
+//
+//   });
+// }
 
 
 function sweetAlertConfirm() {

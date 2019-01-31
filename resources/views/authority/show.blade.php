@@ -120,7 +120,7 @@
                     <label for="firstName" class="col-sm-4 col-form-label">API Active:</label>
                     <div class="switch col">
                       <label>OFF
-                        <input type="checkbox" checked="" name="isActive" value="1"><span class="lever"></span>ON</label>
+                        <input type="checkbox" {{$authority->authorityApi->isActive ? 'checked': ''}} name="isActive" value="1"><span class="lever"></span>ON</label>
                       </div>
                     </div>
                   </div>
@@ -129,7 +129,7 @@
                     <div class="form-group row">
                       <label for="username" class="col-sm-4 col-form-label">API Username:</label>
                       <div class="col">
-                        <input name="username" type="text" class="form-control" id="username" value="{{ old('username') }}" placeholder="Username">
+                        <input name="username" type="text" class="form-control" id="username" value="{{ $authority->authorityApi->username }}" placeholder="Username">
                       </div>
                     </div>
                   </div>
@@ -138,11 +138,11 @@
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label" for="date-range">Start/End Date :</label>
                       <div class="input-daterange input-group col" id="date-range">
-                        <input type="text" class="form-control" name="start_date" value="1-01-2010">
+                        <input type="text" class="form-control" name="start_date" value="{{$authority->authorityApi->start_date}}">
                         <div class="input-group-append">
                           <span class="input-group-text bg-info b-0 text-white">TO</span>
                         </div>
-                        <input type="text" class="form-control" name="end_date">
+                        <input type="text" class="form-control" name="end_date" value="{{$authority->authorityApi->expiry_date}}">
                       </div>
                     </div>
                   </div>
@@ -153,8 +153,6 @@
                     <a href="/resetAPIPassword/{{$authority->authority_id}}" class="btn btn-warning">Reset Password</a>
                     <input class="btn btn-rounded btn-success px-5 waves-dark float-right" type="submit" value="Save">
                   </div>
-
-
                 </form>
               </div>
             </div>
@@ -265,6 +263,8 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
+
+
 
 
 
