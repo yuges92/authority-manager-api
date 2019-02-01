@@ -6,7 +6,7 @@
       <ul id="sidebarnav" class="in">
         <li class=""><a href="/" aria-expanded="false"><i class="fas fa-tachometer-alt"></i><span class="hide-menu"> Dashboard</span></a></li>
         <li class="{{ Request::is('authorities*') ? 'active' : '' }}">
-          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu"> Authorities </span></a>
+          <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu"> API Accounts </span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="/authorities"><i class="fas fa-user"></i> View All</a></li>
             <li><a href="/authorities/create"><i class="fas fa-plus"></i> New API Account</a></li>

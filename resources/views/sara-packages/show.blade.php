@@ -69,12 +69,12 @@
                 @if ($package->type=='standard')
                   <div class="form-group">
                     <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#addSubtopicCollapse" aria-expanded="false" aria-controls="addSubtopicCollapse">
-                      Add a subtopic
+                      Add a MainTopic
                     </button>
                   </div>
                   <div class="collapse" id="addSubtopicCollapse" style="">
                     <div class="card card-body">
-                      <h2>Add Subtopics</h2>
+                      <h2>Add MainTopic</h2>
                       <form class="" action="{{route('packages.addMainTopic', $package->id)}}" method="post">
                         {{ csrf_field() }}
                         <div class="col-md-12">
@@ -134,6 +134,57 @@
                 @if ($package->type=='custom')
 
                   <div class="card-body">
+                    <div class="form-group">
+                      <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#addSubtopicCollapse" aria-expanded="false" aria-controls="addSubtopicCollapse">
+                        Add a Custom MainTopic
+                      </button>
+                    </div>
+                    <div class="collapse" id="addSubtopicCollapse" style="">
+                      <div class="card card-body">
+                        <h2>Add Custom MainTopic</h2>
+                        {{ csrf_field() }}
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="customMainTopic">Subtopics :</label>
+                            <select class="js-example-basic-multiple js-states form-control" id="customMainTopicSelect" name="customMainTopic">
+                              <option value="">Select an option</option>
+                              @foreach ($mainTopics as $mainTopic)
+                                <option value="{{$mainTopic->id }}"
+                                  {{($exits=$package->customMainTopics()
+                                    ->wherePivot('mainTopic_id',$mainTopic->id)
+                                    ->wherePivot('package_id',$package->id)
+                                    ->count()> 0) ? 'disabled':''}}>
+                                  {{'('.$mainTopic->id.') '.$mainTopic->name}}
+                                   {{($exits) ? '(Already Exist)' :''}}
+                                </option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        <input type="hidden" id="packageID" name="package_id" value="{{$package->id}}">
+
+                        <div class="card-body row" id="customSubTopicsBody" style="display:none">
+                          <div class="mx-auto my-auto spinner" id="customSubTopicSpinnerDiv">
+                            <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          </div>
+                          <form id="addCustomMainSubTopicForm" class="col-12"  method="post">
+
+                            <div class=""id="customSubTopicList" >
+
+                            </div>
+
+                            <div class="form-group col-12">
+                              <button id="customTopicSaveBtn" type="submit" name="button" class="btn btn-rounded btn-success px-5 waves-dark float-right">
+                                Save
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="row">
                       <div class="list-group col-md-10" id="customMainTopicsTab">
                         {{-- {{dd($package->customMainTopics->groupBy('AS_MainTopics.mainTopic_id'))}} --}}
@@ -141,9 +192,16 @@
 
                           <div class="list-group-item d-flex flex-justify-cotent-between">
                             <a href="#customSubTopic{{$customMainTopic->id}}" class="col my-auto" onclick="openSubtopicTab({{$package->id}},{{$customMainTopic->id}})">{{$customMainTopic->name}}</a>
-                            <div class="">
-                              <a class="btn btn-info" href="{{route('mainTopics.show', $customMainTopic->id)}}">View</a>
-                              <button class="btn btn-danger"type="button" name="button">Remove</button>
+                            <div class="row mx-auto">
+                              <a class="btn btn-info mr-1" href="{{route('mainTopics.show', $customMainTopic->id)}}">View</a>
+                              <form class="deleteForm" action="{{route('removeCustomMainTopic', [$package->id])}}" method="post">
+                                @method('delete')
+                                {{ csrf_field() }}
+                                <input type="hidden" name="mainTopic" value="{{$customMainTopic->id}}">
+                                <div class="">
+                                  <button class="btn btn-danger" type="submit" name="button">Remove</button>
+                                </div>
+                              </form>
                             </div>
                           </div>
                         @endforeach
@@ -152,7 +210,7 @@
 
                       <div class="col-md-6 card m-0" id="customSubTopicTab" style="display:none">
                         <div class="mx-auto my-auto spinner" id="spinnerDiv">
-                          <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                          <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
                             <span class="sr-only">Loading...</span>
                           </div>
                         </div>
@@ -265,6 +323,82 @@
         // always executed
       });
 
+    });
+
+    $('body').on('submit', '#addCustomMainSubTopicForm', function(event) {
+      event.preventDefault();
+      $('#customTopicSaveBtn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>').attr('disabled', 'disabled');;
+      var package_id=$(this).find('#package_id').val();
+      var mainTopic_id=$(this).find('#mainTopic_id').val();
+      var  formData = $(this).serialize();
+      console.log(formData);
+      axios.post('/packages/'+package_id+'/MainTopics/'+mainTopic_id+'/customSubTopics',{
+        formData:formData
+
+      })
+      .then(function (response) {
+        $.toast({
+          heading: 'Updated',
+          text: 'Main Topics lists updated successfully',
+          position: 'top-right',
+          loaderBg:'#ffffff',
+          icon: 'success',
+          hideAfter: 3000,
+          stack: 6
+        });
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        $('#customTopicSaveBtn').html('Save').removeAttr('disabled');
+location.reload();
+        // always executed
+      });
+
+    });
+
+    $('#customMainTopicSelect').on('change', function(event) {
+      var customMainTopic_id=$(this).val();
+      $('#addCustomMainSubTopicForm').hide();
+
+      if(customMainTopic_id){
+        $('#customSubTopicsBody').show();
+        $('#customSubTopicSpinnerDiv').show();
+        var packageID= $('#packageID').val();
+        axios.get('/packages/'+packageID+'/MainTopics/'+customMainTopic_id+'/customSubTopics')
+        .then(function (response) {
+          console.log(response);
+          $('#customSubTopicList').empty();
+          // handle success
+          var results=response.data;
+          var subTopics=results.Subtopics;
+          var mainTopic=results.mainTopic;
+          $('#customSubTopicList').append('<h4>'+mainTopic.name+'</h4>');
+          $('#customSubTopicList').append('<input id="package_id" type="hidden" name="package_id" value="'+packageID+'">');
+          $('#customSubTopicList').append('<input id="mainTopic_id" type="hidden" name="mainTopic_id" value="'+customMainTopic_id+'"> ');
+
+          subTopics.forEach(function (subTopic) {
+            $('#customSubTopicList').append('<div class="" >'
+            +'<input id="subTopic'+subTopic.sectionid+'" type="checkbox" class="subtopic-checkbox"  name="custom-subTopics[]" value="'+subTopic.sectionid+'">'
+            +'<label for="subTopic'+subTopic.sectionid+'"> '+subTopic.name+ ' ('+subTopic.sectionid+')</label>'
+            +'</div>');
+          });
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+          $('#customSubTopicSpinnerDiv').hide();
+          $('#addCustomMainSubTopicForm').show();
+
+        });
+
+      }
     });
 
   });

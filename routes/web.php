@@ -15,8 +15,12 @@
 
 Route::get('/packages/{package}/MainTopics/{mainTopic}/customSubTopics', 'PackageController@getCustomSubTopics')->name('getCustomSubTopics');
 Route::post('/packages/{package}/MainTopics/{mainTopic}/customSubTopics', 'PackageController@updateCustomSubTopics')->name('updateCustomSubTopics');
+Route::delete('/packages/{package}/removeCustomMainTopic', 'PackageController@removeCustomMainTopic')->name('removeCustomMainTopic');
+Route::post('/packages/{package}/MainTopics/{mainTopic}/addNewCustomTopics', 'PackageController@addNewCustomTopics')->name('addNewCustomTopics');
 
-Route::post('/authorities/api/', 'AuthorityApiController@store')->name('authorityAPI.store');
+// Route::post('/authorities/authorityAPI/', 'AuthorityApiController@store')->name('authorityAPI.store');
+// Route::put('/authorities/{authorityApi}/api/', 'AuthorityApiController@update')->name('authorityAPI.update');
+Route::resource('/authorityApi','AuthorityApiController');
 Route::resource('/authorities','AuthorityController');
 Route::post('/packages/{package}/mainTopic/','PackageController@addMainTopic')->name('packages.addMainTopic');
 Route::delete('/packages/{package}/mainTopic','PackageController@removeMainTopic')->name('packages.removeMainTopic');

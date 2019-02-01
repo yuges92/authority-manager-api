@@ -191,4 +191,34 @@ class PackageController extends Controller
     return response()->json($results);
 
   }
+
+  public function removeCustomMainTopic(Request $request, Package $package)
+  {
+    $package->customMainTopics()->detach($request->input('mainTopic'));
+    return redirect()->back()->with('success', 'MainTopic removed from the package');
+  }
+
+  public function addNewCustomTopics(Request $request, Package $package, MainTopic $mainTopic)
+  {
+    // return response()->json($mainTopic);
+
+    // 
+    // $data_to_sync = [];
+    // parse_str($request->formData, $data);
+    // // $mainTopic->customSubTopics()->wherePivot('package_id', $package->id)->sync($data['custom-subTopics']);
+    // if(isset($data['custom-subTopics']) && sizeof($data['custom-subTopics'])>0){
+    //   foreach ($data['custom-subTopics'] as $subTopic_id) {
+    //     $data_to_sync[$subTopic_id]= ['mainTopic_id'=>$mainTopic->id];
+    //   }
+    // }
+    //
+    // $results=$package->customSubTopics()
+    //                  ->wherePivot('mainTopic_id', $mainTopic->id )
+    //                  ->wherePivot('package_id', $package->id)
+    //                  ->sync($data_to_sync );
+    //
+    // return response()->json($results);
+
+  }
+
 }

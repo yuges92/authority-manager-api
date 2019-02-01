@@ -14,4 +14,10 @@ class Authority extends Model
   {
       return $this->hasOne('App\AuthorityApi', 'authority_id');
   }
+
+  public function packages()
+  {
+    return $this->belongsToMany('App\Package', 'AS_authority_packages', 'authority_id','package_id')->withTimestamps();
+
+  }
 }

@@ -110,7 +110,7 @@ function addToSubtopicList(table) {
 
 
 function deleteForm() {
-  $('.dataTable').on('click', 'form.deleteForm', function() {
+  $(document).on('click', 'form.deleteForm', function() {
     $(this).submit(function(event) {
 
       event.preventDefault();

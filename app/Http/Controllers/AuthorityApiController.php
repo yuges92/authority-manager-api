@@ -43,7 +43,9 @@ class AuthorityApiController extends Controller
       'password' => 'required',
       'start_date' => 'required',
       'expiry_date' => 'required',
+      'packages'  =>  'required'
     ]);
+
     $authorityApi= new AuthorityApi();
     $authorityApi->authority_id =$request->input('authority_id') ;
     $authorityApi->username = $request->input('username');
@@ -51,9 +53,10 @@ class AuthorityApiController extends Controller
     $authorityApi->start_date = $request->input('start_date');
     $authorityApi->expiry_date = $request->input('expiry_date');
     $authorityApi->isActive =1 ;
+    // dd($authorityApi);
     $authorityApi->save();
-
-    return redirect()->back()->with('success', 'Api Account Created');
+    $authorityApi->authority->packages()->attach($request->input('packages'));
+    return redirect()->route('authorities.index')->with('success', 'Api Account Created');
 
   }
 
@@ -88,7 +91,18 @@ class AuthorityApiController extends Controller
   */
   public function update(Request $request, AuthorityApi $authorityApi)
   {
-    //
+    $this->validate($request, [
+      'username' => 'required',
+      'start_date' => 'required',
+      'expiry_date' => 'required',
+    ]);
+    $authorityApi->username = $request->input('username');
+    $authorityApi->start_date = $request->input('start_date');
+    $authorityApi->expiry_date = $request->input('expiry_date');
+    $authorityApi->isActive =$request->input('isActive') ? 1:0 ;
+    $authorityApi->update();
+
+    return redirect()->back()->with('success', 'Api Account Updated');
   }
 
   /**
@@ -99,6 +113,7 @@ class AuthorityApiController extends Controller
   */
   public function destroy(AuthorityApi $authorityApi)
   {
-    //
+  $authorityApi->delete();
+  return redirect()->back()->with('success', 'Api Account Deleted');
   }
 }

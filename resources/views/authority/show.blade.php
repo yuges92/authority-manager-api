@@ -110,7 +110,7 @@
 
           <div class="tab-pane active show" id="apiSettings" role="tabpanel">
             <div class="card-body">
-              <form class="row" action="{{route('authorities.update', $authority->authority_id)}}" method="post">
+              <form class="row" action="{{route('authorityApi.update', $authority->authorityApi->id)}}" method="post">
                 {{ csrf_field() }}
                 @method('PUT')
 
@@ -133,16 +133,15 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="col-md-12">
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label" for="date-range">Start/End Date :</label>
                       <div class="input-daterange input-group col" id="date-range">
-                        <input type="text" class="form-control" name="start_date" value="{{$authority->authorityApi->start_date}}">
+                        <input type="text" class="form-control" name="start_date" value="{{$authority->authorityApi->startDate()}}">
                         <div class="input-group-append">
                           <span class="input-group-text bg-info b-0 text-white">TO</span>
                         </div>
-                        <input type="text" class="form-control" name="end_date" value="{{$authority->authorityApi->expiry_date}}">
+                        <input type="text" class="form-control" name="expiry_date" value="{{$authority->authorityApi->expiryDate()}}">
                       </div>
                     </div>
                   </div>
@@ -157,32 +156,6 @@
               </div>
             </div>
 
-            <div class="tab-pane" id="hostedSettings" role="tabpanel">
-              <div class="card-body">
-                <form class="" action="{{route('authorities.update', $authority->authority_id)}}" method="post">
-                  {{ csrf_field() }}
-                  @method('PUT')
-
-                  <div class="form-group row">
-                    <label for="role" class="col-sm-2 col-form-label">Role:</label>
-                    <div class="col-sm-5">
-                      <select class="form-control" name="role">
-                        <option value="Admin">Admin</option>
-                        <option value="Manager">Manager</option>
-                        <option value="User">User</option>
-                        <option value="Authority">Authority</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group col-12">
-                    <input class="btn btn-rounded btn-success px-5 waves-dark float-right" type="submit" value="Save">
-                  </div>
-
-
-                </form>
-              </div>
-            </div>
 
             <!--second tab-->
             <div class="tab-pane" id="profile" role="tabpanel">
@@ -194,23 +167,32 @@
                       <tr>
                         <th>ID</th>
                         <th>Package</th>
-                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Is Active</th>
                         <th class="text-right"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      @for ($i=1; $i <=5; $i++)
+                      @foreach ($authority->packages as $package)
 
                         <tr>
-                          <td><a href="{{route('authorities.show', $i)}}">{{$i}}</a></td>
-                          <td><a href="{{route('authorities.show', $i)}}">Package Name</a></td>
-                          <td>package Description </td>
-                          <td class="text-right">
-                            <a href="{{route('packages.show', $i)}}" class="btn btn-primary">View Package</a>
-                            <a href="{{route('authorities.show', $i)}}" class="btn btn-danger">Remove</a>
+                          <td><a href="{{route('packages.show', $package->id)}}">{{$package->id}}</a></td>
+                          <td><a href="{{route('packages.show', $package->id)}}">{{$package->name}}</a></td>
+                          <td>{{$package->type}} </td>
+                          <td>{{$package->isActive}} </td>
+                          <td class="row">
+                            <a href="{{route('packages.show', $package->id)}}" class="btn btn-primary mr-1">View Package</a>
+                            {{-- <form class="deleteForm" action="{{route('mainTopics.destroy', [$authority->id])}}" method="post"> --}}
+                              @method('delete')
+                              {{ csrf_field() }}
+                              {{-- <input type="hidden" name="subtopic_id" value="{{$subTopic->sectionid}}"> --}}
+                              <div class="">
+                                <button class="btn btn-danger" type="submit" name="button">Remove</button>
+                              </div>
+                            {{-- </form> --}}
                           </td>
                         </tr>
-                      @endfor
+                    @endforeach
                     </tbody>
                   </table>
                 </div>

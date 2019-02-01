@@ -15,14 +15,14 @@ class AuthorityController extends Controller
     // $authorities =Authority::all();
     $authorities =AuthorityApi::all();
 
-    $title='Authorities';
+    $title='Authority API Accounts';
     return view('authority.index', compact('title', 'authorities'));
 
   }
 
   public function create()
   {
-    $title='New Authority';
+    $title='New Authority Api Account';
     $packages=Package::all();
     $authorities =Authority::all();
 
