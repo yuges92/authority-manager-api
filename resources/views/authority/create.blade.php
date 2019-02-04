@@ -27,7 +27,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="username">API Username :</label>
-                    <input type="text" class="form-control" id="username" name="username"  autocomplete="off">
+                    <input type="text" class="form-control" id="username" name="username"  autocomplete="off" value="{{old('username')}}">
                   </div>
                 </div>
 
@@ -56,21 +56,12 @@
 
               <!-- Step 2 Sara Packages-->
               <section id="" class="body"  >
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="form-group form-material">
-                      <label class="sr-only">Search</label>
-                      <input type="text" class="form-control form-control-line" value="" placeholder="Search packages">
-                    </div>
-                  </div>
-                </div>
-
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="packges">Packages :</label>
                     <select class="js-example-basic-multiple js-states form-control" id="packges" multiple="multiple" name="packages[]">
                       @foreach ($packages as $package)
-                        <option value="{{$package->id}}" @if(is_array(old('packges')) && in_array($package->id, old('packages'))) selected @endif >{{'('.$package->id.') '.$package->name}}</option>
+                        <option value="{{$package->id}}" @if(is_array(old('packges')) && in_array($package->id, old('packages'))) selected @endif >{{'('.$package->id.') '.$package->name.' (' .$package->type}})</option>
                         @endforeach
                       </select>
                     </div>

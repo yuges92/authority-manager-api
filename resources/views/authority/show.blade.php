@@ -133,6 +133,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="col-md-12">
                     <div class="form-group row">
                       <label class="col-sm-4 col-form-label" for="date-range">Start/End Date :</label>
@@ -160,7 +161,7 @@
             <!--second tab-->
             <div class="tab-pane" id="profile" role="tabpanel">
               <div class="card-body">
-                <button type="button" name="button" data-toggle="modal" data-target="#verticalcenter" class="btn btn-info">Add Package</button>
+                <button type="button" name="button" data-toggle="modal" data-target="#addPackagesModel" class="btn btn-info">Add Package</button>
                 <div class="table-responsive">
                   <table class=" display nowrap table table-hover table-striped table-bordered dataTable"  id="table_id">
                     <thead>
@@ -182,17 +183,17 @@
                           <td>{{$package->isActive}} </td>
                           <td class="row">
                             <a href="{{route('packages.show', $package->id)}}" class="btn btn-primary mr-1">View Package</a>
-                            {{-- <form class="deleteForm" action="{{route('mainTopics.destroy', [$authority->id])}}" method="post"> --}}
+                            <form class="deleteForm" action="{{route('authorityPackage.destroy', [$authority->authority_id,$package->id])}}" method="post">
                               @method('delete')
                               {{ csrf_field() }}
-                              {{-- <input type="hidden" name="subtopic_id" value="{{$subTopic->sectionid}}"> --}}
+                              <input type="hidden" name="package_id" value="{{$package->id}}">
                               <div class="">
                                 <button class="btn btn-danger" type="submit" name="button">Remove</button>
                               </div>
-                            {{-- </form> --}}
+                            </form>
                           </td>
                         </tr>
-                    @endforeach
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -214,9 +215,12 @@
       <!-- Column -->
     </div>
 
-    <div id="verticalcenter" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="vcenter" aria-hidden="true" style="display: none;">
-      <div class="modal-dialog modal-dialog-centered modal-xl">
-        <form>
+
+
+    <div id="addPackagesModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog">
+        <form class="" action="{{route('authorityPackage.store', $authority->authority_id)}}" method="post">
+          {{ csrf_field() }}
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title" id="vcenter">Choose a Package</h4>
@@ -225,11 +229,11 @@
             <div class="modal-body">
               <div class="col-md-12">
                 <div class="form-group ">
-                  <label for="authority_id">Choose Authority :</label>
-                  <select class="js-example-basic-single form-control col-12" name="authority_id" data-placeholder="Select a state" required id="authority_id" >
-                    <option value="">Choose an Authority</option>
+                  <label for="package_id">Choose packages :</label>
+                  <select class="js-example-basic-single form-control col-12" name="package_id[]" multiple required id="package_id" >
+                    <option value="" disabled>Choose an Authority</option>
                     @foreach ($packages as $package)
-                      <option value="{{$package->id}}" >{{'('.$package->id.') '.$package->name}}</option>
+                      <option {{($exist=$authority->packages->where('id', $package->id)->count()>0 ? 'disabled':'')}} value="{{$package->id}}" >{{'('.$package->id.') '.$package->name}}({{$package->type}}) <small>{{$exist ?'(Already Exist)' : ''}}</small></option>
                     @endforeach
                   </select>
                 </div>
@@ -237,7 +241,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Save</button>
+              <button type="submit" class="btn btn-info waves-effect" >Save</button>
             </div>
           </div>
         </form>
@@ -245,11 +249,6 @@
       </div>
       <!-- /.modal-dialog -->
     </div>
-
-
-
-
-
 
   @endsection
 

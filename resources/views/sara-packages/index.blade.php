@@ -48,7 +48,10 @@
                 <td><a href="{{route('packages.show', $package->id)}}">{{$package->id}}</a></td>
                 <td><a href="{{route('packages.show', $package->id)}}">{{$package->name}}</a></td>
                 <td>{{$package->isActive}}</td>
-                <td>{{$package->type}}</td>
+                <td >
+                  <span class="label label-{{$package->type=='custom' ? 'info': 'primary'}}">{{$package->type}}</span>
+
+                  </td>
                 <td><form class="deleteForm" action="{{route('packages.destroy', [$package->id])}}" method="post">
                   @method('delete')
                   {{ csrf_field() }}

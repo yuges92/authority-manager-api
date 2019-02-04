@@ -26,7 +26,11 @@ class Package extends Model
   }
 
 
+  public function authorities()
+  {
+    return $this->belongsToMany('App\Authority', 'AS_authority_packages', 'package_id','authority_id')->withTimestamps();
 
+  }
 
 
 }

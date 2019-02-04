@@ -55,7 +55,7 @@ class AuthorityApiController extends Controller
     $authorityApi->isActive =1 ;
     // dd($authorityApi);
     $authorityApi->save();
-    $authorityApi->authority->packages()->attach($request->input('packages'));
+    $authorityApi->authority->packages()->sync($request->input('packages'));
     return redirect()->route('authorities.index')->with('success', 'Api Account Created');
 
   }
@@ -113,7 +113,8 @@ class AuthorityApiController extends Controller
   */
   public function destroy(AuthorityApi $authorityApi)
   {
-  $authorityApi->delete();
-  return redirect()->back()->with('success', 'Api Account Deleted');
+    $authorityApi->authority->packages()->detach();
+    $authorityApi->delete();
+    return redirect()->back()->with('success', 'Api Account Deleted');
   }
 }

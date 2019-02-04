@@ -258,17 +258,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @for ($i=1; $i <=5; $i++)
+                  @foreach ($package->authorities as $authority)
+
 
                     <tr>
-                      <td><a href="{{route('authorities.show', $i)}}">{{$i}}</a></td>
-                      <td><a href="{{route('authorities.show', $i)}}">Authority Name</a></td>
-                      <td class="text-right">
-                        <a href="{{route('packages.show', $i)}}" class="btn btn-primary">View</a>
-                        <a href="{{route('authorities.show', $i)}}" class="btn btn-danger">Remove</a>
+                      <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->authority_id}}</a></td>
+                      <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->short_name}}</a></td>
+                      <td class="row mx-auto">
+                        <a href="{{route('authorities.show', $authority->authority_id)}}" class="btn btn-primary mr-1">View</a>
+                        <form class="deleteForm" action="{{route('authorityPackage.destroy', [$authority->authority_id,$package->id])}}" method="post">
+                          @method('delete')
+                          {{ csrf_field() }}
+                          <input type="hidden" name="package_id" value="{{$package->id}}">
+                          <div class="">
+                            <button class="btn btn-danger" type="submit" name="button">Remove</button>
+                          </div>
+                        </form>
                       </td>
                     </tr>
-                  @endfor
+                  @endforeach
                 </tbody>
               </table>
             </div>
