@@ -163,15 +163,7 @@
           <!--second tab-->
           <div class="tab-pane" id="packages" role="tabpanel">
             <div class="card-body">
-              <button class="btn btn-success collapsed" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Add to Package
-              </button>
-              <div class="collapse" id="collapseExample" style="">
-                <div class="card card-body">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                </div>
-              </div>
-              <button type="button" name="button" data-toggle="modal" data-target="#verticalcenter" class="btn btn-info">Add to Package</button>
+
               <div class="table-responsive">
                 <table class=" display nowrap table table-hover table-striped table-bordered dataTable data-table">
                   <thead>
@@ -182,17 +174,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @for ($i=1; $i <=5; $i++)
+                    @foreach ($mainTopic->packages as $package)
+
 
                       <tr>
-                        <td><a href="{{route('packages.show', $i)}}">{{$i}}</a></td>
-                        <td><a href="{{route('packages.show', $i)}}">Package Name</a></td>
+                        <td><a href="{{route('packages.show', $package->id)}}">{{$package->id}}</a></td>
+                        <td><a href="{{route('packages.show', $package->id)}}">{{$package->name}}</a></td>
                         <td class="text-right">
-                          <a href="{{route('packages.show', $i)}}" class="btn btn-primary">View</a>
-                          <a href="{{route('packages.show', $i)}}" class="btn btn-danger">Remove</a>
+                          {{-- <a href="{{route('packages.show', $package->id)}}" class="btn btn-primary">View</a> --}}
+                          {{-- <a href="{{route('packages.show', $package->id)}}" class="btn btn-danger">Remove</a> --}}
                         </td>
                       </tr>
-                    @endfor
+                  @endforeach
                   </tbody>
                 </table>
               </div>

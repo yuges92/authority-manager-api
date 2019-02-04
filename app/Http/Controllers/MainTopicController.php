@@ -141,9 +141,9 @@ class MainTopicController extends Controller
 
 
     //
-    // $this->validate($request, [
-    //   'subTopics' => 'required|unique:AS_main_subtopics,subtopic_id,NULL,id,mainTopic_id,'.$mainTopic->id
-    // ]);
+    $this->validate($request, [
+      'subTopics' => 'required'
+    ]);
 
     $mainTopic->subTopics()->syncWithoutDetaching($request->input('subTopics'));
     return redirect()->back()->with('success', 'SubTopic added to main topic');

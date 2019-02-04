@@ -152,6 +152,14 @@ $(document).ready(function () {
       stack: 6
     });
   });
+  $('button[type=submit]').on('click', function (event) {
+    $(this).attr('disabled');
+    /* Act on the event */
+  });
+  $('form').on('submit', function (event) {
+    $(this).find('input[type=submit]').val('loading...');
+    $(this).find('button[type=submit]').html('loading...');
+  });
   deleteForm();
 });
 

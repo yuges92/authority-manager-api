@@ -241,8 +241,6 @@
           </div>
         </div>
 
-
-
         <!--second tab-->
         <div class="tab-pane" id="authorities" role="tabpanel">
           <div class="card-body">
@@ -259,7 +257,6 @@
                 </thead>
                 <tbody>
                   @foreach ($package->authorities as $authority)
-
 
                     <tr>
                       <td><a href="{{route('authorities.show', $authority->authority_id)}}">{{$authority->authority_id}}</a></td>
