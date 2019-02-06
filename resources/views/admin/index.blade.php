@@ -27,11 +27,14 @@
           <td>{{$user->email}}</td>
           <td>{{$user->role}}</td>
           <td class="row"><a class="btn btn-success mr-1" href="{{route('users.edit', [$user->id])}}">Edit</a>
+            @if (Auth::user()->role=='Developer')
+
             <form class="deleteForm" action="{{route('users.destroy',[$user->id])}}" method="post">
               {{ csrf_field() }}
               @method('Delete')
               <input class="btn btn-danger" type="submit" value="Delete">
             </form>
+          @endif
           </td>
           </tr>
         @endforeach

@@ -11,6 +11,9 @@
         <label for="role" class="col-sm-2 col-form-label">Role:</label>
         <div class="col-sm-5">
           <select class="form-control" name="role">
+            @if (Auth::user()->role=='Developer')
+              <option value="Developer">Developer</option>
+            @endif
             <option value="Admin">Admin</option>
             <option value="Manager">Manager</option>
             <option value="User">User</option>
