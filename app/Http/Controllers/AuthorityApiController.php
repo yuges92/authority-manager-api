@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\AuthorityApi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthorityApiController extends Controller
 {
@@ -46,10 +47,11 @@ class AuthorityApiController extends Controller
       'packages'  =>  'required'
     ]);
 
+
     $authorityApi= new AuthorityApi();
     $authorityApi->authority_id =$request->input('authority_id') ;
     $authorityApi->username = $request->input('username');
-    $authorityApi->password = $request->input('password');
+    $authorityApi->password = Hash::make($request->input('password'));
     $authorityApi->start_date = $request->input('start_date');
     $authorityApi->expiry_date = $request->input('expiry_date');
     $authorityApi->isActive =1 ;

@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use Mail;
+use Auth;
+use Hash;
+use Validator;
+use App\AuthorityApi;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PackageResource;
 
-class AuthController extends Controller
+class AuthController extends ApiBaseController
 {
   /**
   * Display a listing of the resource.
@@ -16,8 +21,13 @@ class AuthController extends Controller
   */
   public function index()
   {
-    $user = User::findOrFail(1);
-    return response()->json($user);
+    // $authority=AuthorityApi::where('authority_id',1088)->get();
+    $authority=auth()->guard('api')->user();
+    // $authority->authority()->packages;
+    $package= new PackageResource($authority->authority->packages->first());
+    return $this->sendResponse($package, 'Packages retrieved successfully.');
+
+    return response()->json(['data' => $package], 200);
     // $data = array('name'=>"Virat Gandhi");
     // Mail::send('emails.reminder', $data, function ($m) {
     //   $m->from('noreply@dlfemail.org.uk', 'Your Application');
@@ -27,15 +37,7 @@ class AuthController extends Controller
 
   }
 
-  /**
-  * Show the form for creating a new resource.
-  *
-  * @return \Illuminate\Http\Response
-  */
-  public function create()
-  {
-    //
-  }
+
 
   /**
   * Store a newly created resource in storage.
@@ -43,53 +45,41 @@ class AuthController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
-  public function store(Request $request)
+  public function login(Request $request)
   {
-    //
+    $rules= [
+      'username'=>'required',
+      'password'=>'required'
+    ];
+    $input= $request->only('username','password');
+    $validator =Validator::make($input,$rules);
+    if($validator->fails()){
+      $error=$validator->messages();
+      // return response()->json(['error' => $error], 401);
+      return $this->sendError('error', $error,401);
+
+    }
+
+    $username = $request->input('username');
+    $password = $request->input('password');
+    $authorityApi=AuthorityApi::where('username', $username)->first();
+    // dd($authorityApi);
+    if($authorityApi){
+      if(Hash::check($password, $authorityApi->password)){
+        $accessToken=$authorityApi->createToken('AuthToken');
+        // dd($accessToken);
+        $token=$accessToken->accessToken;
+        $expiryDate=$accessToken->token->expires_at;
+
+        return $this->sendResponse(['accessToken'=>$token, 'expires_at'=>$expiryDate], 'Token retrieved successfully.');
+
+      }
+    }
+
+    return $this->sendError('error', 'Invalid Credential',404);
+    // return response()->json(['error' => 'Invalid Credential'], 401);
+
   }
 
-  /**
-  * Display the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function show($id)
-  {
-    //
-  }
 
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function edit($id)
-  {
-    //
-  }
-
-  /**
-  * Update the specified resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function update(Request $request, $id)
-  {
-    //
-  }
-
-  /**
-  * Remove the specified resource from storage.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function destroy($id)
-  {
-    //
-  }
 }

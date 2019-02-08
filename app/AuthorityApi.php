@@ -2,10 +2,16 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+ use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class AuthorityApi extends Model
+class AuthorityApi extends Authenticatable
 {
+  use HasApiTokens, Notifiable;
+
+  // protected $guard= 'authorityApi';
   protected $table = 'AS_api_authorities';
   // protected $dates = [
   //     'start_date',
@@ -16,7 +22,9 @@ class AuthorityApi extends Model
 
   // protected $fillable = ['authority_id','username','password','start_date','end_date', 'slug'];
 
-
+  protected $hidden = [
+    'password',
+  ];
 
   public function authority()
   {

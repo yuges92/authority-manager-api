@@ -42,8 +42,13 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver' => 'passport',
+            'provider' => 'authorityApi',
+        ],
+
+        'authorityApi' => [
+            'driver' => 'passport',
+            'provider' => 'authorityApi',
         ],
     ],
 
@@ -74,6 +79,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'authorityApi' => [
+            'driver' => 'eloquent',
+            'model' => App\AuthorityApi::class,
+        ],
     ],
 
     /*
