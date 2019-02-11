@@ -26,8 +26,13 @@ Route::group(['domain' => 'api-asksara'], function(){
   Route::post('/login', 'Api\AuthController@login');
   // Route::get('/user', 'Api\AuthController@index');
   Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('/v1/user', 'Api\AuthController@index');
+    // Route::get('/v1/user', 'Api\AuthController@index');
     Route::get('/v1/packages', 'Api\PackageController@index');
+    Route::get('/v1/packages/{package}', 'Api\PackageController@show');
+    Route::get('/v1/mainTopics', 'Api\MainTopicController@index');
+    Route::get('/v1/mainTopics/{mainTopic}', 'Api\MainTopicController@show');
+    Route::get('/v1/subTopics/{subTopic}', 'Api\MainTopicController@index');
+    Route::get('/v1/mainTopics', 'Api\MainTopicController@index');
   });
 
 

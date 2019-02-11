@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MainTopicResource extends JsonResource
+class CustomMaintopicResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,7 +20,7 @@ class MainTopicResource extends JsonResource
           "description"=>$this->description,
           "filename"=>$this->filename,
           "order"=>$this->order,
-          "subTopics"=>SubTopicResource::collection($this->subtopics),
+          "subTopics"=>SubTopicResource::collection($this->customSubTopics),
         ];
     }
 }

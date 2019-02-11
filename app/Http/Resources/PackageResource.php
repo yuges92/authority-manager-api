@@ -22,7 +22,7 @@ class PackageResource extends JsonResource
            "description"=> $this->description,
            "type"=> $this->type,
            // "isActive"=> $this->isActive,
-           "mainTopics"=>$this->mainTopics,
+           "mainTopics"=>$this->type=='custom' ? CustomMainTopicResource::collection($this->customMainTopics()->wherePivot('package_id', $this->id)->get()->unique()):MainTopicResource::collection($this->mainTopics),
         ];
     }
 }

@@ -14,6 +14,13 @@ class SubTopicResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+          "subTopic_id"=>$this->sectionid,
+          "name"=>$this->name,
+          "firstQuestion_id"=>$this->firstquestionid,
+          "description"=>$this->description,
+          "image"=>'https://images-dev.dlf.org.uk/sara4/dynamic/topic_images/'.$this->filename,
+          "order"=>$this->order,
+        ];
     }
 }
