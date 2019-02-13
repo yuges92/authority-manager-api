@@ -37,19 +37,20 @@ class MainTopicController extends ApiBaseController
 
     if($mainTopics->contains('id', $mainTopic->id)){
       $mainTopicResource= new MaintopicResource($mainTopic);
-    } elseif($customMainTopics->contains('id', $mainTopic->id)){
-      $mainTopicResource= new CustomMaintopicResource($mainTopic);
-      // $mainTopicResource=$mainTopic->customSubTopics()->where('mainTopic_id', $mainTopic->id)->get()->first()->customPackages();
-      // $package= $authorityApi->authority->packages()->each(function ($package) use ($mainTopic){
-      //   if($package->cus){
-      //
-      //     return $package;
-      //   }
-      // });
-
     }
+    // elseif($customMainTopics->contains('id', $mainTopic->id)){
+    //   $mainTopicResource= new CustomMaintopicResource($mainTopic);
+    //   // $mainTopicResource=$mainTopic->customSubTopics()->where('mainTopic_id', $mainTopic->id)->get()->first()->customPackages();
+    //   // $package= $authorityApi->authority->packages()->each(function ($package) use ($mainTopic){
+    //   //   if($package->cus){
+    //   //
+    //   //     return $package;
+    //   //   }
+    //   // });
+    //
+    // }
 
-    return $this->sendResponse($customMainTopics, 'MainTopic retrieved successfully.');
+    return $this->sendResponse($mainTopicResource, 'MainTopic retrieved successfully.');
 
   }
 }

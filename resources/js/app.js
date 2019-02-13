@@ -32,6 +32,7 @@ require('./template/js/jquery.validate.min');
 
 import dt from 'datatables.net';
 require('sweetalert');
+require('dropify');
 
 // require('./template/js/steps');
 // require('./template/js/jQuery.style.switcher');

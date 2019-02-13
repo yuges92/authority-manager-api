@@ -94,6 +94,8 @@ $('form').on('submit', function(event) {
 });
 
   deleteForm();
+
+  $('.dropify').dropify();
 });
 
 function openSubtopicTab() {

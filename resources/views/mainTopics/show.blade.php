@@ -14,7 +14,7 @@
         <div class="tab-content">
           <div class="tab-pane active show" id="home" role="tabpanel">
             <div class="card-body">
-              <form class="row" action="{{route('mainTopics.update', $mainTopic->id)}}" method="post">
+              <form class="row" action="{{route('mainTopics.update', $mainTopic->id)}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 @method('PUT')
 
@@ -70,7 +70,7 @@
                   <div class="form-group row">
                     <label for="filename" class="col-sm-4 col-form-label">File Name:</label>
                     <div class="col">
-                      <input name="filename" type="text" class="form-control" id="filename" value="{{ $mainTopic->filename }}" placeholder="Filename">
+                      <input type="file" name="filename" id="filename" class="dropify " data-height="300" data-default-file="{{ $mainTopic->getFile() }}"  data-min-width="300" data-allowed-file-extensions="png jpg jpeg svg">
                     </div>
                   </div>
                 </div>

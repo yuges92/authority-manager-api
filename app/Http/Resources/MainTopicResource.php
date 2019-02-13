@@ -18,7 +18,7 @@ class MainTopicResource extends JsonResource
           "mainTopic_id"=>$this->id,
           "name"=>$this->name,
           "description"=>$this->description,
-          "filename"=>$this->filename,
+          "filename"=>$this->getFile(),
           "order"=>$this->order,
           "subTopics"=>SubTopicResource::collection($this->subtopics),
         ];

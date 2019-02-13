@@ -12,7 +12,7 @@
 */
 
 
-$apiDomain= env("API_DOMAIN", "apidev-asksara.dlf.org.uk/");
+$apiDomain= env("API_DOMAIN", "apidev-asksara.dlf.org.uk");
 $editorDomain= env("EDITOR_DOMAIN", "saraeditor-dev2.dlf.org.uk");
 
 
@@ -58,6 +58,8 @@ Route::group(['domain' => $editorDomain], function(){
 
 
 Route::group(['domain' => $apiDomain], function(){
-  Route::get('/login', 'Api\AuthController@index');
+  Route::get('/login', function (){
+dd('Hello World');
+});
 
 });

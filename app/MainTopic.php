@@ -32,4 +32,10 @@ class MainTopic extends Model
       return $this->belongsToMany('App\SubTopic', 'AS_custom_maintopics_package_subtopics','mainTopic_id','subtopic_id')->withPivot('package_id')->withTimestamps();
     }
 
+
+    public function getFile()
+    {
+      return 'https://images-dev.dlf.org.uk/sara4/dynamic/mainTopics_images/'.$this->filename;
+    }
+
 }

@@ -22,7 +22,13 @@ $editorDomain= env("EDITOR_DOMAIN", "saraeditor-dev2.dlf.org.uk");
 
 
 
-Route::group(['domain' => 'api-asksara'], function(){
+Route::group(['domain' => $apiDomain], function(){
+  Route::get('/test', function ()
+  {
+    return response()->json('Hello World', 200);
+
+    });
+
   Route::post('/login', 'Api\AuthController@login');
   // Route::get('/user', 'Api\AuthController@index');
   Route::group(['middleware' => 'auth:api'], function(){

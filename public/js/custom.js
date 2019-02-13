@@ -161,6 +161,7 @@ $(document).ready(function () {
     $(this).find('button[type=submit]').html('loading...');
   });
   deleteForm();
+  $('.dropify').dropify();
 });
 
 function openSubtopicTab() {
@@ -237,7 +238,7 @@ function sweetAlertConfirm() {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\16396\Documents\Websites\authority-manager\resources\js\custom.js */"./resources/js/custom.js");
+module.exports = __webpack_require__(/*! D:\Websites\saraeditor2.dlf.org.uk\resources\js\custom.js */"./resources/js/custom.js");
 
 
 /***/ })

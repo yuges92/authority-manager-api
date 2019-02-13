@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-body wizard-content">
           <h4 class="card-title">Main Topics Manager</h4>
-          <form action="{{route('mainTopics.store')}}" class=" clearfix" method="post">
+          <form action="{{route('mainTopics.store')}}" class=" clearfix" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="content clearfix">
               <!-- Step 1 -->
@@ -35,11 +35,14 @@
                 </div>
 
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <div class="form-group ">
                     <label for="filename">Main Topic filename :</label>
-                    <input type="text" class="form-control" id="filename" name="filename" value="{{old('filename')}}">
+
+                    <input type="file" name="filename" id="filename" class="dropify " data-height="300" data-default-file="{{old('filename')}}" value="{{old('filename')}}" data-min-width="400" data-allowed-file-extensions="png jpg jpeg svg">
+
                   </div>
                 </div>
+
 
                 <div class="col-md-6">
                   <div class="form-group">

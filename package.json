@@ -26,9 +26,11 @@
     "dependencies": {
         "datatables.net": "^1.10.19",
         "datatables.net-dt": "^1.10.19",
+        "dropify": "^0.2.2",
         "jquery-wizard": "^0.4.4",
         "jquery.steps": "^1.0.1",
         "strip": "^3.0.0",
+        "sweetalert": "^2.1.2",
         "sweetalert2": "^8.0.1"
     }
 }
