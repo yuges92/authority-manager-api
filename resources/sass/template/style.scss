@@ -5,10 +5,10 @@
 @import 'pages';
 @import 'sidebar';
 @import 'icons/font-awesome/css/fontawesome-all';
-@import '/icons/simple-line-icons/css/simple-line-icons';
+@import 'icons/simple-line-icons/scss/simple-line-icons';
 // @import '/icons/weather-icons/css/weather-icons.min';
 // @import '/icons/linea-icons/linea';
-@import '/icons/themify-icons/themify-icons';
+@import 'icons/themify-icons/themify-icons';
 // @import '/icons/flag-icon-css/flag-icon.min';
 // @import "/icons/material-design-iconic-font/css/materialdesignicons.min";
 @import 'widgets';
@@ -19,6 +19,7 @@
 @import 'spinners';
 @import "colors/megna-dark";
 @import "plugins/steps";
-// @import "plugins/formValidation.min";
+@import "plugins/formValidation.min";
+@import "plugins/jquery.toast";
 // @import "plugins/wizard";
 // node_modules\jquery.steps\dist\jquery-steps.css

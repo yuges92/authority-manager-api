@@ -10,6 +10,7 @@ require('./bootstrap');
 // require('./template/js/custom');
 // require('./template/js/jquery.slimscroll');
 
+
 // require('./template/js/jquery.min');
 // require('./template/js/popper.min');
 // require('./template/js/bootstrap.min');
@@ -18,20 +19,25 @@ require('./template/js/waves');
 require('./template/js/sidebarmenu');
 require('./template/js/sticky-kit.min');
 require('./template/js/jquery.sparkline.min');
-require('jquery.steps');
+// require('jquery.steps');
+
 require('./template/js/custom.min');
+require('./template/plugins/formValidation.min');
+require('./template/plugins/jquery.toast');
+// require('./template/plugins/jquery-wizard.min');
+// require('./template/js/steps');
+require('./template/js/jquery.validate.min');
+// require('./template/js/toastr');
+// require('./custom');
 
-
-$('#demo1').steps({
-  onFinish: function () {
-    alert('Wizard Completed');
-  }
-});
-
+import dt from 'datatables.net';
+require('sweetalert');
+require('dropify');
 
 // require('./template/js/steps');
 // require('./template/js/jQuery.style.switcher');
 
+// require('./template/js/steps');
 
 
 // window.Vue = require('vue');
