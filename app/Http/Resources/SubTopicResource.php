@@ -17,7 +17,7 @@ class SubTopicResource extends JsonResource
         return [
           "subTopic_id"=>$this->sectionid,
           "name"=>$this->name,
-          "firstQuestion_id"=>$this->firstquestionid,
+          "firstQuestion_id"=>$this->getFirstQuestionID(),
           "description"=>$this->description,
           "image"=>'https://images-dev.dlf.org.uk/sara4/dynamic/topic_images/'.$this->filename,
           "order"=>$this->order,

@@ -12,8 +12,8 @@
 */
 
 
-$apiDomain= env("API_DOMAIN", "apidev-asksara.dlf.org.uk");
-$editorDomain= env("EDITOR_DOMAIN", "saraeditor-dev2.dlf.org.uk");
+$apiDomain= config('sara.saraApiDomain');
+$editorDomain= config('sara.saraEditorDomain');
 
 
 

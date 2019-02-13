@@ -25,5 +25,16 @@ class SubTopic extends Model
   }
 
 
+public function getFirstQuestionID()
+{
+  if($this->firstquestionid==''){
+// $id=preg_match('%<div[^>]+id="something"[^>]*>(.*?)</div>%si', $string)
+
+    $this->firstquestionid=$this->url;
+
+  }
+
+return  $this->firstquestionid;
+}
 
 }

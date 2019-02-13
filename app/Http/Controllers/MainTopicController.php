@@ -121,7 +121,7 @@ class MainTopicController extends Controller
     if($request->hasFile('filename')){
       $image= $request->file('filename');
       $name=$mainTopic->id.'.'.$image->getClientOriginalExtension();
-      $destinationPath ='D:/Websites/images.dlf.org.uk/htdocs/sara4/dynamic/mainTopics_images';
+      $destinationPath =config('sara.saraImagesPath').'/mainTopics_images';
       $image->move($destinationPath, $name);
       $mainTopic->filename=$name;
     }

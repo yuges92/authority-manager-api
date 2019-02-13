@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-$apiDomain= env("API_DOMAIN", "apidev-asksara.dlf.org.uk");
-$editorDomain= env("EDITOR_DOMAIN", "saraeditor-dev2.dlf.org.uk");
+$apiDomain= config('sara.saraApiDomain');
+$editorDomain= config('sara.saraEditorDomain');
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //   return response()->json(['data' => $request], 200);

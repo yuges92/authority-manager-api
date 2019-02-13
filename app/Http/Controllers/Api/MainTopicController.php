@@ -15,7 +15,7 @@ class MainTopicController extends ApiBaseController
   public function index()
   {
     $authorityApi=auth()->guard('api')->user();
-    $mainTopics=  MaintopicResource::collection($authorityApi->authority->packages()->with('mainTopics')->get()->pluck('mainTopics')->flatten());
+    $mainTopics=  MaintopicResource::collection($authorityApi->authority->packages()->with('mainTopics')->get()->pluck('mainTopics')->flatten()->unique('id'));
     $customMainTopics=  CustomMaintopicResource::collection($authorityApi->authority->packages()->with('customMainTopics')->get()->pluck('customMainTopics')->flatten()->unique('id'));
     // $allMainTopics=$mainTopics->merge($customMainTopics);
     // $allMainTopics=($mainTopics->merge($customMainTopics))->unique('id');
