@@ -33,4 +33,9 @@ class Package extends Model
   }
 
 
+public function subTopics()
+{
+return $this->hasManyThrough('App\MainTopic', 'App\SubTopic');
+}
+
 }

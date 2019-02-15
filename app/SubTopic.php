@@ -8,6 +8,7 @@ class SubTopic extends Model
 {
   protected $table = 'AS_section';
   protected $primaryKey = 'sectionid';
+  protected $imageFolder = 'topic_images';
 
   public function mainTopics()
   {
@@ -25,16 +26,31 @@ class SubTopic extends Model
   }
 
 
-public function getFirstQuestionID()
-{
-  if($this->firstquestionid==''){
-// $id=preg_match('%<div[^>]+id="something"[^>]*>(.*?)</div>%si', $string)
+  public function getFirstQuestion()
+  {
+    if($this->firstquestionid==''){
+      // $id=preg_match('%<div[^>]+id="something"[^>]*>(.*?)</div>%si', $string)
+      //need to work on this
+      $firstQuestion=$this->url;
 
-    $this->firstquestionid=$this->url;
+    }else {
+      $firstQuestion=$this->questions->find($this->firstquestionid);
 
+    }
+
+    return  $firstQuestion;
   }
 
-return  $this->firstquestionid;
-}
+
+  public function getImageLink()
+  {
+    return (config('sara.saraImagesURL')."/{$this->imageFolder}/{$this->filename}");
+  }
+
+
+  public function questions()
+  {
+    return $this->hasMany('App\Question', 'sectionid');
+  }
 
 }
