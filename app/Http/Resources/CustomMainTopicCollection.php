@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SubTopicsCollection extends ResourceCollection
+class CustomMainTopicCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -14,9 +14,12 @@ class SubTopicsCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-          'subTopics'=>SubTopicResource::collection($this->collection),
-          'totalSubTopics'=>count($this->collection)
-        ];
+      return [
+        'subTopics'=>SubTopicResource::collection($this->collection),
+        'count'=> count($this->collection),
+      ];
     }
+
+
+
 }

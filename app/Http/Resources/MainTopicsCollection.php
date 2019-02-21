@@ -15,7 +15,9 @@ class MainTopicsCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-          'mainTopics'=>MaintopicResource::collection($this->collection)
+          'mainTopics'=>MaintopicResource::collection($this->collection),
+          'count'=> count($this->collection)
+          
         ];
     }
 }

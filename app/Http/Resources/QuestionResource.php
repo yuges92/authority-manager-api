@@ -19,7 +19,7 @@ class QuestionResource extends JsonResource
         "description"=>$this->sadescription,
         "subtopic_id"=>$this->sectionid,
         "image"=> $this->getImageLink(),
-        "answers"=>AnswerResource::collection($this->answers),
+        "answers"=>($this->answers) ?AnswerResource::collection($this->answers) : null,
       ];
     }
 }

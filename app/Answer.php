@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Question;
 class Answer extends Model
 {
   protected $table = 'AS_answer';
@@ -19,7 +19,8 @@ class Answer extends Model
     $nextQuestion=null;
     if($nextquestionid=$this->pivot->nextquestionid){
 
-      $nextQuestion=$this->questions->firstWhere('questionid','=',$nextquestionid);
+      // $nextQuestion=$this->questions->firstWhere('questionid','=',$nextquestionid);
+      $nextQuestion=Question::find($nextquestionid);
 
     }
     return $nextQuestion;

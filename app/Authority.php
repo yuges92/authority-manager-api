@@ -20,4 +20,22 @@ class Authority extends Model
     return $this->belongsToMany('App\Package', 'AS_authority_packages', 'authority_id','package_id')->withTimestamps();
 
   }
+
+  public function users()
+  {
+    return $this->hasMany('App\AuthorityUser', 'authority_id');
+
+  }
+
+
+  public function getAllSubTopics()
+  {
+    // $authorityApi=auth()->guard('api')->user();
+    // $mainTopics=  ($authorityApi->authority->packages()->where('type','standard')->with('mainTopics.subTopics')->get());
+    $subTopics=  $this->packages()->with('mainTopics')->get()->pluck('mainTopics')->flatten()->pluck('subTopics')->flatten()->unique('sectionid');
+    $customSubTopics=$this->packages()->where('type','custom')->with('customSubTopics')->get()->pluck('customSubTopics')->flatten()->unique('sectionid');
+    $mergedSubTopics=$subTopics->merge($customSubTopics)->unique('sectionid');
+
+    return $mergedSubTopics;
+  }
 }

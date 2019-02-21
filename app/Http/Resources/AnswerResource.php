@@ -20,7 +20,7 @@ class AnswerResource extends JsonResource
         "nextQuestion"=>$this->getNextQuestionID(),
         // "isLastQuestion"=>(!$this->getNextQuestionID() ?true : false),
         // "subtopic_id"=>$this->sectionid,
-        // "answers"=>$this->answers,
+        // "nextQuestion"=>($question=$this->getNextQuestion()),
       ];
     }
 }

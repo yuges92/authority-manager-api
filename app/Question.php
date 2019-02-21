@@ -22,6 +22,14 @@ class Question extends Model
 
   public function answers()
   {
-  return $this->belongsToMany('App\Answer', 'AS_question_answer', 'questionid', 'answerid')->withPivot('nextquestionid');
+    return $this->belongsToMany('App\Answer', 'AS_question_answer', 'questionid', 'answerid')->withPivot('nextquestionid');
+  }
+
+
+
+  public function isFirstQuestion()
+  {
+
+    return $this->subTopic->firstquestionid ==$this->questionid ? true: false;
   }
 }
