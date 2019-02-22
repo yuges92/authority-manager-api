@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
+// php artisan migrate:refresh --path="database/migrations/DLF_livedata/" --database sqlsrv_DLF_livedata ->to run the migration for 2nd database
 class CreateUserTopicsTable extends Migration
 {
     /**
@@ -31,6 +33,7 @@ class CreateUserTopicsTable extends Migration
      */
     public function down()
     {
-        Schema::connection('sqlsrv_DLF_livedata')->dropIfExists('As_user_topics');
+      Schema::connection('sqlsrv_DLF_livedata')->dropIfExists('AS_user_question_answers');
+      Schema::connection('sqlsrv_DLF_livedata')->dropIfExists('As_user_topics');
     }
 }

@@ -27,7 +27,7 @@ class AuthController extends ApiBaseController
     $package= new PackageResource($authority->authority->packages->first());
     return $this->sendResponse($package, 'Packages retrieved successfully.');
 
-    return response()->json(['data' => $package], 200);
+    // return response()->json(['data' => $package], 200);
     // $data = array('name'=>"Virat Gandhi");
     // Mail::send('emails.reminder', $data, function ($m) {
     //   $m->from('noreply@dlfemail.org.uk', 'Your Application');
@@ -70,8 +70,12 @@ class AuthController extends ApiBaseController
         // dd($accessToken);
         $token=$accessToken->accessToken;
         $expiryDate=$accessToken->token->expires_at;
+        $response['access_token']=$token;
+        $response['expires_at']=$expiryDate;
+        // $response['message']='Token retrieved successfully';
 
-        return $this->sendResponse(['accessToken'=>$token, 'expires_at'=>$expiryDate], 'Token retrieved successfully.');
+        // return response()->json($response,200);
+        return $this->sendResponse($response, 'Token retrieved successfully.');
 
       }
     }

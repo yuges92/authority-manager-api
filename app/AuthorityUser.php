@@ -17,15 +17,15 @@ class AuthorityUser extends Model
   }
 
 
-  public function questionAnswers()
-  {
-    return $this->hasMany('App\UserQuestionAnswer', 'authority_user_id');
-
-  }
-
   public function topics()
   {
     return $this->hasMany('App\UserTopic', 'authority_user_id');
+
+  }
+
+  public function topicQuestionAnswers()
+  {
+    return $this->hasManyThrough('App\UserQuestionAnswer', 'App\UserTopic','authority_user_id','user_topic_id' );
 
   }
 

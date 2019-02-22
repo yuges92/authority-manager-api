@@ -19,23 +19,13 @@ class MainTopicController extends ApiBaseController
     $authorityApi=auth()->guard('api')->user();
     $mainTopics=  MaintopicResource::collection($authorityApi->authority->packages()->with('mainTopics')->get()->pluck('mainTopics')->flatten()->unique('id'));
     $customMainTopics=CustomMaintopicResource::collection($authorityApi->authority->packages()
-    ->where('type','custom')
-    ->with('customMainTopics')
-    ->get()->pluck('customMainTopics')
-    ->flatten()
-    ->unique('id'));
-    // $customMainTopics=  CustomMaintopicResource::collection($authorityApi->authority->packages()->with('customMainTopics','customMainTopics.customSubTopics')->get()->unique('id'));
+                                                                                  ->where('type','custom')
+                                                                                  ->with('customMainTopics')
+                                                                                  ->get()->pluck('customMainTopics')
+                                                                                  ->flatten()
+                                                                                  ->unique('id'));
 
-    // $customMainTopics=  ($authorityApi->authority->packages()
-    //                                                         ->with('customMainTopics')->get()
-    //                                                         ->pluck('customMainTopics')
-    //                                                         ->flatten()
-    //                                                         ->unique('id')
-    //                                                         ->pluck('customSubTopics')
-    //                                                         ->flatten()->unique('sectionid'));
-    // $customMainTopics=  ($authorityApi->authority->packages()->with('customMainTopics')->get());
-    // $allMainTopics=$mainTopics->merge($customMainTopics);
-    $allMainTopics=($mainTopics->merge($customMainTopics))->unique('mainTopic_id');
+    $allMainTopics=($mainTopics->merge($customMainTopics))->unique('id');
 
     $results['mainTopics']=$mainTopics;
     $results['customMainTopics']=$customMainTopics;

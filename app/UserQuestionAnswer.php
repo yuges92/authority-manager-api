@@ -9,12 +9,12 @@ class UserQuestionAnswer extends Model
   protected $connection = 'sqlsrv_DLF_livedata';
   protected $table = 'AS_user_question_answers';
 
-  protected $fillable = ['authority_user_id', 'question_id', 'answer_id'];
+  protected $fillable = ['user_topic_id', 'question_id', 'answer_id'];
 
 
-  public function authorityUser()
+  public function UserTopic()
   {
-    $this->belongsTo('App\AuthorityUser', 'authority_user_id');
+    $this->belongsTo('App\UserTopic', 'user_topic_id');
   }
 
 }

@@ -40,6 +40,7 @@ Route::group(['domain' => $apiDomain], function(){
     Route::get('/v1/subTopics/{subTopic}/questions', 'Api\MainTopicController@index');
     Route::get('/v1/questions/{question}', 'Api\QuestionController@show');
     Route::post('/v1/questions/{question}', 'Api\QuestionController@nextQuestion');
+    Route::get('/v1/reports/', 'Api\ReportController@allUsers');
   });
 
 

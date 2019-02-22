@@ -60,7 +60,11 @@ class Handler extends ExceptionHandler
       ], 404);
     }
 
-
+    if ($exception instanceof \Illuminate\Auth\AuthenticationException && $request->wantsJson()) {
+      return response()->json([
+        'error' => 'invalid token'
+      ], 401);
+    }
 
     return parent::render($request, $exception);
   }

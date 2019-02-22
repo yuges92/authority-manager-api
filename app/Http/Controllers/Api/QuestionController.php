@@ -40,30 +40,23 @@ class QuestionController extends ApiBaseController
 
     $authorityApi=auth()->guard('api')->user();
     $subTopics=  $authorityApi->authority->getAllSubTopics();
-
-
-    // return $this->sendResponse($authorityUser, 'No more Questions Left for this subTopics.');
-
     if(!$subTopics->contains('sectionid', $question->subTopic->sectionid)){
       return $this->sendError('Not available to you','',403);
     }
 
+
+
     $authorityUser=$authorityApi->authority->users()->firstOrCreate(['user' => $request->user, 'authority_id'=>$authorityApi->authority->authority_id ]);
     $answer_id=$request->answer_id;
     if($question->isFirstQuestion()){
-      $authorityUser->questionAnswers()->delete();
-
-
+      $authorityUser->topics()->where('subTopic_id',$question->subTopic->sectionid)->delete();
     }
 
-    $authorityUser->questionAnswers()->updateOrCreate(['question_id' =>$question->questionid, 'answer_id' =>$answer_id]);
-    $topicCompleted= $authorityUser->topics()->updateOrCreate(['subTopic_id' =>$question->subTopic->sectionid]);
-
-
-
+    $userTopic= $authorityUser->topics()->updateOrCreate(['subTopic_id' =>$question->subTopic->sectionid]);
+    $update=$userTopic->questionAnswers()->updateOrCreate(['question_id' =>$question->questionid, 'answer_id' =>$answer_id]);
 
     if($nextQuestion=$question->answers->where('answerid','=',$answer_id)->first()->getNextQuestion()){
-      $topicCompleted->update(['is_completed' =>0]);
+      $userTopic->update(['is_completed' =>0]);
 
       $response['question']= new QuestionResource($nextQuestion);
       $response['isLastQuestion']=false;
@@ -71,7 +64,7 @@ class QuestionController extends ApiBaseController
 
     }else {
       $response['isLastQuestion']=true;
-      $topicCompleted->update(['is_completed' =>1]);
+      $userTopic->update(['is_completed' =>1]);
       return $this->sendResponse($response, 'No more Questions Left for this subTopics.');
       # code...
     }

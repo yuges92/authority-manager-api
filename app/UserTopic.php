@@ -14,4 +14,10 @@ class UserTopic extends Model
   {
     $this->belongsTo('App\AuthorityUser', 'authority_user_id');
   }
+
+  public function questionAnswers()
+  {
+    return $this->hasMany('App\UserQuestionAnswer', 'user_topic_id');
+
+  }
 }

@@ -15,12 +15,13 @@ class CreateUserQuestionAnswersTable extends Migration
   {
     Schema::connection('sqlsrv_DLF_livedata')->create('AS_user_question_answers', function (Blueprint $table) {
       $table->increments('id');
-      $table->integer('authority_user_id')->unsigned();
+      $table->integer('user_topic_id')->unsigned();
       $table->integer('question_id')->unsigned();
       $table->integer('answer_id')->unsigned();
-      $table->unique(['authority_user_id','question_id', 'answer_id']);
-      $table->foreign('authority_user_id')->references('id')->on('AS_authority_users')->onDelete('cascade');
+
+      $table->unique(['user_topic_id','question_id', 'answer_id']);
       $table->timestamps();
+      $table->foreign('user_topic_id')->references('id')->on('As_user_topics')->onDelete('cascade');
     });
   }
 
