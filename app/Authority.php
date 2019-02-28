@@ -38,4 +38,17 @@ class Authority extends Model
 
     return $mergedSubTopics;
   }
+
+
+  public function sectionDisclaimers()
+  {
+    return $this->belongsToMany('App\SectionDisclaimer','AS_disclaimer_authority', 'authority_id', 'disclaimerid');
+
+  }
+
+  public function sectionIdeas()
+  {
+    return $this->belongsToMany('App\SectionIdea','AS_idea_authority', 'authority_id', 'ideaid');
+
+  }
 }

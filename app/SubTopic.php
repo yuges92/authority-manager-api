@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubTopic extends Model
 {
+  protected $connection = 'sqlsrv';
   protected $table = 'AS_section';
   protected $primaryKey = 'sectionid';
   protected $imageFolder = 'topic_images';
@@ -23,6 +24,21 @@ class SubTopic extends Model
   public function customPackages()
   {
     return $this->belongsToMany('App\SubTopic', 'AS_custom_maintopics_package_subtopics','subTopic_id','package_id')->withPivot('mainTopic_id')->withTimestamps();
+  }
+
+  public function questions()
+  {
+    return $this->hasMany('App\Question', 'sectionid');
+  }
+
+  public function sectionDisclaimers()
+  {
+    // return $this->belongsToMany('App\SectionDisclaimer', 'AS_custom_maintopics_package_subtopics','subTopic_id','package_id')->withPivot('mainTopic_id')->withTimestamps();
+  }
+
+  public function sectionIdeas(){
+    return $this->hasMany('App\SectionIdea','sectionid');
+
   }
 
 
@@ -48,9 +64,8 @@ class SubTopic extends Model
   }
 
 
-  public function questions()
-  {
-    return $this->hasMany('App\Question', 'sectionid');
-  }
+
+
+
 
 }

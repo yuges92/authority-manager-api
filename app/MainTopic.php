@@ -18,24 +18,20 @@ class MainTopic extends Model
     return $this->belongsToMany('App\SubTopic', 'AS_main_subtopics', 'mainTopic_id','subtopic_id')->withTimestamps();
   }
 
-  public function packages()
-  {
+  public function packages(){
     return $this->belongsToMany('App\Package', 'AS_package_maintopics', 'mainTopic_id','package_id')->withTimestamps();
   }
 
-  public function customPackages()
-  {
+  public function customPackages(){
     return $this->belongsToMany('App\Package', 'AS_custom_maintopics_package_subtopics','mainTopic_id','package_id')->withPivot('subtopic_id')->withTimestamps();
   }
 
-  public function customSubTopics()
-  {
+  public function customSubTopics(){
     return $this->belongsToMany('App\SubTopic', 'AS_custom_maintopics_package_subtopics','mainTopic_id','subtopic_id')->withPivot('package_id')->withTimestamps();
   }
 
 
-  public function getFile()
-  {
+  public function getFile(){
     return (config('sara.saraImagesURL')."/{$this->imageFolder}/{$this->filename}");
   }
 
