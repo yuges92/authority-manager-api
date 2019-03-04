@@ -22,8 +22,8 @@ class ReportResource extends JsonResource
         'footerSectionIdeas'=>SectionIdeaResource::collection($this->sectionIdeas->where('displaytype','FOOTER')),
         'sectionDisclaimersss'=>($this->sectionIdeas->pluck('idea')),
         // 'sectionIdeas'=>$this->sectionIdeas,
-        // 'questions'=>$this->questions,
-        // 'questions'=>$this->is_completed,
+        'questions'=>UserQuestionAnswerResource::collection($this->questions),
+        'questionsTEst'=>$this->questions,
         // 'created_at'=>$this->created_at->toDateTimeString()
       ];
     }

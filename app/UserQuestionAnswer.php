@@ -2,6 +2,9 @@
 
 namespace App;
 
+
+use App\QuestionAnswerIdea;
+use App\QuestionAnswerDisclaimer;
 use Illuminate\Database\Eloquent\Model;
 
 class UserQuestionAnswer extends Model
@@ -17,4 +20,22 @@ class UserQuestionAnswer extends Model
     $this->belongsTo('App\UserTopic', 'user_topic_id');
   }
 
+  public function questionAnswerIdeas()
+  {
+    $questionAnswer = QuestionAnswerIdea::with('idea')->where('questionid', $this->question_id)
+      ->where('answerid', $this->answer_id)
+      ->get()->flatten();
+
+    return $questionAnswer;
+  }
+
+
+  public function questionAnswerDisclaimers()
+  {
+    $questionAnswer = QuestionAnswerDisclaimer::with('disclaimer')->where('questionid', $this->question_id)
+      ->where('answerid', $this->answer_id)
+      ->get()->flatten();
+
+    return $questionAnswer;
+  }
 }

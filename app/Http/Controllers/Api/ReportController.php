@@ -70,6 +70,7 @@ class ReportController extends ApiBaseController
     $report->title=$subTopic->name;
     $report->sectionDisclaimers=$sectionDisclaimers;
     $report->sectionIdeas=$sectionIdeas;
+    $report->questions=$userAnswers;
 
     // $headerSectionDisclaimer=($sectionDisclaimers->where('displaytype','=','FOOTER')) ? $sectionDisclaimers->pluck('disclaimer') : '';
     return $this->sendResponse(new ReportResource($report), 'report retrieved successfully.');

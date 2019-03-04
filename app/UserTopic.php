@@ -43,7 +43,7 @@ class UserTopic extends Model
   }
 
   /**
-  * Scope a query to only include active users.
+  *  include completed topic for user.
   *
   * @param \Illuminate\Database\Eloquent\Builder $query
   * @return \Illuminate\Database\Eloquent\Builder
