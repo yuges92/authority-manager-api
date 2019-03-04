@@ -6,25 +6,15 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AuthTest extends TestCase
+class AuthorityTest extends TestCase
 {
     /**
-     * A basic test example.
+     * A basic unit test example.
      *
-     * @return void
+     * @test
      */
-    public function testExample()
+    public function newApiAccountAdded()
     {
         $this->assertTrue(true);
     }
-
-
-    public function test()
-    {
-
-
-      $this->assertTrue(true);
-    
-    }
-    
 }
