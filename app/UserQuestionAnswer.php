@@ -4,6 +4,7 @@ namespace App;
 
 
 use App\QuestionAnswerIdea;
+use App\QuestionAnswerProduct;
 use App\QuestionAnswerDisclaimer;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,20 +23,32 @@ class UserQuestionAnswer extends Model
 
   public function questionAnswerIdeas()
   {
-    $questionAnswer = QuestionAnswerIdea::with('idea')->where('questionid', $this->question_id)
+    $ideas = QuestionAnswerIdea::with('idea')
+      ->where('questionid', $this->question_id)
       ->where('answerid', $this->answer_id)
       ->get()->flatten();
-
-    return $questionAnswer;
+    return $ideas;
   }
 
 
   public function questionAnswerDisclaimers()
   {
-    $questionAnswer = QuestionAnswerDisclaimer::with('disclaimer')->where('questionid', $this->question_id)
+    $disclaimers = QuestionAnswerDisclaimer::with('disclaimer')
+      ->where('questionid', $this->question_id)
       ->where('answerid', $this->answer_id)
       ->get()->flatten();
-
-    return $questionAnswer;
+    return $disclaimers;
   }
+
+
+  public function questionAnswerProducts()
+  {
+    $products = QuestionAnswerProduct::where('questionid', $this->question_id)
+      ->where('answerid', $this->answer_id)
+      ->with('product')
+      ->get()->flatten();
+    return $products;
+  }
+
+  
 }

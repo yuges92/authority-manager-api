@@ -15,6 +15,7 @@ class QuestionAnswerIdeaResource extends JsonResource
     public function toArray($request)
     {
         return [
+            "id"=>$this->ideaid,
             "title"=>$this->title,
             "description"=>$this->sadescription,
             "image"=> $this->getImageLink(),
