@@ -4,6 +4,7 @@ namespace App;
 
 
 use App\QuestionAnswerIdea;
+use App\QuestionAnswerGroup;
 use App\QuestionAnswerProduct;
 use App\QuestionAnswerDisclaimer;
 use Illuminate\Database\Eloquent\Model;
@@ -50,5 +51,13 @@ class UserQuestionAnswer extends Model
     return $products;
   }
 
+  public function questionAnswerGroups()
+  {
+    $groups = QuestionAnswerGroup::where('questionid', $this->question_id)
+      ->where('answerid', $this->answer_id)
+      ->with('group')
+      ->get()->flatten();
+    return $groups;
+  }
   
 }
