@@ -15,9 +15,9 @@ class GroupProductResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "group_id"=>$this->product_id,
-            "name"=>$this->title,
-            "description"=>$this->description,
+            "group_id"=>$this->groupid,
+            "name"=>$this->sara_title,
+            "description"=>$this->sara_description,
             "image"=> $this->getImageLink(),
           ];
     }

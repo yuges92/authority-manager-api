@@ -26,9 +26,9 @@ class Group extends Model
 
     public function getImageLink()
     {
-      if(!$this->image){
+      if(!$this->sara_image){
         return null;
       }
-      return (config('sara.saraImagesURL')."/{$this->imageFolder}/{$this->image}");
+      return (config('sara.saraImagesURL')."/{$this->imageFolder}/{$this->sara_image}");
     }
 }
