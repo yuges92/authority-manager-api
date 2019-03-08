@@ -55,6 +55,7 @@ Route::group(['domain' => $editorDomain], function(){
 
 
 });
+Route::get('/test', 'MyTestController@index');
 
 
 

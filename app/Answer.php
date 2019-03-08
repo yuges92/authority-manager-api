@@ -14,6 +14,14 @@ class Answer extends Model
     return $this->belongsToMany('App\Question', 'AS_question_answer', 'answerid', 'questionid')->withPivot('nextquestionid');
   }
 
+  public function nextQuestion(){
+    // $this->setRelation('App\Question', $this->pivot->nextquestionid);
+    // return $this->belongsToMany('App\Question', 'AS_question_answer','nextquestionid', 'questionid')->withPivot('answerid');
+    return $this->hasMany('App\QuestionAnswer','answerid', 'answerid')->where('questionid', $this->pivot->nextquestionid);
+    // ->where('questionid',$this->questionid);
+
+  }
+
 
   public function getNextQuestion(){
     $nextQuestion=null;
