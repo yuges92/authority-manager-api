@@ -15,11 +15,13 @@ class SectionDisclaimerResource extends JsonResource
     public function toArray($request)
     {
       return [
-        'displaytype'=>($this->displaytype),
+        'id'=>($this->disclaimerid),
         'title'=>($this->disclaimer->title),
         'disclaimer'=>($this->disclaimer->disclaimer),
         'reference'=>($this->disclaimer->reference),
+        'displaytype'=>($this->displaytype),
         'image'=>($this->disclaimer->getImageLink()),
+        'order'=>$this->order,
         // 'sectionIdea'=>$this->sectionIdea,
         // 'questions'=>$this->questions,
         // 'questions'=>$this->is_completed,

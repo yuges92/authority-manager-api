@@ -14,9 +14,15 @@ class Idea extends Model
 
   public function getImageLink()
   {
-    if(!$this->filename){
+    if (!$this->filename) {
       return null;
     }
-    return (config('sara.saraImagesURL')."/{$this->imageFolder}/{$this->filename}");
+    return (config('sara.saraImagesURL') . "/{$this->imageFolder}/{$this->filename}");
+  }
+
+
+  public function sectionIdeas()
+  {
+    return $this->hasMany('App\SectionIdea', 'ideaid');
   }
 }

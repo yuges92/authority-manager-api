@@ -15,4 +15,11 @@ class SectionDisclaimer extends Model
   {
     return $this->belongsTo('App\Disclaimer', 'disclaimerid');
   }
+
+  public function subTopic()
+  {
+    return $this->belongsTo('App\SubTopic', 'sectionid');
+  }
+
+  
 }

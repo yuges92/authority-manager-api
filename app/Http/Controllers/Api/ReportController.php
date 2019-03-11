@@ -57,17 +57,16 @@ class ReportController extends ApiBaseController
     }
 
     $userAnswers=$userReports->firstWhere('subTopic_id', $subTopic->sectionid)->questionAnswers;
-    $sectionDisclaimers=$authorityAcc->authority->sectionDisclaimers->where('sectionid', $subTopic->sectionid)->flatten();
     // $sectionDisclaimers= $sectionDisclaimers->pluck('disclaimer');
-
-    $sectionIdeas=$authorityAcc->authority->sectionIdeas->where('sectionid','=', $subTopic->sectionid);
+    $sectionDisclaimers=$authorityAcc->authority->sectionDisclaimers->where('sectionid', $subTopic->sectionid)->flatten()->sortBy('order'); //gets section disclaimer for the authority
+    $sectionIdeas=$authorityAcc->authority->sectionIdeas->where('sectionid', $subTopic->sectionid)->sortBy('order'); //gets the section ideas for the authority
     // $sectionIdeas=Authority::find(5)->sectionIdeas->where('sectionid','=', $subTopic->sectionid)->pluck('idea');
     // $sectionIdeas=SectionIdea::where('sectionid', 84)->get()->pluck('');
     // return $this->sendResponse(($sectionIdeas), 'report retrieved successfully.');
     // return $this->sendResponse(($subTopic->sectionIdeas->pluck('authorityIdeas')->flatten()->where('authority_id','=','5')), 'report retrieved successfully.');
 
     $report= new Report();
-    $report->title=$subTopic->name;
+    $report->section=$subTopic;
     $report->sectionDisclaimers=$sectionDisclaimers;
     $report->sectionIdeas=$sectionIdeas;
     $report->questions=$userAnswers;

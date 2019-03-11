@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report{
 
-  public $title;
+  public $section;
   public $sectionDisclaimers=[];
   public $sectionIdeas=[];
   public $questions=[];

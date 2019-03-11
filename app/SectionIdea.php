@@ -16,11 +16,11 @@ class SectionIdea extends Model
   }
 
   public function subTopics(){
-    return $this->belongsToMany('App\Subtopic', 'sectionid','authority_id');
+    return $this->belongsTo('App\Subtopic', 'sectionid');
   }
 
   public function authority(){
-    return $this->hasMany('App\Authority', 'ideaid');
+    // return $this->hasMany('App\Authority', 'ideaid');
 
   }
 }

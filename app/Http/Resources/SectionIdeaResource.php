@@ -20,7 +20,7 @@ class SectionIdeaResource extends JsonResource
         'description'=>($this->idea->sadescription),
         'reference'=>($this->idea->references),
         'image'=>($this->idea->getImageLink()),
-        // 'sectionIdea'=>$this->sectionIdea,
+        'order'=>$this->order,
         // 'questions'=>$this->questions,
         // 'questions'=>$this->is_completed,
         // 'created_at'=>$this->created_at->toDateTimeString()
