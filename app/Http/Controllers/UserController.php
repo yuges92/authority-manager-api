@@ -40,7 +40,7 @@ class UserController extends Controller
   public function store(Request $request)
   {
     $this->validate($request, [
-      'email' => [ 'required', 'string', 'email', 'max:255', 'unique:users,email'],
+      'email' => [ 'required', 'string', 'email', 'max:255', 'unique:AS_Authority_Manager_Accounts,email'],
       'firstName' => 'required|string|alpha',
       'lastName' => 'required|string|alpha',
       'role' => 'required',
@@ -91,7 +91,7 @@ class UserController extends Controller
   public function update(Request $request, User $user)
   {
     $this->validate($request, [
-      'email' => [ 'required', 'string', 'email', 'max:255', 'unique:users,email'],
+      'email' => [ 'required', 'string', 'email', 'max:255', 'unique:AS_Authority_Manager_Accounts,email'],
       'firstName' => 'required|string|alpha',
       'lastName' => 'required|string|alpha',
       'role' => 'required',
@@ -115,8 +115,10 @@ class UserController extends Controller
   * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function destroy($id)
+  public function destroy(User $user)
   {
-    //
+    $user->delete();
+    
+    return redirect()->back()->with('success', 'User Deleted');
   }
 }

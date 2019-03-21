@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AuthorityIdea extends Model
+class IdeaAuthority extends Model
 {
   protected $connection = 'sqlsrv';
   protected $table = 'AS_idea_authority';
