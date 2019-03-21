@@ -44,6 +44,8 @@ Route::group(['domain' => $editorDomain], function(){
     Route::put('/profile/updatePassword','ProfileController@updatePassword')->name('updatePassword');
     Route::resource('/profile','ProfileController');
 
+    Route::get('/reports/SubTopic/{subTopic}','ReportController@show');
+
 
     Route::get('/home', 'HomeController@index');
     Route::get('/', 'HomeController@index');
@@ -55,8 +57,9 @@ Route::group(['domain' => $editorDomain], function(){
 
 
 });
-Route::get('/test', 'MyTestController@index');
+// Route::get('/test', 'MyTestController@index');
 
+Route::get('/test/reports/users/{user_id}/subTopics/{subTopic}', 'ReportController@getReportForAUser');
 
 
 Route::group(['domain' => $apiDomain], function(){

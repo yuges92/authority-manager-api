@@ -20,4 +20,9 @@ class QuestionAnswer extends Model
     {
         return $this->hasManyThrough(App\Question, App\QuestionAnswer,'nextquestionid');
     }
+
+    // public function disclaimerAuthority()
+    // {
+      
+    // }
 }
