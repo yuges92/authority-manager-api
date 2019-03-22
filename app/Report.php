@@ -80,11 +80,17 @@ class Report
         foreach ($this->userAnswers as $userAnswer) {
 
             $reportQuestion = new ReportQuestion($this->userAnswers, $this->authority, $userAnswer);
-            $questions->push($reportQuestion);
+            if(empty($reportQuestion->disclaimers) && empty($reportQuestion->ideas)){
+
+            }else{
+
+                $questions->push($reportQuestion);
+            }
 
         }
         return $questions;
     }
+
 
 
 
