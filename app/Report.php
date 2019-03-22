@@ -80,7 +80,7 @@ class Report
         foreach ($this->userAnswers as $userAnswer) {
 
             $reportQuestion = new ReportQuestion($this->userAnswers, $this->authority, $userAnswer);
-            if(empty($reportQuestion->disclaimers) && empty($reportQuestion->ideas)){
+            if((empty($reportQuestion->disclaimers) || $reportQuestion->disclaimers==false) && (empty($reportQuestion->ideas) || ($reportQuestion->ideas==false))){
 
             }else{
 
