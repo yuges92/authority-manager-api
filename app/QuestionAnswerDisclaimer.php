@@ -33,11 +33,6 @@ class QuestionAnswerDisclaimer extends Model
         return $this->hasMany('App\QuestionAnswerDisclaimerCondition', ['questionid', 'answerid', 'disclaimerid'], ['questionid', 'answerid', 'disclaimerid']);
     }
 
-    // public function getConditions(){
-    //    return $this->disclaimerConditions()
-    //    ->where('questionid','=',$this->questionid)
-    //    ->where('answerid','=',$this->answerid);
-    // }
 
     public function isConditionPassed($userAnswers)
     {
@@ -62,9 +57,9 @@ class QuestionAnswerDisclaimer extends Model
                         if ($userAnswers->where('question_id', $condition->condition_questionid)->whereIn('answer_id', $conditionAnswers)->count()) {
                             // \Debugbar::info('Condition Passed => ');
                             // \Debugbar::warning($v);
-                            return $conditionPassed=  true;
+                             $conditionPassed=  true;
                         }else{
-                           return  $conditionPassed=false;
+                             $conditionPassed=false;
                         } 
                         // \Debugbar::error('Condition failed => '. $condition->condition_questionid);
                     }

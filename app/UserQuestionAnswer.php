@@ -34,6 +34,11 @@ class UserQuestionAnswer extends Model
         return $this->hasMany('App\QuestionAnswerDisclaimer', ['questionid', 'answerid'], ['question_id', 'answer_id']);
     }
 
+    public function questionIdeas()
+    {
+        return $this->hasMany('App\QuestionAnswerIdea',['questionid', 'answerid'], ['question_id', 'answer_id']);
+    }
+
     public function questionAnswerDisclaimers($authority_id)
     {
         // $disclaimers = QuestionAnswerDisclaimer::with('disclaimerAuthorities','disclaimer')
@@ -105,12 +110,7 @@ class UserQuestionAnswer extends Model
      */
     public function getQuestionDisclaimers($userAnswers, $authority)
     {
-        //check if it has any condtions
-        //it it has conditions then check whether it has met the condtion
-        //check if it is linked to the authority
-        //return the disclaimers
-        
-        // \Debugbar::warning($this);
+
         if (!$this->questionDisclaimers->count()) {
             return false;
         }
@@ -119,7 +119,7 @@ class UserQuestionAnswer extends Model
         foreach ($this->questionDisclaimers as $questionDisclaimer) {
             if (!$questionDisclaimer->disclaimerConditions->count() || $questionDisclaimer->isConditionPassed($userAnswers)) {
                 if ($questionDisclaimer->disclaimerAuthority->firstWhere('authority_id', $authority->authority_id)) {
-                    \Debugbar::warning($questionDisclaimer->disclaimerAuthority->firstWhere('authority_id', $authority->authority_id));
+                    // \Debugbar::warning($questionDisclaimer->disclaimerAuthority->firstWhere('authority_id', $authority->authority_id));
                     
                     $disclaimers->push($questionDisclaimer->disclaimer);
                 }
@@ -131,9 +131,25 @@ class UserQuestionAnswer extends Model
 
     }
 
-    public function getQuestionIdea()
+    public function getQuestionIdea($userAnswers, $authority)
     {
-        # code...
+        if (!$this->questionIdeas->count()) {
+            return false;
+        }
+
+        $ideas = collect();
+        foreach ($this->questionIdeas->sortBy('displayposition') as $questionIdea) {
+
+            if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
+                if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
+                    // \Debugbar::warning($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id));
+                    $ideas->push($questionIdea->idea);
+                }
+            }
+
+        }
+
+        return $ideas;
     }
 
     public function getRelatedProducts()

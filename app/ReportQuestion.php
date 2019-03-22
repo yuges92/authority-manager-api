@@ -22,6 +22,7 @@ class ReportQuestion extends Model
         $this->question_id=$userAnswer->question_id;
        $this->answer_id=$userAnswer->answer_id;
        $this->disclaimers=($disclaimer=$userAnswer->getQuestionDisclaimers($this->userAnswers, $this->authority)) ? $disclaimer: '';
+       $this->ideas=($ideas=$userAnswer->getQuestionIdea($this->userAnswers, $this->authority)) ? $ideas: '';
     //    $this->ideas=$userAnswer->;
     //    $this->relatedProducts=$userAnswer->;
     //    $this->relatedGroupProducts=$userAnswer->;
