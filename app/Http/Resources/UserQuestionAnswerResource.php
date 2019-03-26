@@ -27,17 +27,13 @@ class UserQuestionAnswerResource extends JsonResource
             "answerid" => $this->answer_id,
             "question" => Question::find($this->question_id)->sadescription,
             "answer" => Answer::find($this->answer_id)->description,
-            "disclaimers" => $this->disclaimers ? QuestionAnswerDisclaimerResource::collection($this->disclaimers) : false,
-            "ideas" =>  $this->ideas ? QuestionAnswerIdeaResource::collection($this->ideas) : false,
+            "disclaimers" => $this->disclaimers ? QuestionAnswerDisclaimerResource::collection($this->disclaimers) : '',
+            "ideas" =>  $this->ideas ? QuestionAnswerIdeaResource::collection($this->ideas) : '',
             // "disclaimers2" =>($this->disclaimers),
             // "ideas" => QuestionAnswerIdeaResource::collection($this->questionAnswerIdeas()->sortBy('displayposition')->pluck('idea')),
             // "products" => ProductResource::collection($this->questionAnswerProducts()->sortBy('order')->pluck('product')),
-            // "productsSSS" => ($this->questionAnswerProducts()->sortBy('order')->pluck('product')),
-            // "groupProducts" => GroupProductResource::collection($this->questionAnswerGroups()->sortBy('order')->pluck('group')),
-            // "groupProductsss" => ($this->questionAnswerGroups()->sortBy('order')->pluck('group')),
-            // "productss" => ( ($products=$this->questionAnswerProducts()) ? $products :''),
-            // "groupProducts" => new QuestionResource($this->getFirstQuestion()),
-            // "productsssss" => \App\Product::with('questionAnswers')->find('0108269'),
+            "groupProducts" => $this->relatedGroupProducts ? GroupProductResource::collection($this->relatedGroupProducts) : '',
+            "groupProductsss" => $this->relatedGroupProducts ,
 
         ];
     }

@@ -2,10 +2,6 @@
 
 namespace App;
 
-use App\QuestionAnswerDisclaimer;
-use App\QuestionAnswerGroup;
-use App\QuestionAnswerIdea;
-use App\QuestionAnswerProduct;
 use Illuminate\Database\Eloquent\Model;
 
 class UserQuestionAnswer extends Model
@@ -36,70 +32,41 @@ class UserQuestionAnswer extends Model
 
     public function questionIdeas()
     {
-        return $this->hasMany('App\QuestionAnswerIdea',['questionid', 'answerid'], ['question_id', 'answer_id']);
+        return $this->hasMany('App\QuestionAnswerIdea', ['questionid', 'answerid'], ['question_id', 'answer_id']);
     }
 
-    public function questionAnswerDisclaimers($authority_id)
+    public function questionProducts()
     {
-        // $disclaimers = QuestionAnswerDisclaimer::with('disclaimerAuthorities','disclaimer')
-        //   ->where('questionid', $this->question_id)
-        //   ->where('answerid', $this->answer_id)
-        //   ->get()->flatten();
-        // return $disclaimers;
-        return QuestionAnswerDisclaimer::with('disclaimerAuthority', 'disclaimerAuthority.disclaimer')
-            ->whereHas('disclaimerAuthority', function ($query) use ($authority_id) {
-                $query->where('authority_id', '=', $authority_id);
-            })
-            ->where('questionid', $this->question_id)
-            ->where('answerid', $this->answer_id)
-            ->get()
-            ->sortBy('displayposition')
-            ->flatten()
-            ->pluck('disclaimerAuthority.disclaimer')
-            ->flatten()
-            ->unique();
-
+        return $this->hasMany('App\QuestionAnswerProduct', ['questionid', 'answerid'], ['question_id', 'answer_id']);
     }
 
-    public function questionAnswerAuthorities()
+    public function questionGroupProducts()
     {
-        return $this->hasMany('App\DisclaimerAuthority', ['questionid', 'answerid'], ['question_id', 'answer_id']);
+        return $this->hasMany('App\QuestionAnswerGroup', ['questionid', 'answerid'], ['question_id', 'answer_id']);
     }
 
-    public function questionAnswerIdeas($authority_id)
-    {
+    // public function questionAnswerAuthorities()
+    // {
+    //     return $this->hasMany('App\DisclaimerAuthority', ['questionid', 'answerid'], ['question_id', 'answer_id']);
+    // }
 
-        return QuestionAnswerIdea::with('ideaAuthority', 'ideaAuthority.idea')
-            ->whereHas('ideaAuthority', function ($query) use ($authority_id) {
-                $query->where('authority_id', '=', $authority_id);
-            })
-            ->where('questionid', $this->question_id)
-            ->where('answerid', $this->answer_id)
-            ->get()
-            ->sortBy('displayposition')
-            ->flatten()
-            ->pluck('ideaAuthority.idea')->flatten()
-            ->unique();
+    // public function questionAnswerProducts()
+    // {
+    //     $products = QuestionAnswerProduct::where('questionid', $this->question_id)
+    //         ->where('answerid', $this->answer_id)
+    //         ->with('product')
+    //         ->get()->flatten();
+    //     return $products;
+    // }
 
-    }
-
-    public function questionAnswerProducts()
-    {
-        $products = QuestionAnswerProduct::where('questionid', $this->question_id)
-            ->where('answerid', $this->answer_id)
-            ->with('product')
-            ->get()->flatten();
-        return $products;
-    }
-
-    public function questionAnswerGroups()
-    {
-        $groups = QuestionAnswerGroup::where('questionid', $this->question_id)
-            ->where('answerid', $this->answer_id)
-            ->with('group')
-            ->get()->flatten();
-        return $groups;
-    }
+    // public function questionAnswerGroups()
+    // {
+    //     $groups = QuestionAnswerGroup::where('questionid', $this->question_id)
+    //         ->where('answerid', $this->answer_id)
+    //         ->with('group')
+    //         ->get()->flatten();
+    //     return $groups;
+    // }
 
     /**
      *  getQuestionDisclaimers function returns all the disclaimers for the question and answer based on condtions and authority
@@ -120,7 +87,7 @@ class UserQuestionAnswer extends Model
             if (!$questionDisclaimer->disclaimerConditions->count() || $questionDisclaimer->isConditionPassed($userAnswers)) {
                 if ($questionDisclaimer->disclaimerAuthority->firstWhere('authority_id', $authority->authority_id)) {
                     // \Debugbar::warning($questionDisclaimer->disclaimerAuthority->firstWhere('authority_id', $authority->authority_id));
-                    
+
                     $disclaimers->push($questionDisclaimer->disclaimer);
                 }
             }
@@ -152,14 +119,48 @@ class UserQuestionAnswer extends Model
         return $ideas;
     }
 
-    public function getRelatedProducts()
+    public function getRelatedProducts($userAnswers, $authority)
     {
-        # code...
+        if (!$this->questionProducts->count()) {
+            return false;
+        }
+
+        $products = collect();
+        foreach ($this->questionProducts->sortBy('order') as $questionProduct) {
+            \Debugbar::error('here');
+
+            if (!$questionProduct->productConditions->count() || $questionProduct->isConditionPassed($userAnswers)) {
+                if ($questionProduct->productAuthorities->firstWhere('authority_id', $authority->authority_id)) {
+                    \Debugbar::warning($questionProduct->productAuthorities->firstWhere('authority_id', $authority->authority_id));
+                    $products->push($questionProduct->product);
+                }
+            }
+
+        }
+
+        return $products;
     }
 
-    public function getRelatedGroup()
+    public function getRelatedGroupProducts($userAnswers, $authority)
     {
+        if (!$this->questionGroupProducts->count()) {
+            return false;
+        }
 
+         $groupProducts = collect();
+        foreach ($this->questionGroupProducts->sortBy('order') as $questionGroupProduct) {
+            
+            \Debugbar::warning($questionGroupProduct->conditions);
+            if (!$questionGroupProduct->conditions->count() || $questionGroupProduct->isConditionPassed($userAnswers)) {
+                if ($questionGroupProduct->authorities->firstWhere('authority_id', $authority->authority_id)) {
+                    // \Debugbar::warning($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id));
+                    $groupProducts->push($questionGroupProduct->groupProduct);
+                }
+            }
+
+        }
+
+        return $groupProducts;
     }
 
 }

@@ -40,6 +40,20 @@ class Report
                         $q->with('idea')->where('authority_id', 5);
                     }]);
                 },
+                // 'questionProducts.productConditions',
+                // 'questionProducts.product',
+                // 'questionProducts' => function ($query) {
+                //     $query->with(['productAuthorities' => function ($q) {
+                //         $q->with('product')->where('authority_id', 5);
+                //     }]);
+                // },
+                'questionGroupProducts.conditions',
+                'questionGroupProducts.groupProduct',
+                'questionGroupProducts' => function ($query) {
+                    $query->with(['authorities' => function ($q) {
+                        $q->with('groupProduct')->where('authority_id', 5);
+                    }]);
+                },
             ])
             ->get();
 
@@ -80,9 +94,11 @@ class Report
         foreach ($this->userAnswers as $userAnswer) {
 
             $reportQuestion = new ReportQuestion($this->userAnswers, $this->authority, $userAnswer);
-            if((empty($reportQuestion->disclaimers) || $reportQuestion->disclaimers==false) && (empty($reportQuestion->ideas) || ($reportQuestion->ideas==false))){
+            if ((empty($reportQuestion->disclaimers) || $reportQuestion->disclaimers == false)
+                && (empty($reportQuestion->ideas) || ($reportQuestion->ideas == false))
+                && (empty($reportQuestion->relatedProducts) || ($reportQuestion->relatedProducts == false))) {
 
-            }else{
+            } else {
 
                 $questions->push($reportQuestion);
             }
@@ -90,8 +106,5 @@ class Report
         }
         return $questions;
     }
-
-
-
 
 }
