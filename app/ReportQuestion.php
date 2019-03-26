@@ -24,8 +24,10 @@ class ReportQuestion extends Model
         $this->disclaimers = ($disclaimer = $userAnswer->getQuestionDisclaimers($this->userAnswers, $this->authority)) ? $disclaimer : false;
         $ideas = $userAnswer->getQuestionIdea($this->userAnswers, $this->authority);
         $this->ideas = ($ideas && $ideas->isNotEmpty()) ? $ideas : false;
-        // $products = $userAnswer->getRelatedProducts($this->userAnswers, $this->authority);
-        // $this->relatedProducts = ($products && $products->isNotEmpty()) ? $products : false;
+        $products = $userAnswer->getRelatedProducts($this->userAnswers, $this->authority);
+                // \Debugbar::error($products);
+
+        $this->relatedProducts = ($products && $products->isNotEmpty()) ? $products : false;
         $groupProducts = $userAnswer->getRelatedGroupProducts($this->userAnswers, $this->authority);
         $this->relatedGroupProducts = ($groupProducts && $groupProducts->isNotEmpty()) ? $groupProducts : false;
 

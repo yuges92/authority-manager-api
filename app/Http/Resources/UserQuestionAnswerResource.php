@@ -32,8 +32,9 @@ class UserQuestionAnswerResource extends JsonResource
             // "disclaimers2" =>($this->disclaimers),
             // "ideas" => QuestionAnswerIdeaResource::collection($this->questionAnswerIdeas()->sortBy('displayposition')->pluck('idea')),
             // "products" => ProductResource::collection($this->questionAnswerProducts()->sortBy('order')->pluck('product')),
+            "products" => $this->relatedProducts ? ProductResource::collection($this->relatedProducts) : '',
             "groupProducts" => $this->relatedGroupProducts ? GroupProductResource::collection($this->relatedGroupProducts) : '',
-            "groupProductsss" => $this->relatedGroupProducts ,
+            // "groupProductsss" => $this->relatedGroupProducts ,
 
         ];
     }

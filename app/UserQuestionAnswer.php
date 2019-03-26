@@ -127,11 +127,13 @@ class UserQuestionAnswer extends Model
 
         $products = collect();
         foreach ($this->questionProducts->sortBy('order') as $questionProduct) {
-            \Debugbar::error('here');
-
+            
             if (!$questionProduct->productConditions->count() || $questionProduct->isConditionPassed($userAnswers)) {
-                if ($questionProduct->productAuthorities->firstWhere('authority_id', $authority->authority_id)) {
-                    \Debugbar::warning($questionProduct->productAuthorities->firstWhere('authority_id', $authority->authority_id));
+                // \Debugbar::error('here');
+                // \Debugbar::info($questionProduct->product_id);
+                // \Debugbar::warning($questionProduct->productAuthorities);
+                if ($v=$questionProduct->productAuthorities->whereIn('product_id',$questionProduct->product_id)->firstWhere('authority_id', $authority->authority_id)) {
+                    // \Debugbar::warning($v);
                     $products->push($questionProduct->product);
                 }
             }
@@ -150,7 +152,7 @@ class UserQuestionAnswer extends Model
          $groupProducts = collect();
         foreach ($this->questionGroupProducts->sortBy('order') as $questionGroupProduct) {
             
-            \Debugbar::warning($questionGroupProduct->conditions);
+            // \Debugbar::warning($questionGroupProduct->conditions);
             if (!$questionGroupProduct->conditions->count() || $questionGroupProduct->isConditionPassed($userAnswers)) {
                 if ($questionGroupProduct->authorities->firstWhere('authority_id', $authority->authority_id)) {
                     // \Debugbar::warning($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id));

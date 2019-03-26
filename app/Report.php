@@ -40,13 +40,13 @@ class Report
                         $q->with('idea')->where('authority_id', 5);
                     }]);
                 },
-                // 'questionProducts.productConditions',
-                // 'questionProducts.product',
-                // 'questionProducts' => function ($query) {
-                //     $query->with(['productAuthorities' => function ($q) {
-                //         $q->with('product')->where('authority_id', 5);
-                //     }]);
-                // },
+                'questionProducts.productConditions',
+                'questionProducts.product',
+                'questionProducts' => function ($query) {
+                    $query->with(['productAuthorities' => function ($q) {
+                        $q->where('authority_id', 5);
+                    }]);
+                },
                 'questionGroupProducts.conditions',
                 'questionGroupProducts.groupProduct',
                 'questionGroupProducts' => function ($query) {
@@ -56,6 +56,9 @@ class Report
                 },
             ])
             ->get();
+                // \Debugbar::error($this->userAnswers);
+
+
 
     }
 

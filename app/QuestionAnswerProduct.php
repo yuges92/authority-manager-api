@@ -24,7 +24,7 @@ class QuestionAnswerProduct extends Model
 
     public function productAuthorities()
     {
-        return $this->hasMany('App\QuestionAnswerProductAuthority', ['questionid', 'answerid', 'product_id'], ['questionid', 'answerid', 'product_id']);
+        return $this->hasMany('App\QuestionAnswerProductAuthority', ['questionid', 'answerid' ], ['questionid', 'answerid']);
     }
 
     public function isConditionPassed($userAnswers)
