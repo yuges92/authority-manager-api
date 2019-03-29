@@ -86,16 +86,12 @@ class UserQuestionAnswer extends Model
         foreach ($this->questionDisclaimers as $questionDisclaimer) {
             if (!$questionDisclaimer->disclaimerConditions->count() || $questionDisclaimer->isConditionPassed($userAnswers)) {
                 if ($questionDisclaimer->disclaimerAuthority->firstWhere('authority_id', $authority->authority_id)) {
-                    // \Debugbar::warning($questionDisclaimer->disclaimerAuthority->firstWhere('authority_id', $authority->authority_id));
-
                     $disclaimers->push($questionDisclaimer->disclaimer);
                 }
             }
-
         }
 
         return $disclaimers;
-
     }
 
     public function getQuestionIdea($userAnswers, $authority)
@@ -104,16 +100,15 @@ class UserQuestionAnswer extends Model
             return false;
         }
 
+        // \Debugbar::error((int)floor(4.55));
         $ideas = collect();
         foreach ($this->questionIdeas->sortBy('displayposition') as $questionIdea) {
 
             if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
                 if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
-                    // \Debugbar::warning($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id));
                     $ideas->push($questionIdea->idea);
                 }
             }
-
         }
 
         return $ideas;
@@ -127,17 +122,11 @@ class UserQuestionAnswer extends Model
 
         $products = collect();
         foreach ($this->questionProducts->sortBy('order') as $questionProduct) {
-            
             if (!$questionProduct->productConditions->count() || $questionProduct->isConditionPassed($userAnswers)) {
-                // \Debugbar::error('here');
-                // \Debugbar::info($questionProduct->product_id);
-                // \Debugbar::warning($questionProduct->productAuthorities);
-                if ($v=$questionProduct->productAuthorities->whereIn('product_id',$questionProduct->product_id)->firstWhere('authority_id', $authority->authority_id)) {
-                    // \Debugbar::warning($v);
+                if ($v = $questionProduct->productAuthorities->whereIn('product_id', $questionProduct->product_id)->firstWhere('authority_id', $authority->authority_id)) {
                     $products->push($questionProduct->product);
                 }
             }
-
         }
 
         return $products;
@@ -149,20 +138,100 @@ class UserQuestionAnswer extends Model
             return false;
         }
 
-         $groupProducts = collect();
-        foreach ($this->questionGroupProducts->sortBy('order') as $questionGroupProduct) {
-            
-            // \Debugbar::warning($questionGroupProduct->conditions);
+        $groupProducts = collect();
+        //  \Debugbar::warning($this->questionGroupProducts);
+
+        foreach ($this->questionGroupProducts as $questionGroupProduct) {
             if (!$questionGroupProduct->conditions->count() || $questionGroupProduct->isConditionPassed($userAnswers)) {
                 if ($questionGroupProduct->authorities->firstWhere('authority_id', $authority->authority_id)) {
-                    // \Debugbar::warning($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id));
                     $groupProducts->push($questionGroupProduct->groupProduct);
                 }
             }
-
         }
-
         return $groupProducts;
     }
 
+    public function getIdeasWithProdcuts($userAnswers, $authority)
+    {
+        $questionIdeas = $this->questionIdeas->sortBy('displayposition');
+        $questionProducts = $this->questionProducts->sortBy('order');
+        $questionGroupProducts = $this->questionGroupProducts->sortBy('order');
+        $ideasAndProducts = collect();
+
+        /**
+         * loop through each questionAnswerIdea and compare the display postion with questionAnswerProduct and questionAnswerGroupProduct. If matches add to the collection with product or group product
+         */
+
+        if ($questionIdeas->count()) {
+
+            foreach ($questionIdeas as $questionIdea) {
+                if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
+                    if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
+                        $idea = $questionIdea->idea;
+                        $ideaProducts = new \stdClass;
+                        $ideaProducts->idea = $questionIdea->idea;
+                        $ideaProducts->products = $questionProducts->filter(function ($product) use ($questionIdea, $userAnswers, $authority) {
+                            $order = (int) $product->order;
+
+                            if (!$product->productConditions->count() || $product->isConditionPassed($userAnswers)) {
+                                if ($product->productAuthorities->firstWhere('authority_id', $authority->authority_id)) {
+                                    \Debugbar::warning($product);
+                                    \Debugbar::warning('here1');
+                                    return $questionIdea->displayposition == $order;
+                                }
+                            }
+
+                            return false;
+                        })->pluck('product');
+                        $ideaProducts->groupProducts = $questionGroupProducts->filter(function ($group) use ($questionIdea, $userAnswers, $authority) {
+                            $order = (int) $group->order;
+
+                            if (!$group->conditions->count() || $group->isConditionPassed($userAnswers)) {
+                                if ($group->authorities->firstWhere('authority_id', $authority->authority_id)) {
+                                    return $questionIdea->displayposition == $order;
+                                }
+                            }
+
+                            return false;
+
+                        })->pluck('groupProduct');
+                        // \Debugbar::warning($ideaProducts->groupProducts);
+
+                        $ideasAndProducts->push($ideaProducts);
+                    }
+                }
+            }
+        }
+        // elseif ($questionProducts->count()) {
+        //     foreach ($questionProducts->sortBy('displayposition') as $questionIdea) {
+
+        //         if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
+        //             if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
+        //                 $ideaProducts = new \stdClass;
+        //                 $ideaProducts->idea = '';
+        //                 $ideaProducts->product = '';
+        //                 $ideaProducts->groupProduct = '';
+
+        //                 $ideasAndProducts->push($ideaProducts);
+        //             }
+        //         }
+        //     }
+
+        // } elseif ($questionGroupProducts->count()) {
+        //     foreach ($questionGroupProducts->sortBy('displayposition') as $questionIdea) {
+
+        //         if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
+        //             if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
+        //                 $ideaProducts = new \stdClass;
+        //                 $ideaProducts->idea = '';
+        //                 $ideaProducts->product = '';
+        //                 $ideaProducts->groupProduct = '';
+
+        //                 $ideasAndProducts->push($ideaProducts);
+        //             }
+        //         }
+        //     }
+        // }
+        return $ideasAndProducts;
+    }
 }

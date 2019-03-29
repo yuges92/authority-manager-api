@@ -25,4 +25,9 @@ class GroupProduct extends Model
       // }
       return (config('sara.saraImagesURL') . "/{$this->imageFolder}/{$this->sara_image}");
     }
+
+    public function getLink($authority=null)
+    {
+      return (config('sara.livingMadeEasyBaseUrl') . "/products.php?groupname=".str_slug ($this->title, '-')."&referer=asksara&auth=sara5");
+    }
 }

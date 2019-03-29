@@ -99,6 +99,7 @@ class Report
             $reportQuestion = new ReportQuestion($this->userAnswers, $this->authority, $userAnswer);
             if ((empty($reportQuestion->disclaimers) || $reportQuestion->disclaimers == false)
                 && (empty($reportQuestion->ideas) || ($reportQuestion->ideas == false))
+                && (empty($reportQuestion->relatedGroupProducts) || ($reportQuestion->relatedGroupProducts == false))
                 && (empty($reportQuestion->relatedProducts) || ($reportQuestion->relatedProducts == false))) {
 
             } else {

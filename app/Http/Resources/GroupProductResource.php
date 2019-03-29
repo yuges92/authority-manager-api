@@ -19,6 +19,7 @@ class GroupProductResource extends JsonResource
             "name"=>$this->sara_title,
             "description"=>$this->sara_description,
             "image"=> $this->getImageLink(),
+            "link"=> $this->getLink(),
           ];
     }
 }

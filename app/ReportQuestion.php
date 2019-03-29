@@ -14,6 +14,7 @@ class ReportQuestion extends Model
     public $ideas;
     public $relatedProducts;
     public $relatedGroupProducts;
+    public $ideasAndProducts;
 
     public function __construct($userAnswers, $authority, $userAnswer)
     {
@@ -25,12 +26,12 @@ class ReportQuestion extends Model
         $ideas = $userAnswer->getQuestionIdea($this->userAnswers, $this->authority);
         $this->ideas = ($ideas && $ideas->isNotEmpty()) ? $ideas : false;
         $products = $userAnswer->getRelatedProducts($this->userAnswers, $this->authority);
-                // \Debugbar::error($products);
+        // \Debugbar::error($products);
 
         $this->relatedProducts = ($products && $products->isNotEmpty()) ? $products : false;
         $groupProducts = $userAnswer->getRelatedGroupProducts($this->userAnswers, $this->authority);
         $this->relatedGroupProducts = ($groupProducts && $groupProducts->isNotEmpty()) ? $groupProducts : false;
-
+        $this->ideasAndProducts = $userAnswer->getIdeasWithProdcuts($this->userAnswers, $this->authority);
         //    $this->ideas=$userAnswer->;
         //    $this->relatedGroupProducts=$userAnswer->;
     }
