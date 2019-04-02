@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Idea;
 use Illuminate\Database\Eloquent\Model;
 
 class UserQuestionAnswer extends Model
@@ -45,28 +46,6 @@ class UserQuestionAnswer extends Model
         return $this->hasMany('App\QuestionAnswerGroup', ['questionid', 'answerid'], ['question_id', 'answer_id']);
     }
 
-    // public function questionAnswerAuthorities()
-    // {
-    //     return $this->hasMany('App\DisclaimerAuthority', ['questionid', 'answerid'], ['question_id', 'answer_id']);
-    // }
-
-    // public function questionAnswerProducts()
-    // {
-    //     $products = QuestionAnswerProduct::where('questionid', $this->question_id)
-    //         ->where('answerid', $this->answer_id)
-    //         ->with('product')
-    //         ->get()->flatten();
-    //     return $products;
-    // }
-
-    // public function questionAnswerGroups()
-    // {
-    //     $groups = QuestionAnswerGroup::where('questionid', $this->question_id)
-    //         ->where('answerid', $this->answer_id)
-    //         ->with('group')
-    //         ->get()->flatten();
-    //     return $groups;
-    // }
 
     /**
      *  getQuestionDisclaimers function returns all the disclaimers for the question and answer based on condtions and authority
@@ -155,45 +134,54 @@ class UserQuestionAnswer extends Model
     {
         $questionIdeas = $this->questionIdeas->sortBy('displayposition');
         $questionProducts = $this->questionProducts->sortBy('order');
+        $questionProductsList = $this->questionProducts->sortBy('order');
         $questionGroupProducts = $this->questionGroupProducts->sortBy('order');
+        $questionGroupProductsList = $this->questionGroupProducts->sortBy('order');
         $ideasAndProducts = collect();
-
-        /**
-         * loop through each questionAnswerIdea and compare the display postion with questionAnswerProduct and questionAnswerGroupProduct. If matches add to the collection with product or group product
-         */
 
         if ($questionIdeas->count()) {
 
             foreach ($questionIdeas as $questionIdea) {
                 if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
                     if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
-                        $idea = $questionIdea->idea;
                         $ideaProducts = new \stdClass;
                         $ideaProducts->idea = $questionIdea->idea;
-                        $ideaProducts->products = $questionProducts->filter(function ($product) use ($questionIdea, $userAnswers, $authority) {
-                            $order = (int) $product->order;
+
+                        $ideaProducts->products = $questionProducts->filter(function ($product) use ($questionIdea, $userAnswers, $authority, &$questionProductsList) {
+                            $order = (int)$product->order;
 
                             if (!$product->productConditions->count() || $product->isConditionPassed($userAnswers)) {
                                 if ($product->productAuthorities->firstWhere('authority_id', $authority->authority_id)) {
-                                    \Debugbar::warning($product);
-                                    \Debugbar::warning('here1');
+
+                                    $questionProductsList =     $questionProductsList->reject(function ($productList) use ($product) {
+                                        return $productList->pkey == $product->pkey;
+                                    });
                                     return $questionIdea->displayposition == $order;
                                 }
                             }
 
                             return false;
                         })->pluck('product');
-                        $ideaProducts->groupProducts = $questionGroupProducts->filter(function ($group) use ($questionIdea, $userAnswers, $authority) {
-                            $order = (int) $group->order;
+
+                        $ideaProducts->groupProducts = $questionGroupProducts->filter(function ($group) use ($questionIdea, $userAnswers, $authority, &$questionGroupProductsList) {
+                            $order = (int)$group->order;
 
                             if (!$group->conditions->count() || $group->isConditionPassed($userAnswers)) {
                                 if ($group->authorities->firstWhere('authority_id', $authority->authority_id)) {
-                                    return $questionIdea->displayposition == $order;
+                        \Debugbar::warning($group->conditions);
+
+                                    if ($questionIdea->displayposition == $order) {
+                                        $questionGroupProductsList =  $questionGroupProductsList->reject(function ($groupProduct) use ($group) {
+                                            return $groupProduct->pkey == $group->pkey;
+                                        });
+
+                                        return true;
+                                    }
+                                    return false;
                                 }
                             }
 
                             return false;
-
                         })->pluck('groupProduct');
                         // \Debugbar::warning($ideaProducts->groupProducts);
 
@@ -202,36 +190,77 @@ class UserQuestionAnswer extends Model
                 }
             }
         }
-        // elseif ($questionProducts->count()) {
-        //     foreach ($questionProducts->sortBy('displayposition') as $questionIdea) {
+        // \Debugbar::info($this->question_id);
+        // \Debugbar::info($questionGroupProductsList);
 
-        //         if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
-        //             if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
-        //                 $ideaProducts = new \stdClass;
-        //                 $ideaProducts->idea = '';
-        //                 $ideaProducts->product = '';
-        //                 $ideaProducts->groupProduct = '';
+        if ($questionGroupProductsList->count()) {
 
-        //                 $ideasAndProducts->push($ideaProducts);
-        //             }
-        //         }
-        //     }
+            $questionGroupProductsList->filter(function ($group) use ($userAnswers, $authority, &$ideasAndProducts) {
+                
+                if (!$group->conditions->count() || $group->isConditionPassed($userAnswers)) {
+                    // \Debugbar::warning('im here '.$group->groupid );
+                    // \Debugbar::warning('im here 2' );
+                    if ($group->authorities->firstWhere('authority_id', $authority->authority_id)) {
+                        // \Debugbar::warning('im here 3');
+                        $idea = new Idea();
+                        $idea->ideaid = '';
+                        $idea->title = $group->alternative_title ? $group->alternative_title : $group->groupProduct->sara_title;
+                        $idea->sadescription = $group->groupProduct->sara_description ? $group->groupProduct->sara_description : '';
+                        $idea->references = '';
+                        $idea->filename = $group->filename;
+                        $ideaProducts = new \stdClass;
+                        $ideaProducts->idea = $idea;
+                        $ideaProducts->products = '';
+                        $ideaProducts->groupProducts = collect();
+                        $ideaProducts->groupProducts->push($group->groupProduct);
+                        $ideasAndProducts->push($ideaProducts);
+                        // \Debugbar::warning($group);
+                        // \Debugbar::error($ideaProducts);
 
-        // } elseif ($questionGroupProducts->count()) {
-        //     foreach ($questionGroupProducts->sortBy('displayposition') as $questionIdea) {
+                        return true;
+                    }
+                }
 
-        //         if (!$questionIdea->ideaConditions->count() || $questionIdea->isConditionPassed($userAnswers)) {
-        //             if ($questionIdea->ideaAuthorities->firstWhere('authority_id', $authority->authority_id)) {
-        //                 $ideaProducts = new \stdClass;
-        //                 $ideaProducts->idea = '';
-        //                 $ideaProducts->product = '';
-        //                 $ideaProducts->groupProduct = '';
+                return false;
+            })->pluck('groupProduct');
 
-        //                 $ideasAndProducts->push($ideaProducts);
-        //             }
-        //         }
-        //     }
-        // }
+            // $ideasAndProducts->push($ideaProducts);
+        }
+
+        if ($questionProductsList->count()) {
+
+            $questionProductsList->filter(function ($product) use ($userAnswers, $authority, &$ideasAndProducts) {
+                // \Debugbar::warning('im here '.$group->groupid );
+                
+                if (!$product->productConditions->count() || $product->isConditionPassed($userAnswers)) {
+                    // \Debugbar::warning('im here 2' );
+                    if ($product->productAuthorities->firstWhere('authority_id', $authority->authority_id)) {
+                        // \Debugbar::warning('im here 3');
+                        $idea = new Idea();
+                        $idea->ideaid = '';
+                        $idea->title ='' ;
+                        $idea->sadescription =  '';
+                        $idea->references = '';
+                        $idea->filename = '';
+                        $ideaProducts = new \stdClass;
+                        $ideaProducts->idea = $idea;
+                        $ideaProducts->groupProducts = '';
+                        $ideaProducts->products = collect();
+                        $ideaProducts->products->push($product->product);
+                        $ideasAndProducts->push($ideaProducts);
+                        // \Debugbar::warning($product); 
+                        // \Debugbar::error($ideaProducts); 
+
+                        return true;
+                    }
+                }
+
+                return false;
+            })->pluck('groupProduct');
+
+            // $ideasAndProducts->push($ideaProducts);
+        }
+
         return $ideasAndProducts;
     }
 }

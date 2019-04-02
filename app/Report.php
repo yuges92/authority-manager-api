@@ -41,7 +41,8 @@ class Report
                     }]);
                 },
                 'questionProducts.productConditions',
-                'questionProducts.product',
+                // 'questionProducts.product',
+                'questionProducts.product.image',
                 'questionProducts' => function ($query) {
                     $query->with(['productAuthorities' => function ($q) {
                         $q->where('authority_id', 5);

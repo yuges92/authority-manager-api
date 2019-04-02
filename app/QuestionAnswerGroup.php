@@ -22,7 +22,8 @@ class QuestionAnswerGroup extends Model
 
     public function conditions()
     {
-        return $this->hasMany('App\GroupProductCondition', ['questionid', 'answerid', 'groupid'], ['questionid', 'answerid', 'groupid']);
+        return $this->hasMany('App\GroupProductCondition', ['questionid', 'answerid', 'question_answer_group_pkey'], ['questionid', 'answerid', 'pkey']);
+        // return $this->hasMany('App\GroupProductCondition', 'pkey', '');
     }
 
     public function authorities()
@@ -34,33 +35,36 @@ class QuestionAnswerGroup extends Model
     {
 
         if($this->conditions->isEmpty()){
-            return false;
+            return true;
         }
 
         $conditionPassed = true;
         
         if ($this->conditions->isNotEmpty()) {
             $checked = collect();
+            $this->conditions=$this->conditions->sortBy('question_id');
+            \Debugbar::error($this->questionid);
 
             foreach ($this->conditions as $condition) {
                 $conditionAnswers = $this->conditions->where('condition_questionid', $condition->condition_questionid)->pluck('condition_answerid');
-                // \Debugbar::warning($checked);
                 if($conditionPassed){
-
+                    
                     if ($checked->isEmpty() || !$checked->contains($condition->condition_questionid)) {
                         $checked->push($condition->condition_questionid);
-                        // \Debugbar::info('Questiond id :' . $condition->questionid . ' => Answer id: ' . $condition->answerid);
+
+                        \Debugbar::info('Group id :' . $condition->groupid . ' => Answer id: ' . $condition->condition_questionid);
                         if ($userAnswers->where('question_id', $condition->condition_questionid)->whereIn('answer_id', $conditionAnswers)->count()) {
                             // \Debugbar::info('Condition Passed => ');
                             // \Debugbar::warning($v);
-                             $conditionPassed=  true;
+                            $conditionPassed=  true;
                         }else{
-                             $conditionPassed=false;
+                            $conditionPassed=false;
                         } 
                         // \Debugbar::error('Condition failed => '. $condition->condition_questionid);
                     }
                 }
             }
+            // \Debugbar::warning($checked);
         }
 
 
