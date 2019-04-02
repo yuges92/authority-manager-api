@@ -23,19 +23,19 @@ class QuestionAnswerGroup extends Model
     public function conditions()
     {
         return $this->hasMany('App\GroupProductCondition', ['questionid', 'answerid', 'question_answer_group_pkey'], ['questionid', 'answerid', 'pkey']);
-        // return $this->hasMany('App\GroupProductCondition', 'pkey', '');
+        // return $this->hasMany('App\GroupProductCondition', 'question_answer_group_pkey', 'pkey');
     }
 
     public function authorities()
     {
-        return $this->hasMany('App\GroupProductAuthority', ['questionid', 'answerid', 'groupid'], ['questionid', 'answerid', 'groupid']);
+        return $this->hasMany('App\GroupProductAuthority', ['questionid', 'answerid', 'question_answer_group_pkey'], ['questionid', 'answerid', 'pkey']);
     }
 
     public function isConditionPassed($userAnswers)
     {
 
         if($this->conditions->isEmpty()){
-            return true;
+            return false;
         }
 
         $conditionPassed = true;

@@ -19,12 +19,6 @@ class UserQuestionAnswer extends Model
         return $this->belongsTo('App\UserTopic', 'user_topic_id');
     }
 
-    // public function questionDisclaimers()
-    // {
-
-    //     return $this->hasMany('App\QuestionAnswerDisclaimer', 'questionid', 'question_id');
-
-    // }
 
     public function questionDisclaimers()
     {
@@ -149,10 +143,8 @@ class UserQuestionAnswer extends Model
 
                         $ideaProducts->products = $questionProducts->filter(function ($product) use ($questionIdea, $userAnswers, $authority, &$questionProductsList) {
                             $order = (int)$product->order;
-
                             if (!$product->productConditions->count() || $product->isConditionPassed($userAnswers)) {
                                 if ($product->productAuthorities->firstWhere('authority_id', $authority->authority_id)) {
-
                                     $questionProductsList =     $questionProductsList->reject(function ($productList) use ($product) {
                                         return $productList->pkey == $product->pkey;
                                     });
@@ -163,20 +155,25 @@ class UserQuestionAnswer extends Model
                             return false;
                         })->pluck('product');
 
+                        \Debugbar::info($this->question_id);
                         $ideaProducts->groupProducts = $questionGroupProducts->filter(function ($group) use ($questionIdea, $userAnswers, $authority, &$questionGroupProductsList) {
                             $order = (int)$group->order;
-
+                            
                             if (!$group->conditions->count() || $group->isConditionPassed($userAnswers)) {
+                                \Debugbar::error($group->pkey);
                                 if ($group->authorities->firstWhere('authority_id', $authority->authority_id)) {
-                        \Debugbar::warning($group->conditions);
-
+                                    \Debugbar::info('in here => '.$group->pkey);
+                                    
                                     if ($questionIdea->displayposition == $order) {
                                         $questionGroupProductsList =  $questionGroupProductsList->reject(function ($groupProduct) use ($group) {
+                                            \Debugbar::warning($group->pkey.' True');
                                             return $groupProduct->pkey == $group->pkey;
                                         });
-
+                                        
                                         return true;
                                     }
+                                    // \Debugbar::error($group->pkey.' false');
+                                    
                                     return false;
                                 }
                             }
