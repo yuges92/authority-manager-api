@@ -33,4 +33,8 @@ class User extends Authenticatable
   {
     return ucfirst($this->firstName).' '.ucfirst($this->lastName);
   }
+
+  public function isDeveloper(){
+    return $this->role=='Developer';
+  }
 }
