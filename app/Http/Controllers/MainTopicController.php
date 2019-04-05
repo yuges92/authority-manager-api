@@ -78,8 +78,9 @@ class MainTopicController extends Controller
   * @param  \App\MainTopic  $MainTopic
   * @return \Illuminate\Http\Response
   */
-  public function show(MainTopic $mainTopic)
+  public function show( $id)
   {
+    $mainTopic=MainTopic::with('subTopics')->find($id);
     $subTopics=SubTopic::all();
     return view('mainTopics.show', compact('mainTopic', 'subTopics'));
   }
