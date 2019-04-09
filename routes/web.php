@@ -23,14 +23,11 @@ Route::group(['domain' => $editorDomain], function(){
   Route::get('/login', 'Auth\LoginController@login');
   Auth::routes();
 
-  Route::group(['middleware' => ['auth']], function(){
+  Route::group(['middleware' => ['auth', 'backendAccess']], function(){
     Route::get('/packages/{package}/MainTopics/{mainTopic}/customSubTopics', 'PackageController@getCustomSubTopics')->name('getCustomSubTopics');
     Route::post('/packages/{package}/MainTopics/{mainTopic}/customSubTopics', 'PackageController@updateCustomSubTopics')->name('updateCustomSubTopics');
     Route::delete('/packages/{package}/removeCustomMainTopic', 'PackageController@removeCustomMainTopic')->name('removeCustomMainTopic');
     Route::post('/packages/{package}/MainTopics/{mainTopic}/addNewCustomTopics', 'PackageController@addNewCustomTopics')->name('addNewCustomTopics');
-
-    // Route::post('/authorities/authorityAPI/', 'AuthorityApiController@store')->name('authorityAPI.store');
-    // Route::put('/authorities/{authorityApi}/api/', 'AuthorityApiController@update')->name('authorityAPI.update');
     Route::resource('/authorityApi','AuthorityApiController');
     Route::resource('/authorities','AuthorityController');
     Route::resource('/authorities/{authority}/packages/authorityPackage','AuthorityPackageController');
@@ -43,18 +40,18 @@ Route::group(['domain' => $editorDomain], function(){
     Route::resource('/users','UserController');
     Route::put('/profile/updatePassword','ProfileController@updatePassword')->name('updatePassword');
     Route::resource('/profile','ProfileController');
-
-
+    Route::get('/reports/SubTopic/{subTopic}','ReportController@show');
     Route::get('/home', 'HomeController@index');
     Route::get('/', 'HomeController@index');
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-
-
+    Route::get('/questions/{question}', 'QuestionController@show');
   });
 
 
 });
+Route::get('/test', 'MyTestController@index');
 
+Route::get('/test/reports/users/{user_id}/subTopics/{subTopic}', 'ReportController@getReportForAUser');
 
 
 Route::group(['domain' => $apiDomain], function(){

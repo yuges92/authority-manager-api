@@ -15,7 +15,8 @@ class SubTopicsCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-          'subtopics'=>SubTopicResource::collection($this->collection)
+          'subTopics'=>SubTopicResource::collection($this->collection),
+          'totalSubTopics'=>count($this->collection)
         ];
     }
 }

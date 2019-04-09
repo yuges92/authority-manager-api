@@ -47,11 +47,25 @@ class Handler extends ExceptionHandler
   public function render($request, Exception $exception)
   {
 
-    if ($exception instanceof ModelNotFoundException && $request->wantsJson()) {
+    if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException && $request->wantsJson()) {
       return response()->json([
         'error' => 'Resource not found'
       ], 404);
     }
+
+
+    if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException && $request->wantsJson()) {
+      return response()->json([
+        'error' => 'Endpoint not found'
+      ], 404);
+    }
+
+    if ($exception instanceof \Illuminate\Auth\AuthenticationException && $request->wantsJson()) {
+      return response()->json([
+        'error' => 'invalid token'
+      ], 401);
+    }
+
     return parent::render($request, $exception);
   }
 }

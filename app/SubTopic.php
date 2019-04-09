@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubTopic extends Model
 {
+  protected $connection = 'sqlsrv';
   protected $table = 'AS_section';
   protected $primaryKey = 'sectionid';
+  protected $imageFolder = 'topic_images';
 
   public function mainTopics()
   {
@@ -24,17 +26,46 @@ class SubTopic extends Model
     return $this->belongsToMany('App\SubTopic', 'AS_custom_maintopics_package_subtopics','subTopic_id','package_id')->withPivot('mainTopic_id')->withTimestamps();
   }
 
+  public function questions()
+  {
+    return $this->hasMany('App\Question', 'sectionid');
+  }
 
-public function getFirstQuestionID()
-{
-  if($this->firstquestionid==''){
-// $id=preg_match('%<div[^>]+id="something"[^>]*>(.*?)</div>%si', $string)
+  public function sectionDisclaimers()
+  {
+    // return $this->belongsToMany('App\SectionDisclaimer', 'AS_custom_maintopics_package_subtopics','subTopic_id','package_id')->withPivot('mainTopic_id')->withTimestamps();
+  }
 
-    $this->firstquestionid=$this->url;
+  public function sectionIdeas(){
+    return $this->hasMany('App\SectionIdea','sectionid');
 
   }
 
-return  $this->firstquestionid;
-}
+
+  public function getFirstQuestion()
+  {
+    if($this->firstquestionid==''){
+      // $id=preg_match('%<div[^>]+id="something"[^>]*>(.*?)</div>%si', $string)
+      //need to work on this
+      $firstQuestion=$this->url;
+
+    }else {
+      $firstQuestion=$this->questions->find($this->firstquestionid);
+
+    }
+
+    return  $firstQuestion;
+  }
+
+
+  public function getImageLink()
+  {
+    return (config('sara.saraImagesURL')."/{$this->imageFolder}/{$this->filename}");
+  }
+
+
+
+
+
 
 }

@@ -61,7 +61,7 @@ class MainTopicController extends Controller
     if($request->hasFile('filename')){
       $image= $request->file('filename');
       $name=$mainTopic->id.'.'.$image->getClientOriginalExtension();
-      $destinationPath ='D:/Websites/images.dlf.org.uk/htdocs/sara4/dynamic/mainTopics_images';
+      $destinationPath =config('sara.saraImagesPath').'/mainTopics_images';
       $image->move($destinationPath, $name);
       $mainTopic->filename=$name;
       $mainTopic->update();
@@ -78,8 +78,9 @@ class MainTopicController extends Controller
   * @param  \App\MainTopic  $MainTopic
   * @return \Illuminate\Http\Response
   */
-  public function show(MainTopic $mainTopic)
+  public function show( $id)
   {
+    $mainTopic=MainTopic::with('subTopics')->find($id);
     $subTopics=SubTopic::all();
     return view('mainTopics.show', compact('mainTopic', 'subTopics'));
   }

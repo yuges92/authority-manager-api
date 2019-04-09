@@ -55,6 +55,7 @@ class AuthorityApiController extends Controller
     $authorityApi->start_date = $request->input('start_date');
     $authorityApi->expiry_date = $request->input('expiry_date');
     $authorityApi->isActive =1 ;
+    $authorityApi->createdBy = $request->user()->id;
     // dd($authorityApi);
     $authorityApi->save();
     $authorityApi->authority->packages()->sync($request->input('packages'));
@@ -102,6 +103,8 @@ class AuthorityApiController extends Controller
     $authorityApi->start_date = $request->input('start_date');
     $authorityApi->expiry_date = $request->input('expiry_date');
     $authorityApi->isActive =$request->input('isActive') ? 1:0 ;
+    $authorityApi->updatedBy = $request->user()->id;
+
     $authorityApi->update();
 
     return redirect()->back()->with('success', 'Api Account Updated');

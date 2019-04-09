@@ -26,13 +26,14 @@
             <li><a href="/mainTopics/create"><i class="fas fa-plus"></i> New Main Topic</a></li>
           </ul>
         </li>
-
+        @if (Auth::user()->isDeveloper())
         <li class="{{ Request::is('users*') ? 'active' : '' }}"> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fas fa-user"></i><span class="hide-menu"> User Accounts</span></a>
           <ul aria-expanded="false" class="collapse">
             <li><a href="/users"><i class="fas fa-users"></i> View All</a></li>
             <li><a href="/users/create"><i class="fas fa-plus"></i> New Account</a></li>
           </ul>
         </li>
+        @endif
       </ul>
     </nav>
     <!-- End Sidebar navigation -->
@@ -42,7 +43,7 @@
   <div class="sidebar-footer">
     <a href="" class="link" data-toggle="tooltip" title="Settings"><i class="fas fa-cogs"></i></a>
     <a href="" class="link" data-toggle="tooltip" title="Email"><i class="fas fa-envelope"></i></a>
-    <a href="" class="link" data-toggle="tooltip" title="Logout"><i class="fas fa-power-off"></i></a>
+    <a href="/logout" class="link" data-toggle="tooltip" title="Logout"><i class="fas fa-power-off"></i></a>
   </div>
   <!-- End Bottom points-->
 </aside>

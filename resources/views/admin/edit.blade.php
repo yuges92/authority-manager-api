@@ -37,7 +37,7 @@
                   <div class="col-sm-5">
                     <select class="form-control" name="role">
                       {{-- @if (Auth::user()->role=='Developer') --}}
-                        <option {{($user->role=='Developer') ? 'selected':''}} value="Admin">Developer</option>
+                        <option {{($user->role=='Developer') ? 'selected':''}} value="Developer">Developer</option>
                       {{-- @endif --}}
                       <option {{($user->role=='Admin') ? 'selected':''}} value="Admin">Admin</option>
                       <option {{($user->role=='Manager') ? 'selected':''}} value="Manager">Manager</option>

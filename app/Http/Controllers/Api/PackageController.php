@@ -8,6 +8,8 @@ use App\Package;
 use App\MainTopic;
 use App\CustomMainTopicPackageSubTopic;
 use App\Http\Resources\PackagesCollection;
+use App\Http\Resources\PackageResource;
+
 
 class PackageController extends ApiBaseController{
 
@@ -20,6 +22,15 @@ class PackageController extends ApiBaseController{
   }
 
   public function show(Package $package){
-    return $this->sendResponse($package, 'Packages retrieved successfully.');
+    $authorityApi=auth()->guard('api')->user();
+
+    if(!$authorityApi->authority->packages->contains('id', $package->id)){
+      return $this->sendError('Package not available to you','',403);
+    }
+
+      $packageResource= new PackageResource($package);
+
+
+    return $this->sendResponse($packageResource, 'Package retrieved successfully.');
   }
 }

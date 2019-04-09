@@ -15,7 +15,8 @@ class PackagesCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-          'packages'=>PackageResource::collection($this->collection)
+          'packages'=>PackageResource::collection($this->collection),
+          'count'=> count($this->collection)
         ];
     }
 }
