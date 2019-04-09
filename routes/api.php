@@ -30,7 +30,7 @@ Route::group(['domain' => $apiDomain], function(){
   });
 
   Route::post('/login', 'Api\AuthController@login');
-  Route::group(['middleware' => 'auth:api'], function(){
+  Route::group(['middleware' => ['auth:api', 'apiAccess']], function(){
     Route::get('/v1/packages', 'Api\PackageController@index');
     Route::get('/v1/packages/{package}', 'Api\PackageController@show');
     Route::get('/v1/mainTopics', 'Api\MainTopicController@index');

@@ -29,4 +29,9 @@ class Product extends Model
     {
       return $this->hasOne('App\Image', 'product_id');
     }
+
+    public function getLink($authority=null)
+    {
+      return (config('sara.livingMadeEasyBaseUrl') . "/product.php?product_id=".str_slug ($this->product_id, '-')."&referer=asksara&auth=sara5");
+    }
 }

@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+  public function __construct()
+    {
+        $this->middleware('developer');
+    }
+
+  
   /**
   * Display a listing of the resource.
   *
@@ -91,7 +98,7 @@ class UserController extends Controller
   public function update(Request $request, User $user)
   {
     $this->validate($request, [
-      'email' => [ 'required', 'string', 'email', 'max:255', 'unique:AS_Authority_Manager_Accounts,email'],
+      'email' => [ 'required', 'string', 'email', 'max:255'],
       'firstName' => 'required|string|alpha',
       'lastName' => 'required|string|alpha',
       'role' => 'required',
@@ -103,7 +110,7 @@ class UserController extends Controller
     $user->role=$request->input('role');
     $user->update();
 
-    return redirect()->route('users.index')->with('success', 'User Updated');
+    return redirect()->back()->with('success', 'Updated');
 
 
 
@@ -115,8 +122,12 @@ class UserController extends Controller
   * @param  int  $id
   * @return \Illuminate\Http\Response
   */
-  public function destroy(User $user)
+  public function destroy(Request $request,User $user)
   {
+    if($user->id==$request->user()->id){
+      return redirect()->back()->with('error', 'You cannot delete yourself');
+
+    }
     $user->delete();
     
     return redirect()->back()->with('success', 'User Deleted');
