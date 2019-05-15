@@ -22,7 +22,7 @@ $editorDomain= config('sara.saraEditorDomain');
 
 
 
-Route::group(['domain' => $apiDomain], function(){
+// Route::group(['domain' => $apiDomain], function(){
   Route::get('/test', function ()
   {
     return response()->json('Hello World', 200);
@@ -46,4 +46,4 @@ Route::group(['domain' => $apiDomain], function(){
   });
 
 
-});
+// });

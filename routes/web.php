@@ -15,10 +15,12 @@
 $apiDomain= config('sara.saraApiDomain');
 $editorDomain= config('sara.saraEditorDomain');
 
+// $user = factory(App\AuthorityApi::class)->make();
+// dd($user);
 
 
 //grouped route list for sara editor
-Route::group(['domain' => $editorDomain], function(){
+// Route::group(['domain' => $editorDomain], function(){
 
   Route::get('/login', 'Auth\LoginController@login');
   Auth::routes();
@@ -48,7 +50,7 @@ Route::group(['domain' => $editorDomain], function(){
   });
 
 
-});
+// });
 Route::get('/test', 'MyTestController@index');
 
 Route::get('/test/reports/users/{user_id}/subTopics/{subTopic}', 'ReportController@getReportForAUser');

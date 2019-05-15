@@ -1,19 +1,20 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Controllers\Api;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class AuthorityTest extends TestCase
+class MainTopicControllerTest
+//  extends TestCase
 {
     /**
      * A basic feature test example.
      *
-     * @test
+     * @return void
      */
-    public function testExample()
+    public function example()
     {
         $response = $this->get('/');
 

@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(App\User::class, function (Faker $faker) {
     return [
-        'firstName' => 'Yugeswaram',
-        'lastName' => 'Sivanathan',
+        'firstName' => $faker->firstName(),
+        'lastName' => $faker->lastName,
         'role' => 'Developer',
         'password' => Hash::make('password'),
-        'email' => 'sivayuges@gmail.com',
+        'email' => $faker->unique()->safeEmail,
     ];
 });
