@@ -20,7 +20,7 @@ $editorDomain= config('sara.saraEditorDomain');
 
 
 //grouped route list for sara editor
-// Route::group(['domain' => $editorDomain], function(){
+Route::group(['domain' => $editorDomain], function(){
 
   Route::get('/login', 'Auth\LoginController@login');
   Auth::routes();
@@ -50,7 +50,7 @@ $editorDomain= config('sara.saraEditorDomain');
   });
 
 
-// });
+});
 Route::get('/test', 'MyTestController@index');
 
 Route::get('/test/reports/users/{user_id}/subTopics/{subTopic}', 'ReportController@getReportForAUser');

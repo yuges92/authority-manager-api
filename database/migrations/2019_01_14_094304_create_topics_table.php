@@ -17,7 +17,7 @@ class CreateTopicsTable extends Migration
       $table->increments('id');
       $table->string('name');
       $table->string('slug')->unique();
-      $table->string('description');
+      $table->text('description');
       $table->string('filename');
       $table->smallInteger('order');
       $table->boolean('is_used');

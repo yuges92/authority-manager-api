@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
     protected static $migrated = false;
     use CreatesApplication;
     // use DatabaseTransactions;
-    // use WithoutMiddleware; 
+    use WithoutMiddleware; 
     use WithFaker;
 
     protected  function setUp(): void
@@ -33,7 +33,7 @@ abstract class TestCase extends BaseTestCase
         // $this->artisan('migrate:refresh');
         // echo'111 \n';
         // $this->artisan('db:seed');
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
     }
 
     protected function tearDown():void

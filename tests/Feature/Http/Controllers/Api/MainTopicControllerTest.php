@@ -7,10 +7,10 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MainTopicControllerTest
-//  extends TestCase
+ extends TestCase
 {
     /**
-     * A basic feature test example.
+     * @
      *
      * @return void
      */

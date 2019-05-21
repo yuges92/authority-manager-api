@@ -20,7 +20,7 @@ class AuthControllerTest extends TestCase
      */
     public function can_an_authority_login()
     {
-        $url = '/api/login';
+        $url = 'http://'.env('API_DOMAIN').'/api/login';
         $authorityApi = factory(AuthorityApi::class)->create();
         $data = [
             'username' => $authorityApi->username,

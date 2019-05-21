@@ -22,7 +22,7 @@ $editorDomain= config('sara.saraEditorDomain');
 
 
 
-// Route::group(['domain' => $apiDomain], function(){
+Route::group(['domain' => $apiDomain], function(){
   Route::get('/test', function ()
   {
     return response()->json('Hello World', 200);
@@ -43,7 +43,11 @@ $editorDomain= config('sara.saraEditorDomain');
     Route::get('/v1/reports/', 'Api\ReportController@allUsers');
     Route::get('/v1/reports/users/{user_id}', 'Api\ReportController@userReports');
     Route::get('/v1/reports/users/{user_id}/subTopics/{subTopic}', 'Api\ReportController@getReportForAUser');
+
+
+    Route::get('/v2/{authority}/packages', 'Api\v2\PackageController@index');
+
   });
 
 
-// });
+});
